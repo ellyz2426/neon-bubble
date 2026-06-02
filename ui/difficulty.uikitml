@@ -1,0 +1,76 @@
+<style>
+  .diff-panel {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding-top: 3;
+    padding-bottom: 3;
+    padding-left: 5;
+    padding-right: 5;
+    background-color: rgba(0, 0, 0, 0.9);
+    border-color: #00ffff;
+    border-width: 0.15;
+    border-radius: 1.5;
+    gap: 2;
+  }
+  .diff-title {
+    font-size: 3;
+    color: #00ffff;
+    font-weight: bold;
+  }
+  .diff-btn {
+    padding-top: 1;
+    padding-bottom: 1;
+    padding-left: 4;
+    padding-right: 4;
+    background-color: rgba(0, 255, 255, 0.12);
+    border-color: #00ffff;
+    border-width: 0.08;
+    border-radius: 0.6;
+    cursor: pointer;
+    width: 100%;
+    align-items: center;
+  }
+  .diff-easy {
+    border-color: #00ff80;
+    background-color: rgba(0, 255, 128, 0.12);
+  }
+  .diff-medium {
+    border-color: #ffff00;
+    background-color: rgba(255, 255, 0, 0.12);
+  }
+  .diff-hard {
+    border-color: #ff4444;
+    background-color: rgba(255, 68, 68, 0.12);
+  }
+  .diff-text {
+    font-size: 2;
+    color: #00ffff;
+    font-weight: bold;
+  }
+  .easy-text { color: #00ff80; }
+  .medium-text { color: #ffff00; }
+  .hard-text { color: #ff4444; }
+  .back-btn {
+    padding-top: 0.8;
+    padding-bottom: 0.8;
+    padding-left: 3;
+    padding-right: 3;
+    background-color: rgba(128, 128, 128, 0.15);
+    border-color: #888888;
+    border-width: 0.08;
+    border-radius: 0.6;
+    cursor: pointer;
+  }
+  .back-text {
+    font-size: 1.8;
+    color: #888888;
+  }
+</style>
+<div class="diff-panel">
+  <span class="diff-title">DIFFICULTY</span>
+  <div id="btn-easy" class="diff-btn diff-easy" cursor="pointer"><span class="diff-text easy-text">EASY</span></div>
+  <div id="btn-medium" class="diff-btn diff-medium" cursor="pointer"><span class="diff-text medium-text">MEDIUM</span></div>
+  <div id="btn-hard" class="diff-btn diff-hard" cursor="pointer"><span class="diff-text hard-text">HARD</span></div>
+  <div id="btn-back" class="back-btn" cursor="pointer"><span class="back-text">BACK</span></div>
+</div>

@@ -1,0 +1,95 @@
+<style>
+  .lc-panel {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding-top: 3;
+    padding-bottom: 3;
+    padding-left: 5;
+    padding-right: 5;
+    background-color: rgba(0, 0, 0, 0.88);
+    border-color: #00ff80;
+    border-width: 0.15;
+    border-radius: 1.5;
+    gap: 1.5;
+  }
+  .lc-title {
+    font-size: 4;
+    color: #00ff80;
+    font-weight: bold;
+  }
+  .lc-subtitle {
+    font-size: 2;
+    color: #a0a0a0;
+  }
+  .lc-row {
+    display: flex;
+    flex-direction: row;
+    gap: 3;
+  }
+  .lc-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.3;
+  }
+  .lc-label {
+    font-size: 1.2;
+    color: #808080;
+  }
+  .lc-value {
+    font-size: 2.2;
+    color: #00ff80;
+    font-weight: bold;
+  }
+  .lc-score { color: #ffff00; }
+  .btn-row {
+    display: flex;
+    flex-direction: row;
+    gap: 2;
+  }
+  .lc-btn {
+    padding-top: 1;
+    padding-bottom: 1;
+    padding-left: 3;
+    padding-right: 3;
+    background-color: rgba(0, 255, 128, 0.15);
+    border-color: #00ff80;
+    border-width: 0.1;
+    border-radius: 0.6;
+    cursor: pointer;
+    align-items: center;
+  }
+  .lc-btn-text {
+    font-size: 2;
+    color: #00ff80;
+    font-weight: bold;
+  }
+  .next-btn {
+    background-color: rgba(0, 255, 255, 0.15);
+    border-color: #00ffff;
+  }
+  .next-text { color: #00ffff; }
+</style>
+<div class="lc-panel">
+  <span class="lc-title">LEVEL CLEAR!</span>
+  <span id="lc-levelname" class="lc-subtitle">Level 1</span>
+  <div class="lc-row">
+    <div class="lc-item">
+      <span class="lc-label">SCORE</span>
+      <span id="lc-score" class="lc-value lc-score">0</span>
+    </div>
+    <div class="lc-item">
+      <span class="lc-label">POPPED</span>
+      <span id="lc-popped" class="lc-value">0</span>
+    </div>
+    <div class="lc-item">
+      <span class="lc-label">SHOTS</span>
+      <span id="lc-shots" class="lc-value">0</span>
+    </div>
+  </div>
+  <div class="btn-row">
+    <div id="btn-next" class="lc-btn next-btn" cursor="pointer"><span class="lc-btn-text next-text">NEXT LEVEL</span></div>
+    <div id="btn-title" class="lc-btn" cursor="pointer"><span class="lc-btn-text">TITLE</span></div>
+  </div>
+</div>

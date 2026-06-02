@@ -1,0 +1,77 @@
+<style>
+  .help-panel {
+    display: flex;
+    flex-direction: column;
+    padding-top: 3;
+    padding-bottom: 3;
+    padding-left: 4;
+    padding-right: 4;
+    background-color: rgba(0, 0, 0, 0.9);
+    border-color: #ffa500;
+    border-width: 0.15;
+    border-radius: 1.5;
+    gap: 1;
+  }
+  .help-title {
+    font-size: 3;
+    color: #ffa500;
+    font-weight: bold;
+    align-self: center;
+  }
+  .help-section {
+    font-size: 1.8;
+    color: #00ffff;
+    font-weight: bold;
+  }
+  .help-text {
+    font-size: 1.2;
+    color: #a0a0a0;
+  }
+  .back-btn {
+    padding-top: 0.8;
+    padding-bottom: 0.8;
+    padding-left: 3;
+    padding-right: 3;
+    background-color: rgba(128, 128, 128, 0.15);
+    border-color: #888888;
+    border-width: 0.08;
+    border-radius: 0.6;
+    cursor: pointer;
+    align-self: center;
+  }
+  .back-text { font-size: 1.8; color: #888888; }
+</style>
+<div class="help-panel">
+  <span class="help-title">HOW TO PLAY</span>
+  <span class="help-section">Browser Controls</span>
+  <span class="help-text">Mouse: Aim launcher</span>
+  <span class="help-text">Click: Shoot bubble</span>
+  <span class="help-text">ESC: Pause</span>
+  <span class="help-text">R: Rematch (game over)</span>
+  <span class="help-section">VR Controls</span>
+  <span class="help-text">Right Thumbstick: Aim launcher</span>
+  <span class="help-text">Right Trigger: Shoot bubble</span>
+  <span class="help-text">B Button: Pause</span>
+  <span class="help-text">Laser Pointer: Menu interaction</span>
+  <span class="help-section">Gameplay</span>
+  <span class="help-text">Shoot colored bubbles upward at the grid</span>
+  <span class="help-text">Match 3+ same-color bubbles to pop them</span>
+  <span class="help-text">Disconnected clusters cascade for bonus</span>
+  <span class="help-text">Bubbles bounce off side walls</span>
+  <span class="help-text">Ceiling descends when you miss matches</span>
+  <span class="help-text">Game over if bubbles reach the danger line</span>
+  <span class="help-section">Power-Up Bubbles</span>
+  <span class="help-text">BOMB: Explodes nearby bubbles</span>
+  <span class="help-text">RAINBOW: Matches any color</span>
+  <span class="help-text">LIGHTNING: Clears entire row</span>
+  <span class="help-text">FIRE: Burns through path</span>
+  <span class="help-section">Modes</span>
+  <span class="help-text">CAMPAIGN: 36 levels across 6 zones</span>
+  <span class="help-text">ENDLESS: Survive as long as possible</span>
+  <span class="help-text">TIME ATTACK: 90 seconds to score</span>
+  <span class="help-text">PRECISION: Limited shots, maximize score</span>
+  <span class="help-text">DAILY: Same puzzle for everyone daily</span>
+  <span class="help-text">ZEN: No pressure, relax</span>
+  <span class="help-text">PRACTICE: Free play, no scoring</span>
+  <div id="btn-back" class="back-btn" cursor="pointer"><span class="back-text">BACK</span></div>
+</div>

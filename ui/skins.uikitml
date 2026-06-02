@@ -1,0 +1,80 @@
+<style>
+  .skins-panel {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding-top: 3;
+    padding-bottom: 3;
+    padding-left: 5;
+    padding-right: 5;
+    background-color: rgba(0, 0, 0, 0.9);
+    border-color: #00ffff;
+    border-width: 0.15;
+    border-radius: 1.5;
+    gap: 1.5;
+  }
+  .skins-title {
+    font-size: 3;
+    color: #00ffff;
+    font-weight: bold;
+  }
+  .skin-row {
+    display: flex;
+    flex-direction: row;
+    gap: 1.5;
+    width: 100%;
+  }
+  .skin-btn {
+    display: flex;
+    flex-direction: column;
+    padding-top: 1;
+    padding-bottom: 1;
+    padding-left: 1.5;
+    padding-right: 1.5;
+    background-color: rgba(0, 255, 255, 0.1);
+    border-color: #00ffff;
+    border-width: 0.08;
+    border-radius: 0.6;
+    cursor: pointer;
+    flex: 1;
+    align-items: center;
+    gap: 0.3;
+  }
+  .skin-name {
+    font-size: 1.3;
+    color: #00ffff;
+    font-weight: bold;
+  }
+  .skin-status {
+    font-size: 1;
+    color: #808080;
+  }
+  .back-btn {
+    padding-top: 0.8;
+    padding-bottom: 0.8;
+    padding-left: 3;
+    padding-right: 3;
+    background-color: rgba(128, 128, 128, 0.15);
+    border-color: #888888;
+    border-width: 0.08;
+    border-radius: 0.6;
+    cursor: pointer;
+  }
+  .back-text { font-size: 1.8; color: #888888; }
+</style>
+<div class="skins-panel">
+  <span class="skins-title">BUBBLE SKINS</span>
+  <div class="skin-row">
+    <div id="skin-0" class="skin-btn" cursor="pointer"><span id="sn-0" class="skin-name">Classic Neon</span><span id="ss-0" class="skin-status">EQUIPPED</span></div>
+    <div id="skin-1" class="skin-btn" cursor="pointer"><span id="sn-1" class="skin-name">Solar Flare</span><span id="ss-1" class="skin-status">LOCKED</span></div>
+    <div id="skin-2" class="skin-btn" cursor="pointer"><span id="sn-2" class="skin-name">Frost Core</span><span id="ss-2" class="skin-status">LOCKED</span></div>
+    <div id="skin-3" class="skin-btn" cursor="pointer"><span id="sn-3" class="skin-name">Toxic Pulse</span><span id="ss-3" class="skin-status">LOCKED</span></div>
+  </div>
+  <div class="skin-row">
+    <div id="skin-4" class="skin-btn" cursor="pointer"><span id="sn-4" class="skin-name">Plasma Pink</span><span id="ss-4" class="skin-status">LOCKED</span></div>
+    <div id="skin-5" class="skin-btn" cursor="pointer"><span id="sn-5" class="skin-name">Void Purple</span><span id="ss-5" class="skin-status">LOCKED</span></div>
+    <div id="skin-6" class="skin-btn" cursor="pointer"><span id="sn-6" class="skin-name">Chrome</span><span id="ss-6" class="skin-status">LOCKED</span></div>
+    <div id="skin-7" class="skin-btn" cursor="pointer"><span id="sn-7" class="skin-name">Rainbow</span><span id="ss-7" class="skin-status">LOCKED</span></div>
+  </div>
+  <div id="btn-back" class="back-btn" cursor="pointer"><span class="back-text">BACK</span></div>
+</div>

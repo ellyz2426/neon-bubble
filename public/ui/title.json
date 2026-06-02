@@ -1,0 +1,625 @@
+{
+  "element": {
+    "type": "container",
+    "sourceTag": "div",
+    "children": [
+      {
+        "sourceTag": "span",
+        "type": "custom",
+        "children": [
+          "NEON BUBBLE"
+        ],
+        "properties": {
+          "class": "game-title"
+        },
+        "dataUid": "uid-2"
+      },
+      {
+        "sourceTag": "span",
+        "type": "custom",
+        "children": [
+          "Holodeck Bubble Shooter"
+        ],
+        "properties": {
+          "class": "subtitle"
+        },
+        "dataUid": "uid-3"
+      },
+      {
+        "type": "container",
+        "sourceTag": "div",
+        "children": [
+          {
+            "sourceTag": "span",
+            "type": "custom",
+            "children": [
+              "PLAY"
+            ],
+            "properties": {
+              "class": "menu-btn-text"
+            },
+            "dataUid": "uid-5"
+          }
+        ],
+        "properties": {
+          "id": "btn-play",
+          "class": "menu-btn",
+          "cursor": "pointer"
+        },
+        "dataUid": "uid-4"
+      },
+      {
+        "type": "container",
+        "sourceTag": "div",
+        "children": [
+          {
+            "sourceTag": "span",
+            "type": "custom",
+            "children": [
+              "SCORES"
+            ],
+            "properties": {
+              "class": "menu-btn-text btn-scores-text"
+            },
+            "dataUid": "uid-7"
+          }
+        ],
+        "properties": {
+          "id": "btn-scores",
+          "class": "menu-btn btn-scores",
+          "cursor": "pointer"
+        },
+        "dataUid": "uid-6"
+      },
+      {
+        "type": "container",
+        "sourceTag": "div",
+        "children": [
+          {
+            "sourceTag": "span",
+            "type": "custom",
+            "children": [
+              "ACHIEVEMENTS"
+            ],
+            "properties": {
+              "class": "menu-btn-text btn-achievements-text"
+            },
+            "dataUid": "uid-9"
+          }
+        ],
+        "properties": {
+          "id": "btn-achievements",
+          "class": "menu-btn btn-achievements",
+          "cursor": "pointer"
+        },
+        "dataUid": "uid-8"
+      },
+      {
+        "type": "container",
+        "sourceTag": "div",
+        "children": [
+          {
+            "sourceTag": "span",
+            "type": "custom",
+            "children": [
+              "STATS"
+            ],
+            "properties": {
+              "class": "menu-btn-text btn-stats-text"
+            },
+            "dataUid": "uid-11"
+          }
+        ],
+        "properties": {
+          "id": "btn-stats",
+          "class": "menu-btn btn-stats",
+          "cursor": "pointer"
+        },
+        "dataUid": "uid-10"
+      },
+      {
+        "type": "container",
+        "sourceTag": "div",
+        "children": [
+          {
+            "sourceTag": "span",
+            "type": "custom",
+            "children": [
+              "BUBBLE SKINS"
+            ],
+            "properties": {
+              "class": "menu-btn-text"
+            },
+            "dataUid": "uid-13"
+          }
+        ],
+        "properties": {
+          "id": "btn-skins",
+          "class": "menu-btn",
+          "cursor": "pointer"
+        },
+        "dataUid": "uid-12"
+      },
+      {
+        "type": "container",
+        "sourceTag": "div",
+        "children": [
+          {
+            "sourceTag": "span",
+            "type": "custom",
+            "children": [
+              "SETTINGS"
+            ],
+            "properties": {
+              "class": "menu-btn-text btn-settings-text"
+            },
+            "dataUid": "uid-15"
+          }
+        ],
+        "properties": {
+          "id": "btn-settings",
+          "class": "menu-btn btn-settings",
+          "cursor": "pointer"
+        },
+        "dataUid": "uid-14"
+      },
+      {
+        "type": "container",
+        "sourceTag": "div",
+        "children": [
+          {
+            "sourceTag": "span",
+            "type": "custom",
+            "children": [
+              "HELP"
+            ],
+            "properties": {
+              "class": "menu-btn-text btn-help-text"
+            },
+            "dataUid": "uid-17"
+          }
+        ],
+        "properties": {
+          "id": "btn-help",
+          "class": "menu-btn btn-help",
+          "cursor": "pointer"
+        },
+        "dataUid": "uid-16"
+      }
+    ],
+    "properties": {
+      "class": "title-panel"
+    },
+    "dataUid": "uid-1"
+  },
+  "classes": {
+    "title-panel": {
+      "content": {
+        "display": "flex",
+        "flexDirection": "column",
+        "alignItems": "center",
+        "paddingTop": "4",
+        "paddingBottom": "4",
+        "paddingLeft": "6",
+        "paddingRight": "6",
+        "backgroundColor": "rgba(0, 0, 0, 0.9)",
+        "borderColor": "#00ffff",
+        "borderWidth": "0.15",
+        "borderRadius": 1.5,
+        "gap": "2"
+      }
+    },
+    "game-title": {
+      "content": {
+        "fontSize": "5",
+        "color": "#00ffff",
+        "fontWeight": "bold"
+      }
+    },
+    "subtitle": {
+      "content": {
+        "fontSize": "1.8",
+        "color": "#a0a0a0"
+      }
+    },
+    "menu-btn": {
+      "content": {
+        "paddingTop": "1.2",
+        "paddingBottom": "1.2",
+        "paddingLeft": "4",
+        "paddingRight": "4",
+        "backgroundColor": "rgba(0, 255, 255, 0.15)",
+        "borderColor": "#00ffff",
+        "borderWidth": "0.1",
+        "borderRadius": 0.8,
+        "cursor": "pointer",
+        "width": "100%",
+        "alignItems": "center"
+      }
+    },
+    "menu-btn-text": {
+      "content": {
+        "fontSize": "2.2",
+        "color": "#00ffff",
+        "fontWeight": "bold"
+      }
+    },
+    "btn-scores": {
+      "content": {
+        "backgroundColor": "rgba(255, 255, 0, 0.15)",
+        "borderColor": "#ffff00"
+      }
+    },
+    "btn-scores-text": {
+      "content": {
+        "color": "#ffff00"
+      }
+    },
+    "btn-achievements": {
+      "content": {
+        "backgroundColor": "rgba(255, 0, 255, 0.15)",
+        "borderColor": "#ff00ff"
+      }
+    },
+    "btn-achievements-text": {
+      "content": {
+        "color": "#ff00ff"
+      }
+    },
+    "btn-stats": {
+      "content": {
+        "backgroundColor": "rgba(0, 255, 128, 0.15)",
+        "borderColor": "#00ff80"
+      }
+    },
+    "btn-stats-text": {
+      "content": {
+        "color": "#00ff80"
+      }
+    },
+    "btn-settings": {
+      "content": {
+        "backgroundColor": "rgba(128, 128, 128, 0.15)",
+        "borderColor": "#888888"
+      }
+    },
+    "btn-settings-text": {
+      "content": {
+        "color": "#888888"
+      }
+    },
+    "btn-help": {
+      "content": {
+        "backgroundColor": "rgba(255, 165, 0, 0.15)",
+        "borderColor": "#ffa500"
+      }
+    },
+    "btn-help-text": {
+      "content": {
+        "color": "#ffa500"
+      }
+    }
+  },
+  "ranges": {
+    "title-panel": {
+      "start": {
+        "line": 1,
+        "column": 2
+      },
+      "end": {
+        "line": 1,
+        "column": 14
+      }
+    },
+    "game-title": {
+      "start": {
+        "line": 15,
+        "column": 2
+      },
+      "end": {
+        "line": 15,
+        "column": 13
+      }
+    },
+    "subtitle": {
+      "start": {
+        "line": 20,
+        "column": 2
+      },
+      "end": {
+        "line": 20,
+        "column": 11
+      }
+    },
+    "menu-btn": {
+      "start": {
+        "line": 24,
+        "column": 2
+      },
+      "end": {
+        "line": 24,
+        "column": 11
+      }
+    },
+    "menu-btn-text": {
+      "start": {
+        "line": 37,
+        "column": 2
+      },
+      "end": {
+        "line": 37,
+        "column": 16
+      }
+    },
+    "btn-scores": {
+      "start": {
+        "line": 42,
+        "column": 2
+      },
+      "end": {
+        "line": 42,
+        "column": 13
+      }
+    },
+    "btn-scores-text": {
+      "start": {
+        "line": 46,
+        "column": 2
+      },
+      "end": {
+        "line": 46,
+        "column": 18
+      }
+    },
+    "btn-achievements": {
+      "start": {
+        "line": 49,
+        "column": 2
+      },
+      "end": {
+        "line": 49,
+        "column": 19
+      }
+    },
+    "btn-achievements-text": {
+      "start": {
+        "line": 53,
+        "column": 2
+      },
+      "end": {
+        "line": 53,
+        "column": 24
+      }
+    },
+    "btn-stats": {
+      "start": {
+        "line": 56,
+        "column": 2
+      },
+      "end": {
+        "line": 56,
+        "column": 12
+      }
+    },
+    "btn-stats-text": {
+      "start": {
+        "line": 60,
+        "column": 2
+      },
+      "end": {
+        "line": 60,
+        "column": 17
+      }
+    },
+    "btn-settings": {
+      "start": {
+        "line": 63,
+        "column": 2
+      },
+      "end": {
+        "line": 63,
+        "column": 15
+      }
+    },
+    "btn-settings-text": {
+      "start": {
+        "line": 67,
+        "column": 2
+      },
+      "end": {
+        "line": 67,
+        "column": 20
+      }
+    },
+    "btn-help": {
+      "start": {
+        "line": 70,
+        "column": 2
+      },
+      "end": {
+        "line": 70,
+        "column": 11
+      }
+    },
+    "btn-help-text": {
+      "start": {
+        "line": 74,
+        "column": 2
+      },
+      "end": {
+        "line": 74,
+        "column": 16
+      }
+    },
+    "uid-1": {
+      "start": {
+        "line": 78,
+        "column": 0
+      },
+      "end": {
+        "line": 88,
+        "column": 6
+      }
+    },
+    "uid-2": {
+      "start": {
+        "line": 79,
+        "column": 2
+      },
+      "end": {
+        "line": 79,
+        "column": 45
+      }
+    },
+    "uid-3": {
+      "start": {
+        "line": 80,
+        "column": 2
+      },
+      "end": {
+        "line": 80,
+        "column": 55
+      }
+    },
+    "uid-4": {
+      "start": {
+        "line": 81,
+        "column": 2
+      },
+      "end": {
+        "line": 81,
+        "column": 100
+      }
+    },
+    "uid-5": {
+      "start": {
+        "line": 81,
+        "column": 55
+      },
+      "end": {
+        "line": 81,
+        "column": 94
+      }
+    },
+    "uid-6": {
+      "start": {
+        "line": 82,
+        "column": 2
+      },
+      "end": {
+        "line": 82,
+        "column": 131
+      }
+    },
+    "uid-7": {
+      "start": {
+        "line": 82,
+        "column": 68
+      },
+      "end": {
+        "line": 82,
+        "column": 125
+      }
+    },
+    "uid-8": {
+      "start": {
+        "line": 83,
+        "column": 2
+      },
+      "end": {
+        "line": 83,
+        "column": 155
+      }
+    },
+    "uid-9": {
+      "start": {
+        "line": 83,
+        "column": 80
+      },
+      "end": {
+        "line": 83,
+        "column": 149
+      }
+    },
+    "uid-10": {
+      "start": {
+        "line": 84,
+        "column": 2
+      },
+      "end": {
+        "line": 84,
+        "column": 127
+      }
+    },
+    "uid-11": {
+      "start": {
+        "line": 84,
+        "column": 66
+      },
+      "end": {
+        "line": 84,
+        "column": 121
+      }
+    },
+    "uid-12": {
+      "start": {
+        "line": 85,
+        "column": 2
+      },
+      "end": {
+        "line": 85,
+        "column": 109
+      }
+    },
+    "uid-13": {
+      "start": {
+        "line": 85,
+        "column": 56
+      },
+      "end": {
+        "line": 85,
+        "column": 103
+      }
+    },
+    "uid-14": {
+      "start": {
+        "line": 86,
+        "column": 2
+      },
+      "end": {
+        "line": 86,
+        "column": 139
+      }
+    },
+    "uid-15": {
+      "start": {
+        "line": 86,
+        "column": 72
+      },
+      "end": {
+        "line": 86,
+        "column": 133
+      }
+    },
+    "uid-16": {
+      "start": {
+        "line": 87,
+        "column": 2
+      },
+      "end": {
+        "line": 87,
+        "column": 123
+      }
+    },
+    "uid-17": {
+      "start": {
+        "line": 87,
+        "column": 64
+      },
+      "end": {
+        "line": 87,
+        "column": 117
+      }
+    }
+  }
+}

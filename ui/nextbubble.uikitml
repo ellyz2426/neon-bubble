@@ -1,0 +1,28 @@
+<style>
+  .next-panel {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding-top: 0.8;
+    padding-bottom: 0.8;
+    padding-left: 2.5;
+    padding-right: 2.5;
+    background-color: rgba(0, 0, 0, 0.7);
+    border-color: #00ffff;
+    border-width: 0.08;
+    border-radius: 0.5;
+  }
+  .next-label {
+    font-size: 1;
+    color: #808080;
+  }
+  .next-color {
+    font-size: 1.8;
+    color: #00ffff;
+    font-weight: bold;
+  }
+</style>
+<div class="next-panel">
+  <span class="next-label">NEXT</span>
+  <span id="next-color" class="next-color">CYAN</span>
+</div>

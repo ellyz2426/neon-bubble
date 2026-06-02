@@ -1,0 +1,110 @@
+<style>
+  .go-panel {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding-top: 3;
+    padding-bottom: 3;
+    padding-left: 5;
+    padding-right: 5;
+    background-color: rgba(0, 0, 0, 0.85);
+    border-color: #00ffff;
+    border-width: 0.15;
+    border-radius: 1.5;
+    gap: 2;
+  }
+  .go-title {
+    font-size: 4;
+    color: #00ffff;
+    font-weight: bold;
+  }
+  .go-row {
+    display: flex;
+    flex-direction: row;
+    gap: 2;
+    width: 100%;
+  }
+  .go-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    flex: 1;
+    gap: 0.3;
+  }
+  .go-label {
+    font-size: 1.2;
+    color: #808080;
+  }
+  .go-value {
+    font-size: 2.2;
+    color: #00ffff;
+    font-weight: bold;
+  }
+  .go-score { color: #ffff00; }
+  .go-btn {
+    padding-top: 1;
+    padding-bottom: 1;
+    padding-left: 3;
+    padding-right: 3;
+    background-color: rgba(0, 255, 255, 0.15);
+    border-color: #00ffff;
+    border-width: 0.1;
+    border-radius: 0.6;
+    cursor: pointer;
+    align-items: center;
+  }
+  .go-btn-text {
+    font-size: 2;
+    color: #00ffff;
+    font-weight: bold;
+  }
+  .btn-row {
+    display: flex;
+    flex-direction: row;
+    gap: 2;
+  }
+  .title-btn {
+    background-color: rgba(128, 128, 128, 0.15);
+    border-color: #888888;
+  }
+  .title-btn-text {
+    color: #888888;
+  }
+</style>
+<div class="go-panel">
+  <span id="go-heading" class="go-title">GAME OVER</span>
+  <div class="go-row">
+    <div class="go-item">
+      <span class="go-label">SCORE</span>
+      <span id="go-score" class="go-value go-score">0</span>
+    </div>
+    <div class="go-item">
+      <span class="go-label">BUBBLES POPPED</span>
+      <span id="go-popped" class="go-value">0</span>
+    </div>
+  </div>
+  <div class="go-row">
+    <div class="go-item">
+      <span class="go-label">MAX COMBO</span>
+      <span id="go-combo" class="go-value">x1</span>
+    </div>
+    <div class="go-item">
+      <span class="go-label">SHOTS FIRED</span>
+      <span id="go-shots" class="go-value">0</span>
+    </div>
+  </div>
+  <div class="go-row">
+    <div class="go-item">
+      <span class="go-label">ACCURACY</span>
+      <span id="go-accuracy" class="go-value">0%</span>
+    </div>
+    <div class="go-item">
+      <span class="go-label">CASCADES</span>
+      <span id="go-cascades" class="go-value">0</span>
+    </div>
+  </div>
+  <div class="btn-row">
+    <div id="btn-rematch" class="go-btn" cursor="pointer"><span class="go-btn-text">REMATCH</span></div>
+    <div id="btn-title" class="go-btn title-btn" cursor="pointer"><span class="go-btn-text title-btn-text">TITLE</span></div>
+  </div>
+</div>

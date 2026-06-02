@@ -1,0 +1,107 @@
+<style>
+  .mode-panel {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding-top: 3;
+    padding-bottom: 3;
+    padding-left: 5;
+    padding-right: 5;
+    background-color: rgba(0, 0, 0, 0.9);
+    border-color: #00ffff;
+    border-width: 0.15;
+    border-radius: 1.5;
+    gap: 1.5;
+  }
+  .mode-title {
+    font-size: 3.5;
+    color: #00ffff;
+    font-weight: bold;
+  }
+  .mode-row {
+    display: flex;
+    flex-direction: row;
+    gap: 1.5;
+    width: 100%;
+  }
+  .mode-btn {
+    display: flex;
+    flex-direction: column;
+    padding-top: 1;
+    padding-bottom: 1;
+    padding-left: 2;
+    padding-right: 2;
+    background-color: rgba(0, 255, 255, 0.12);
+    border-color: #00ffff;
+    border-width: 0.08;
+    border-radius: 0.6;
+    cursor: pointer;
+    flex: 1;
+    align-items: center;
+    gap: 0.3;
+  }
+  .mode-name {
+    font-size: 1.8;
+    color: #00ffff;
+    font-weight: bold;
+  }
+  .mode-desc {
+    font-size: 1;
+    color: #808080;
+  }
+  .back-btn {
+    padding-top: 0.8;
+    padding-bottom: 0.8;
+    padding-left: 3;
+    padding-right: 3;
+    background-color: rgba(128, 128, 128, 0.15);
+    border-color: #888888;
+    border-width: 0.08;
+    border-radius: 0.6;
+    cursor: pointer;
+  }
+  .back-text {
+    font-size: 1.8;
+    color: #888888;
+  }
+</style>
+<div class="mode-panel">
+  <span class="mode-title">SELECT MODE</span>
+  <div class="mode-row">
+    <div id="btn-campaign" class="mode-btn" cursor="pointer">
+      <span class="mode-name">CAMPAIGN</span>
+      <span class="mode-desc">36 levels, 6 zones</span>
+    </div>
+    <div id="btn-endless" class="mode-btn" cursor="pointer">
+      <span class="mode-name">ENDLESS</span>
+      <span class="mode-desc">Survive forever</span>
+    </div>
+  </div>
+  <div class="mode-row">
+    <div id="btn-timeattack" class="mode-btn" cursor="pointer">
+      <span class="mode-name">TIME ATTACK</span>
+      <span class="mode-desc">90 seconds</span>
+    </div>
+    <div id="btn-precision" class="mode-btn" cursor="pointer">
+      <span class="mode-name">PRECISION</span>
+      <span class="mode-desc">Limited shots</span>
+    </div>
+  </div>
+  <div class="mode-row">
+    <div id="btn-daily" class="mode-btn" cursor="pointer">
+      <span class="mode-name">DAILY</span>
+      <span class="mode-desc">Same puzzle daily</span>
+    </div>
+    <div id="btn-zen" class="mode-btn" cursor="pointer">
+      <span class="mode-name">ZEN</span>
+      <span class="mode-desc">No pressure</span>
+    </div>
+  </div>
+  <div class="mode-row">
+    <div id="btn-practice" class="mode-btn" cursor="pointer">
+      <span class="mode-name">PRACTICE</span>
+      <span class="mode-desc">Free play</span>
+    </div>
+  </div>
+  <div id="btn-back" class="back-btn" cursor="pointer"><span class="back-text">BACK</span></div>
+</div>
