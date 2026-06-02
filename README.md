@@ -1,105 +1,157 @@
-# Neon Bubble VR
+# 🫧 Neon Bubble VR
 
-A holodeck VR bubble shooter / Puzzle Bobble game built with IWSDK 0.4.1. Aim and shoot colored neon energy orbs upward to match 3+ same-color bubbles. Cascading combos, power-ups, and 7 game modes.
+**Holodeck Bubble Shooter / Puzzle Bobble** built with [IWSDK 0.4.1](https://iwsdk.dev) — play in VR or browser!
 
-## Play
+🎮 [Play Now](https://ellyz2426.github.io/neon-bubble/) | 📦 [GitHub](https://github.com/ellyz2426/neon-bubble)
 
-[**Play Now**](https://ellyz2426.github.io/neon-bubble/)
+![IWSDK 0.4.1](https://img.shields.io/badge/IWSDK-0.4.1-00ffff) ![TypeScript](https://img.shields.io/badge/TypeScript-5.x-blue) ![License](https://img.shields.io/badge/license-MIT-green)
 
 ## Features
 
-- **Hex Grid Bubble Physics**: Bubbles snap to hexagonal grid positions with proper odd/even row offsets
-- **Match-3 Mechanics**: Connect 3+ same-color bubbles to pop them with particle effects
-- **Cascade System**: Disconnected bubble clusters fall for massive bonus points
-- **4 Power-Up Types**: Bomb (area explosion), Rainbow (matches any color), Lightning (clears row), Fire (burns vertical path)
-- **7 Game Modes**: Campaign (36 levels/6 zones), Endless, Time Attack (90s), Precision (limited shots), Daily Challenge (seeded), Zen, Practice
-- **3 Difficulty Levels**: Easy/Medium/Hard affecting grid density, color count, ceiling drop rate
-- **Combo Multiplier**: Consecutive matches build scoring multiplier (x1 to x10)
-- **8 Bubble Skins**: Unlockable visual customization with unique glow effects
-- **5 Arena Themes**: Neon Holodeck, Crimson Arcade, Toxic Neon, Ultra Violet, Solar Blaze
-- **30 Achievements**: localStorage-persisted milestone tracking
-- **Career Stats**: Games, scores, accuracy, combos, cascades, power-ups
-- **Top 20 Leaderboard**: Per-game score tracking with mode and date
-- **Dual Runtime**: Full VR (XR controllers) + browser (mouse/keyboard) support
+### 🎯 Core Gameplay
+- **Hex grid bubble physics** with odd/even row offsets
+- **Match-3 color mechanics** with BFS cluster detection
+- **Cascade system** for disconnected bubble clusters
+- **Combo multiplier** (x1 to x10, 3-second decay)
+- **Aim guide** with wall bounce prediction
+- **Ceiling drop** pressure system with difficulty scaling
 
-## Controls
+### 🫧 Bubble Types
+- **Standard** — 6 vibrant neon colors (+ color-blind palette)
+- **Bomb** — Explosive radius clearing nearby bubbles
+- **Rainbow** — Matches any color, targets largest cluster
+- **Lightning** — Clears entire row
+- **Fire** — Burns through vertical column
+- **Frozen** ❄️ — Requires 2 hits to break (cracks on first hit)
+- **Stone** 🪨 — Indestructible obstacles that block paths
+- **Poison** ☠️ — Spreads to adjacent cells on miss
 
-### Browser
-| Input | Action |
-|-------|--------|
-| Mouse Move | Aim launcher |
-| Click | Shoot bubble |
-| ESC | Pause/Resume |
-| R | Rematch (game over) |
+### 🎮 9 Game Modes
+| Mode | Description |
+|------|-------------|
+| **Campaign** | 50 levels across zones with boss battles every 6th level |
+| **Endless** | Survive forever with regenerating rows |
+| **Time Attack** | 90 seconds to maximize score |
+| **Precision** | Limited shots — make every one count |
+| **Daily** | Same puzzle for everyone, changes daily |
+| **Zen** | No pressure, no ceiling drops |
+| **Practice** | Free play sandbox |
+| **Tournament** | Bracket elimination vs ghost AI scores |
+| **Challenge** | Custom levels with shareable seed codes |
 
-### VR
-| Input | Action |
-|-------|--------|
-| Right Thumbstick | Aim launcher |
-| Right Trigger | Shoot bubble |
-| B Button | Pause/Resume |
-| Laser Pointer | Menu interaction |
+### 👹 Boss Levels
+Every 6th campaign level features a boss battle with unique mechanics:
+- **Frost Sentinel** — Frozen bubble formations + stone walls
+- **Toxic Swarm** — Poison spreading + bubble regeneration
+- **Iron Fortress** — Heavy armor + dense stone defenses
+- **Chaos Engine** — All special types combined
+- **Neon Overlord** — Maximum specials + fast regen
+- **Void Titan** — Extreme density + poison chains
+- **Quantum Hydra** — Split formations
+- **Final Boss** — Everything at maximum
 
-## UI
+### ⬆️ XP & Progression
+- **50 player levels** with increasing XP thresholds
+- **XP earned** from every game (score-based + level completion bonuses)
+- **Level-up rewards**: unlock skins and themes at milestone levels
+- **Persistent progression** across all game modes
 
-All game UI uses IWSDK's PanelUI system (`.uikitml` templates). Zero HTML DOM overlays.
+### ⭐ Star Rating
+- **1-3 stars** per campaign level based on accuracy, score, and combo performance
+- Track your best stars per level
+- Achievements for star collection milestones
 
-- 16 PanelUI spatial UI templates
-- `Follower` for head-locked HUDs (score, combo, next bubble, toast, countdown)
-- World-space panels for menus, settings, leaderboards, achievements
+### 🏆 84 Achievements
+Categories: Popping (8), Cascades (6), Combos (6), Score (8), Power-ups (8), Special Bubbles (6), Accuracy (5), Games Played (5), Campaign (6), Boss (6), Tournament (5), XP/Level (5), Mode-specific (7), Cosmetics (4), Stars (2)
 
-## Tech Stack
+Paginated achievement viewer with progress tracking.
 
-- **IWSDK 0.4.1** — WebXR framework
-- **TypeScript** — Type-safe game logic
-- **Vite** — Build tooling with `@iwsdk/vite-plugin-uikitml` for spatial UI compilation
-- **Web Audio API** — Procedural SFX (15+ sounds) + ambient synthwave drone
-- **Dual Runtime** — `xr: { offer: 'once' }` + `canvasPointerEvents` for VR + browser
+### 🏟️ Tournament Mode
+- **8-player bracket** elimination (you vs 7 ghost AIs)
+- **3 rounds** to the championship
+- Ghost scores scale with difficulty and round
+- Track tournament wins and flawless victories
 
-## Project Structure
+### 🎨 Challenge Creator
+- Customize: rows, colors, density, special bubble frequency
+- Generate **shareable seed codes** (hex format: `XXXX-XXXX`)
+- Reproducible layouts from seed codes
+
+### 🎨 Visual Effects
+- **Animated bubble pops** (scale up 1.4x → shrink/fade)
+- **Cascade falling** with gravity and rotation
+- **Ring burst particles** on power-up activation
+- **Sparkle effects** on matches and rainbow power-ups
+- **Shot trail particles** behind moving bubbles
+- **Victory fireworks** on board clears and level completes
+- **Screen shake** on big cascades and bomb explosions
+- **Danger zone pulsing** — frequency increases with proximity
+- **Poison bubble glow pulsing**
+
+### 🎵 Audio
+- **25+ procedural SFX** with pitch variation for natural variety
+- **Ambient synthwave drone** with chord pads, shimmer, and dual LFO modulation
+- **Rising combo sounds** with pitch scaling per combo level
+- **Volume controls** (Master, SFX, Music) with **localStorage persistence**
+- Boss warning, frozen break, poison spread, and firework sounds
+
+### 🎮 Controls
+| Input | Browser | VR |
+|-------|---------|-----|
+| Aim | Mouse movement | Right thumbstick |
+| Shoot | Click | Right trigger |
+| Pause | ESC | B button |
+| Rematch | R (at game over) | — |
+
+### 🖥️ Technical
+- **IWSDK 0.4.1** dual-runtime (VR + browser fallback)
+- **20 PanelUI `.uikitml` templates** — zero HTML DOM overlays
+- **Head-following HUD** with score/combo/shots/level/time/mode
+- **World-space menus** for all screens
+- **Follower toast notifications** and countdown
+- **Color-blind mode** with deuteranopia-friendly palette
+- **All state persisted** in localStorage (stats, achievements, XP, stars, audio settings, skins, themes)
+
+## Architecture
 
 ```
 neon-bubble/
-  src/
-    index.ts          — Main game (types, audio, particles, grid logic, UI, game loop)
-    vite-env.d.ts     — Type declarations
-  ui/
-    title.uikitml         — Title screen menu
-    modeselect.uikitml    — 7 game mode selection
-    difficulty.uikitml    — Easy/Medium/Hard
-    hud.uikitml           — Head-following HUD (score, combo, shots, level, time, mode)
-    nextbubble.uikitml    — Next bubble color indicator
-    pause.uikitml         — Pause menu
-    gameover.uikitml      — Game over stats
-    levelcomplete.uikitml — Campaign level clear
-    leaderboard.uikitml   — Top 10 scores
-    achievements.uikitml  — 30 achievement slots
-    stats.uikitml         — Career statistics
-    settings.uikitml      — Volume + theme controls
-    skins.uikitml         — 8 bubble skin selector
-    help.uikitml          — Controls + gameplay reference
-    toast.uikitml         — Notification toasts
-    countdown.uikitml     — 3-2-1-POP!
-  index.html
-  package.json
-  vite.config.ts
-  tsconfig.json
+├── src/index.ts         # Game engine (2534 lines)
+├── ui/                  # 20 PanelUI templates
+│   ├── title.uikitml
+│   ├── modeselect.uikitml
+│   ├── difficulty.uikitml
+│   ├── hud.uikitml
+│   ├── gameover.uikitml
+│   ├── levelcomplete.uikitml
+│   ├── achievements.uikitml
+│   ├── settings.uikitml
+│   ├── stats.uikitml
+│   ├── skins.uikitml
+│   ├── leaderboard.uikitml
+│   ├── help.uikitml
+│   ├── pause.uikitml
+│   ├── countdown.uikitml
+│   ├── nextbubble.uikitml
+│   ├── toast.uikitml
+│   ├── xp.uikitml
+│   ├── tournament.uikitml
+│   ├── challenge.uikitml
+│   └── bossintro.uikitml
+├── vite.config.ts
+├── tsconfig.json
+└── package.json
 ```
 
-## Build
+## Development
 
 ```bash
 npm install
-npm run build
+npm run dev          # Start dev server with hot reload
+npm run build        # Production build to dist/
+npx tsc --noEmit     # Type check
 ```
 
-## Deploy
+## License
 
-```bash
-npm run build
-PROJECT="$PWD"
-cd /tmp && rm -rf gh-pages-deploy && mkdir gh-pages-deploy && cd gh-pages-deploy
-git init && cp -R "$PROJECT/dist/." .
-git add -A && git commit -m "Deploy"
-git push --force "https://github.com/ellyz2426/neon-bubble.git" HEAD:gh-pages
-```
+MIT
