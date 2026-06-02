@@ -3,15 +3,15 @@
     display: flex;
     flex-direction: column;
     align-items: center;
-    padding-top: 3;
-    padding-bottom: 3;
-    padding-left: 4;
-    padding-right: 4;
-    background-color: rgba(0, 0, 0, 0.9);
+    padding-top: 2;
+    padding-bottom: 2;
+    padding-left: 3;
+    padding-right: 3;
+    background-color: rgba(0, 0, 0, 0.92);
     border-color: #ff00ff;
     border-width: 0.15;
     border-radius: 1.5;
-    gap: 0.8;
+    gap: 0.5;
   }
   .ach-title {
     font-size: 3;
@@ -26,28 +26,28 @@
     display: flex;
     flex-direction: row;
     width: 100%;
-    padding-top: 0.3;
-    padding-bottom: 0.3;
-    gap: 1;
+    padding-top: 0.2;
+    padding-bottom: 0.2;
+    gap: 0.8;
   }
   .ach-check {
-    font-size: 1.2;
+    font-size: 1;
     color: #444444;
-    width: 8%;
+    width: 7%;
   }
   .ach-done {
     color: #00ff80;
   }
   .ach-name {
-    font-size: 1.2;
+    font-size: 1;
     color: #ff00ff;
-    width: 35%;
+    width: 30%;
     font-weight: bold;
   }
   .ach-desc {
-    font-size: 1;
+    font-size: 0.9;
     color: #808080;
-    width: 57%;
+    width: 63%;
   }
   .back-btn {
     padding-top: 0.8;
@@ -59,12 +59,13 @@
     border-width: 0.08;
     border-radius: 0.6;
     cursor: pointer;
+    margin-top: 0.5;
   }
   .back-text { font-size: 1.8; color: #888888; }
 </style>
 <div class="ach-panel">
   <span class="ach-title">ACHIEVEMENTS</span>
-  <span id="ach-count" class="ach-count">0 / 30</span>
+  <span id="ach-count" class="ach-count">0 / 41</span>
   <div id="ach-0" class="ach-row"><span id="ac-0" class="ach-check">[ ]</span><span id="an-0" class="ach-name">--</span><span id="ad-0" class="ach-desc">--</span></div>
   <div id="ach-1" class="ach-row"><span id="ac-1" class="ach-check">[ ]</span><span id="an-1" class="ach-name">--</span><span id="ad-1" class="ach-desc">--</span></div>
   <div id="ach-2" class="ach-row"><span id="ac-2" class="ach-check">[ ]</span><span id="an-2" class="ach-name">--</span><span id="ad-2" class="ach-desc">--</span></div>
@@ -80,5 +81,10 @@
   <div id="ach-12" class="ach-row"><span id="ac-12" class="ach-check">[ ]</span><span id="an-12" class="ach-name">--</span><span id="ad-12" class="ach-desc">--</span></div>
   <div id="ach-13" class="ach-row"><span id="ac-13" class="ach-check">[ ]</span><span id="an-13" class="ach-name">--</span><span id="ad-13" class="ach-desc">--</span></div>
   <div id="ach-14" class="ach-row"><span id="ac-14" class="ach-check">[ ]</span><span id="an-14" class="ach-name">--</span><span id="ad-14" class="ach-desc">--</span></div>
+  <div id="ach-15" class="ach-row"><span id="ac-15" class="ach-check">[ ]</span><span id="an-15" class="ach-name">--</span><span id="ad-15" class="ach-desc">--</span></div>
+  <div id="ach-16" class="ach-row"><span id="ac-16" class="ach-check">[ ]</span><span id="an-16" class="ach-name">--</span><span id="ad-16" class="ach-desc">--</span></div>
+  <div id="ach-17" class="ach-row"><span id="ac-17" class="ach-check">[ ]</span><span id="an-17" class="ach-name">--</span><span id="ad-17" class="ach-desc">--</span></div>
+  <div id="ach-18" class="ach-row"><span id="ac-18" class="ach-check">[ ]</span><span id="an-18" class="ach-name">--</span><span id="ad-18" class="ach-desc">--</span></div>
+  <div id="ach-19" class="ach-row"><span id="ac-19" class="ach-check">[ ]</span><span id="an-19" class="ach-name">--</span><span id="ad-19" class="ach-desc">--</span></div>
   <div id="btn-back" class="back-btn" cursor="pointer"><span class="back-text">BACK</span></div>
 </div>

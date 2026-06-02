@@ -136,6 +136,16 @@ const ACHIEVEMENTS: Achievement[] = [
   { id: 'skin_unlock', name: 'Fashionista', desc: 'Unlock a bubble skin' },
   { id: 'theme_all', name: 'Theme Explorer', desc: 'Try all 5 arena themes' },
   { id: 'powerups_10', name: 'Power Player', desc: 'Use 10 power-ups total' },
+  { id: 'combo_x7', name: 'Unstoppable', desc: 'Reach x7 combo multiplier' },
+  { id: 'combo_x10', name: 'Perfect Combo', desc: 'Reach x10 combo multiplier' },
+  { id: 'cascade_15', name: 'Avalanche', desc: 'Cascade 15+ bubbles at once' },
+  { id: 'score_50k', name: 'Legendary', desc: 'Score 50,000+ in one game' },
+  { id: 'games_100', name: 'Veteran', desc: 'Play 100 games' },
+  { id: 'speed_clear', name: 'Speed Demon', desc: 'Clear time attack with 30s remaining' },
+  { id: 'no_miss_20', name: 'Perfect 20', desc: '20 consecutive matching shots' },
+  { id: 'all_powerups', name: 'Arsenal', desc: 'Use all 4 power-up types in one game' },
+  { id: 'first_game', name: 'Welcome', desc: 'Play your first game' },
+  { id: 'zen_100', name: 'Zen Master', desc: 'Pop 100 bubbles in Zen mode' },
 ];
 
 // ─── BUBBLE SKINS ─────────────────────────────────────────────────
@@ -149,6 +159,8 @@ const BUBBLE_SKINS: BubbleSkin[] = [
   { name: 'Void Purple', multiplier: 0.9, wireColor: '#8844ff', glowIntensity: 1.6, unlock: 'Clear a board' },
   { name: 'Chrome', multiplier: 1.0, wireColor: '#cccccc', glowIntensity: 0.8, unlock: '80% accuracy' },
   { name: 'Rainbow', multiplier: 1.3, wireColor: '#ffffff', glowIntensity: 2.0, unlock: 'All campaign zones' },
+  { name: 'Midnight Prism', multiplier: 1.1, wireColor: '#6644ff', glowIntensity: 1.8, unlock: 'Score 25K' },
+  { name: 'Hologram', multiplier: 1.0, wireColor: '#44ffee', glowIntensity: 1.3, unlock: 'Play 50 games' },
 ];
 
 // ─── CAMPAIGN LEVELS ──────────────────────────────────────────────
@@ -205,34 +217,35 @@ class AudioManager {
     if (this.musicGain) this.musicGain.gain.value = this.musicVol * 0.15;
   }
 
-  private playSfx(freq: number, type: OscillatorType, dur: number, vol = 0.3) {
+  private playSfx(freq: number, type: OscillatorType, dur: number, vol = 0.3, pitchVar = 0) {
     if (!this.ctx || !this.sfxGain) return;
     const o = this.ctx.createOscillator();
     const g = this.ctx.createGain();
-    o.type = type; o.frequency.value = freq;
+    const pv = pitchVar > 0 ? 1 + (Math.random() - 0.5) * 2 * pitchVar : 1;
+    o.type = type; o.frequency.value = freq * pv;
     g.gain.setValueAtTime(vol, this.ctx.currentTime);
     g.gain.exponentialRampToValueAtTime(0.001, this.ctx.currentTime + dur);
     o.connect(g); g.connect(this.sfxGain);
     o.start(); o.stop(this.ctx.currentTime + dur);
   }
 
-  pop() { this.playSfx(880, 'sine', 0.12, 0.4); this.playSfx(1320, 'triangle', 0.08, 0.2); }
+  pop() { this.playSfx(880, 'sine', 0.12, 0.4, 0.08); this.playSfx(1320, 'triangle', 0.08, 0.2, 0.1); }
   cascade() {
     if (!this.ctx) return;
     [660, 880, 1100, 1320].forEach((f, i) => {
-      setTimeout(() => this.playSfx(f, 'sine', 0.15, 0.3), i * 60);
+      setTimeout(() => this.playSfx(f, 'sine', 0.15, 0.3, 0.05), i * 60);
     });
   }
-  shoot() { this.playSfx(220, 'sawtooth', 0.1, 0.2); this.playSfx(330, 'triangle', 0.08, 0.15); }
-  wallBounce() { this.playSfx(440, 'square', 0.05, 0.15); }
-  attach() { this.playSfx(550, 'triangle', 0.08, 0.2); }
-  miss() { this.playSfx(150, 'sawtooth', 0.2, 0.25); }
-  bomb() { this.playSfx(80, 'sawtooth', 0.4, 0.5); this.playSfx(60, 'square', 0.3, 0.3); }
+  shoot() { this.playSfx(220, 'sawtooth', 0.1, 0.2, 0.05); this.playSfx(330, 'triangle', 0.08, 0.15, 0.05); }
+  wallBounce() { this.playSfx(440, 'square', 0.05, 0.15, 0.1); }
+  attach() { this.playSfx(550, 'triangle', 0.08, 0.2, 0.05); }
+  miss() { this.playSfx(150, 'sawtooth', 0.2, 0.25, 0.03); }
+  bomb() { this.playSfx(80, 'sawtooth', 0.4, 0.5); this.playSfx(60, 'square', 0.3, 0.3); this.playSfx(40, 'sawtooth', 0.5, 0.2); }
   lightning() {
-    [1100, 1650, 2200].forEach((f, i) => setTimeout(() => this.playSfx(f, 'sawtooth', 0.1, 0.3), i * 40));
+    [1100, 1650, 2200, 2750].forEach((f, i) => setTimeout(() => this.playSfx(f, 'sawtooth', 0.1, 0.3, 0.05), i * 30));
   }
-  fire() { this.playSfx(200, 'sawtooth', 0.3, 0.3); }
-  rainbow() { [440, 554, 659, 880].forEach((f, i) => setTimeout(() => this.playSfx(f, 'sine', 0.2, 0.25), i * 80)); }
+  fire() { this.playSfx(200, 'sawtooth', 0.3, 0.3); this.playSfx(120, 'square', 0.4, 0.15); }
+  rainbow() { [440, 554, 659, 784, 880].forEach((f, i) => setTimeout(() => this.playSfx(f, 'sine', 0.2, 0.25), i * 70)); }
   levelComplete() { [523, 659, 784, 1047].forEach((f, i) => setTimeout(() => this.playSfx(f, 'triangle', 0.3, 0.35), i * 100)); }
   gameOver() { [440, 349, 294, 220].forEach((f, i) => setTimeout(() => this.playSfx(f, 'sawtooth', 0.3, 0.3), i * 120)); }
   gameStart() { [523, 659, 784, 1047].forEach((f, i) => setTimeout(() => this.playSfx(f, 'sine', 0.15, 0.3), i * 80)); }
@@ -240,31 +253,70 @@ class AudioManager {
   countdownGo() { this.playSfx(1047, 'sine', 0.2, 0.4); }
   achievement() { [660, 880, 1100, 1320, 1760].forEach((f, i) => setTimeout(() => this.playSfx(f, 'sine', 0.2, 0.3), i * 70)); }
   buttonClick() { this.playSfx(880, 'sine', 0.05, 0.15); this.playSfx(1100, 'sine', 0.03, 0.1); }
-  combo() { this.playSfx(1100, 'triangle', 0.1, 0.3); }
+  combo() { this.playSfx(1100, 'triangle', 0.1, 0.3, 0.05); }
+
+  comboRising(level: number) {
+    // Rising pitch based on combo level
+    const baseFreq = 660 + (level - 1) * 110;
+    this.playSfx(baseFreq, 'triangle', 0.12, 0.35);
+    setTimeout(() => this.playSfx(baseFreq * 1.25, 'sine', 0.1, 0.2), 60);
+  }
+
+  ceilingWarning() { this.playSfx(180, 'square', 0.3, 0.15); this.playSfx(160, 'sawtooth', 0.4, 0.1); }
+
+  perfectShot() {
+    [880, 1100, 1320, 1760].forEach((f, i) => setTimeout(() => this.playSfx(f, 'sine', 0.1, 0.2), i * 40));
+  }
 
   startMusic() {
     if (!this.ctx || !this.musicGain || this.musicPlaying) return;
     this.musicPlaying = true;
-    // Ambient drone
+    // Rich ambient drone with chord progression
     const bass = this.ctx.createOscillator();
     bass.type = 'sine'; bass.frequency.value = 55;
-    const bassGain = this.ctx.createGain(); bassGain.gain.value = 0.4;
+    const bassGain = this.ctx.createGain(); bassGain.gain.value = 0.35;
     bass.connect(bassGain); bassGain.connect(this.musicGain);
     bass.start();
+
     const pad = this.ctx.createOscillator();
     pad.type = 'triangle'; pad.frequency.value = 82.5;
     const padFilter = this.ctx.createBiquadFilter();
     padFilter.type = 'lowpass'; padFilter.frequency.value = 400;
-    const padGain = this.ctx.createGain(); padGain.gain.value = 0.2;
+    const padGain = this.ctx.createGain(); padGain.gain.value = 0.18;
     pad.connect(padFilter); padFilter.connect(padGain); padGain.connect(this.musicGain);
     pad.start();
-    // LFO
+
+    // Second pad for richness (fifth interval)
+    const pad2 = this.ctx.createOscillator();
+    pad2.type = 'sine'; pad2.frequency.value = 110;
+    const pad2Filter = this.ctx.createBiquadFilter();
+    pad2Filter.type = 'lowpass'; pad2Filter.frequency.value = 300;
+    const pad2Gain = this.ctx.createGain(); pad2Gain.gain.value = 0.1;
+    pad2.connect(pad2Filter); pad2Filter.connect(pad2Gain); pad2Gain.connect(this.musicGain);
+    pad2.start();
+
+    // High shimmer
+    const shimmer = this.ctx.createOscillator();
+    shimmer.type = 'sine'; shimmer.frequency.value = 330;
+    const shimmerGain = this.ctx.createGain(); shimmerGain.gain.value = 0.04;
+    shimmer.connect(shimmerGain); shimmerGain.connect(this.musicGain);
+    shimmer.start();
+
+    // LFO modulation
     const lfo = this.ctx.createOscillator();
-    lfo.type = 'sine'; lfo.frequency.value = 0.15;
+    lfo.type = 'sine'; lfo.frequency.value = 0.12;
     const lfoGain = this.ctx.createGain(); lfoGain.gain.value = 8;
     lfo.connect(lfoGain); lfoGain.connect(padFilter.frequency);
     lfo.start();
-    this.musicOscs = [bass, pad, lfo];
+
+    // Second LFO for shimmer volume
+    const lfo2 = this.ctx.createOscillator();
+    lfo2.type = 'sine'; lfo2.frequency.value = 0.08;
+    const lfo2Gain = this.ctx.createGain(); lfo2Gain.gain.value = 0.02;
+    lfo2.connect(lfo2Gain); lfo2Gain.connect(shimmerGain.gain);
+    lfo2.start();
+
+    this.musicOscs = [bass, pad, pad2, shimmer, lfo, lfo2];
   }
 
   stopMusic() {
@@ -275,13 +327,17 @@ class AudioManager {
 }
 
 // ─── PARTICLE SYSTEM ──────────────────────────────────────────────
-interface Particle { mesh: Mesh; vx: number; vy: number; vz: number; life: number; maxLife: number; }
+interface Particle { mesh: Mesh; vx: number; vy: number; vz: number; life: number; maxLife: number; scaleStart?: number; }
+
+// Animated pop/cascade tracking
+interface AnimatedBubble { mesh: Mesh; timer: number; maxTime: number; mode: 'pop' | 'fall'; vy: number; startScale: number; }
 
 class ParticleSystem {
   particles: Particle[] = [];
+  animatedBubbles: AnimatedBubble[] = [];
   private pool: Mesh[] = [];
   private scene: any;
-  private maxParticles = 120;
+  private maxParticles = 200;
 
   constructor(scene: any) { this.scene = scene; }
 
@@ -299,6 +355,7 @@ class ParticleSystem {
         this.scene.add(mesh);
       }
       mesh.position.set(x, y, z);
+      mesh.scale.setScalar(1);
       const angle = Math.random() * Math.PI * 2;
       const speed = 0.5 + Math.random() * 1.5;
       this.particles.push({
@@ -306,6 +363,85 @@ class ParticleSystem {
         vz: (Math.random() - 0.5) * 0.3, life: 1, maxLife: 0.6 + Math.random() * 0.6,
       });
     }
+  }
+
+  // Ring burst - expanding circle of particles for power-up activation
+  ringBurst(x: number, y: number, z: number, color: Color, radius: number, count: number) {
+    for (let i = 0; i < count && this.particles.length < this.maxParticles; i++) {
+      let mesh: Mesh;
+      if (this.pool.length > 0) {
+        mesh = this.pool.pop()!;
+        (mesh.material as MeshBasicMaterial).color.copy(color);
+        mesh.visible = true;
+      } else {
+        const geo = new SphereGeometry(0.015, 4, 4);
+        const mat = new MeshBasicMaterial({ color, transparent: true, blending: AdditiveBlending });
+        mesh = new Mesh(geo, mat);
+        this.scene.add(mesh);
+      }
+      mesh.position.set(x, y, z);
+      mesh.scale.setScalar(1.2);
+      const angle = (i / count) * Math.PI * 2;
+      const speed = radius * 2;
+      this.particles.push({
+        mesh, vx: Math.cos(angle) * speed, vy: Math.sin(angle) * speed,
+        vz: 0, life: 1, maxLife: 0.4 + Math.random() * 0.2, scaleStart: 1.5,
+      });
+    }
+  }
+
+  // Sparkle - small glittering particles
+  sparkle(x: number, y: number, z: number, color: Color, count: number) {
+    for (let i = 0; i < count && this.particles.length < this.maxParticles; i++) {
+      let mesh: Mesh;
+      if (this.pool.length > 0) {
+        mesh = this.pool.pop()!;
+        (mesh.material as MeshBasicMaterial).color.copy(color);
+        mesh.visible = true;
+      } else {
+        const geo = new SphereGeometry(0.006, 3, 3);
+        const mat = new MeshBasicMaterial({ color, transparent: true, blending: AdditiveBlending });
+        mesh = new Mesh(geo, mat);
+        this.scene.add(mesh);
+      }
+      mesh.position.set(x + (Math.random() - 0.5) * 0.1, y + (Math.random() - 0.5) * 0.1, z);
+      mesh.scale.setScalar(0.8 + Math.random() * 0.8);
+      this.particles.push({
+        mesh, vx: (Math.random() - 0.5) * 0.3, vy: 0.3 + Math.random() * 0.5,
+        vz: (Math.random() - 0.5) * 0.1, life: 1, maxLife: 0.3 + Math.random() * 0.3, scaleStart: 0.5,
+      });
+    }
+  }
+
+  // Trail particle for shot bubble
+  trail(x: number, y: number, z: number, color: Color) {
+    if (this.particles.length >= this.maxParticles) return;
+    let mesh: Mesh;
+    if (this.pool.length > 0) {
+      mesh = this.pool.pop()!;
+      (mesh.material as MeshBasicMaterial).color.copy(color);
+      mesh.visible = true;
+    } else {
+      const geo = new SphereGeometry(0.008, 3, 3);
+      const mat = new MeshBasicMaterial({ color, transparent: true, blending: AdditiveBlending });
+      mesh = new Mesh(geo, mat);
+      this.scene.add(mesh);
+    }
+    mesh.position.set(x + (Math.random() - 0.5) * 0.02, y + (Math.random() - 0.5) * 0.02, z);
+    mesh.scale.setScalar(0.6);
+    this.particles.push({
+      mesh, vx: 0, vy: -0.1, vz: 0, life: 1, maxLife: 0.25,
+    });
+  }
+
+  // Animate a bubble pop (scale up then disappear)
+  animatePop(mesh: Mesh) {
+    this.animatedBubbles.push({ mesh, timer: 0, maxTime: 0.15, mode: 'pop', vy: 0, startScale: mesh.scale.x });
+  }
+
+  // Animate a cascade fall (gravity drop)
+  animateFall(mesh: Mesh) {
+    this.animatedBubbles.push({ mesh, timer: 0, maxTime: 0.6, mode: 'fall', vy: 0, startScale: mesh.scale.x });
   }
 
   update(dt: number) {
@@ -317,12 +453,44 @@ class ParticleSystem {
       p.mesh.position.y += p.vy * dt;
       p.mesh.position.z += p.vz * dt;
       (p.mesh.material as MeshBasicMaterial).opacity = Math.max(0, p.life);
-      const s = 0.5 + p.life * 0.5;
+      const s = p.scaleStart ? p.scaleStart * p.life : 0.5 + p.life * 0.5;
       p.mesh.scale.setScalar(s);
       if (p.life <= 0) {
         p.mesh.visible = false;
         this.pool.push(p.mesh);
         this.particles.splice(i, 1);
+      }
+    }
+
+    // Animated bubble pops/falls
+    for (let i = this.animatedBubbles.length - 1; i >= 0; i--) {
+      const ab = this.animatedBubbles[i];
+      ab.timer += dt;
+      const t = ab.timer / ab.maxTime;
+      if (ab.mode === 'pop') {
+        // Scale up to 1.4x then shrink and fade
+        const scaleT = t < 0.4 ? 1 + t * 2.5 : (1 - t) * 2.5;
+        ab.mesh.scale.setScalar(ab.startScale * Math.max(0.01, scaleT));
+        ab.mesh.traverse(child => {
+          if ((child as any).material?.opacity !== undefined) {
+            (child as any).material.opacity = Math.max(0, 1 - t);
+          }
+        });
+      } else if (ab.mode === 'fall') {
+        // Gravity fall
+        ab.vy -= 6 * dt;
+        ab.mesh.position.y += ab.vy * dt;
+        ab.mesh.rotation.z += 3 * dt;
+        ab.mesh.traverse(child => {
+          if ((child as any).material?.opacity !== undefined) {
+            (child as any).material.opacity = Math.max(0, 1 - t);
+          }
+        });
+      }
+      if (t >= 1) {
+        ab.mesh.visible = false;
+        ab.mesh.parent?.remove(ab.mesh);
+        this.animatedBubbles.splice(i, 1);
       }
     }
   }
@@ -370,6 +538,10 @@ async function main() {
   let gameActive = false;
   let countdownValue = 3;
   let countdownTimer = 0;
+  let powerUpsUsedThisGame: Set<string> = new Set();
+  let zenBubblesPopped = 0;
+  let dangerPulse = 0; // 0-1 for danger line animation
+  let trailTimer = 0;
 
   // Persistence
   const storage = {
@@ -405,6 +577,8 @@ async function main() {
     if (!unlockedSkins.includes(4) && stats.bestCombo >= 5) { unlockedSkins.push(4); storage.set('skins', unlockedSkins); }
     if (!unlockedSkins.includes(6) && stats.totalShots > 0 && stats.totalPopped / stats.totalShots >= 0.8) { unlockedSkins.push(6); storage.set('skins', unlockedSkins); }
     if (!unlockedSkins.includes(7) && stats.levelsCleared >= 36) { unlockedSkins.push(7); storage.set('skins', unlockedSkins); }
+    if (!unlockedSkins.includes(8) && stats.bestScore >= 25000) { unlockedSkins.push(8); storage.set('skins', unlockedSkins); }
+    if (!unlockedSkins.includes(9) && stats.games >= 50) { unlockedSkins.push(9); storage.set('skins', unlockedSkins); }
   }
 
   // ─── ENVIRONMENT ──────────────────────────────────────────
@@ -729,24 +903,34 @@ async function main() {
   // ─── POWER-UP EFFECTS ────────────────────────────────────
   function executePowerUp(type: string, row: number, col: number) {
     stats.powerUpsUsed++;
+    powerUpsUsedThisGame.add(type);
+    if (powerUpsUsedThisGame.size >= 4) unlockAchievement('all_powerups');
+    if (stats.powerUpsUsed >= 10) unlockAchievement('powerups_10');
+
     if (type === 'bomb') {
       audio.bomb();
       unlockAchievement('bomb_used');
       const center = gridToWorld(row, col);
       const radius = GRID_SPACING * 3;
+      // VFX: ring burst + flash
+      particles.ringBurst(center.x, center.y, 0, new Color(1, 0.3, 0), 0.3, 24);
+      particles.burst(center.x, center.y, 0, new Color(1, 0.6, 0), 20);
       const toRemove = grid.filter(b => {
         const bpos = gridToWorld(b.row, b.col);
         return Math.hypot(bpos.x - center.x, bpos.y - center.y) < radius;
       });
       for (const b of toRemove) {
-        particles.burst(b.mesh.position.x, b.mesh.position.y, 0, new Color(1, 0.3, 0), 8);
-        removeGridBubble(b);
+        particles.burst(b.mesh.position.x, b.mesh.position.y, 0, new Color(1, 0.3, 0), 6);
+        particles.animatePop(b.mesh);
+        grid.splice(grid.indexOf(b), 1);
         bubblesPopped++;
         score += 50 * combo;
       }
     } else if (type === 'rainbow') {
       audio.rainbow();
       unlockAchievement('rainbow_used');
+      const center = gridToWorld(row, col);
+      particles.ringBurst(center.x, center.y, 0, new Color(1, 1, 1), 0.25, 20);
       // Rainbow matches ANY color — find largest adjacent cluster
       let bestCluster: GridBubble[] = [];
       const neighbors = getNeighbors(row, col);
@@ -755,34 +939,41 @@ async function main() {
         if (cluster.length > bestCluster.length) bestCluster = cluster;
       }
       for (const b of bestCluster) {
-        particles.burst(b.mesh.position.x, b.mesh.position.y, 0, new Color(1, 1, 1), 6);
-        removeGridBubble(b);
+        particles.sparkle(b.mesh.position.x, b.mesh.position.y, 0, new Color(1, 1, 1), 4);
+        particles.animatePop(b.mesh);
+        grid.splice(grid.indexOf(b), 1);
         bubblesPopped++;
         score += 100 * combo;
       }
     } else if (type === 'lightning') {
       audio.lightning();
       unlockAchievement('lightning_used');
+      const center = gridToWorld(row, col);
+      particles.ringBurst(center.x, center.y, 0, new Color(0.3, 0.5, 1), 0.4, 16);
       // Clear entire row
       const toRemove = grid.filter(b => b.row === row);
       for (const b of toRemove) {
         particles.burst(b.mesh.position.x, b.mesh.position.y, 0, new Color(0.3, 0.5, 1), 6);
-        removeGridBubble(b);
+        particles.sparkle(b.mesh.position.x, b.mesh.position.y, 0, new Color(0.5, 0.7, 1), 3);
+        particles.animatePop(b.mesh);
+        grid.splice(grid.indexOf(b), 1);
         bubblesPopped++;
         score += 75 * combo;
       }
     } else if (type === 'fire') {
       audio.fire();
       unlockAchievement('fire_used');
-      // Burns through path vertically upward
       const center = gridToWorld(row, col);
+      particles.ringBurst(center.x, center.y, 0, new Color(1, 0.5, 0), 0.2, 12);
+      // Burns through path vertically upward
       const toRemove = grid.filter(b => {
         const bpos = gridToWorld(b.row, b.col);
         return Math.abs(bpos.x - center.x) < GRID_SPACING && b.row <= row;
       });
       for (const b of toRemove) {
         particles.burst(b.mesh.position.x, b.mesh.position.y, 0, new Color(1, 0.5, 0), 6);
-        removeGridBubble(b);
+        particles.animatePop(b.mesh);
+        grid.splice(grid.indexOf(b), 1);
         bubblesPopped++;
         score += 60 * combo;
       }
@@ -855,13 +1046,19 @@ async function main() {
 
       if (combo >= 3) unlockAchievement('combo_x3');
       if (combo >= 5) unlockAchievement('combo_x5');
+      if (combo >= 7) unlockAchievement('combo_x7');
+      if (combo >= 10) unlockAchievement('combo_x10');
       if (consecutiveMatches >= 10) unlockAchievement('no_miss_10');
+      if (consecutiveMatches >= 20) unlockAchievement('no_miss_20');
 
       for (const b of cluster) {
         const c = BUBBLE_COLORS[b.color];
         particles.burst(b.mesh.position.x, b.mesh.position.y, 0, new Color(c.r, c.g, c.b), 10);
-        removeGridBubble(b);
+        particles.sparkle(b.mesh.position.x, b.mesh.position.y, 0, new Color(c.r, c.g, c.b), 4);
+        particles.animatePop(b.mesh);
+        grid.splice(grid.indexOf(b), 1);
         bubblesPopped++;
+        if (gameMode === 'zen') zenBubblesPopped++;
         score += 100 * combo;
       }
       stats.totalPops++;
@@ -871,8 +1068,9 @@ async function main() {
       if (stats.totalPops >= 100) unlockAchievement('hundred_pops');
 
       if (combo > 1) {
-        audio.combo();
-        showToast('COMBO x' + combo + '!');
+        audio.comboRising(combo);
+        if (combo >= 5) showToast('🔥 COMBO x' + combo + '! 🔥');
+        else showToast('COMBO x' + combo + '!');
       }
 
       // Handle cascades
@@ -901,11 +1099,13 @@ async function main() {
       consecutiveMatches = 0;
       missCount++;
 
-      // Drop ceiling every 5 misses (adjusted by difficulty)
+      // Drop ceiling every N misses (adjusted by difficulty)
       const missThreshold = difficulty === 'easy' ? 7 : difficulty === 'medium' ? 5 : 3;
       if (missCount >= missThreshold && gameMode !== 'zen' && gameMode !== 'practice') {
         missCount = 0;
         ceilingOffset += CEILING_DROP_AMOUNT;
+        audio.ceilingWarning();
+        showToast('⚠ CEILING DROP!');
         updateGridPositions();
 
         // Check game over
@@ -926,13 +1126,17 @@ async function main() {
       unlockAchievement('first_cascade');
       if (disconnected.length >= 5) unlockAchievement('cascade_5');
       if (disconnected.length >= 10) unlockAchievement('cascade_10');
+      if (disconnected.length >= 15) unlockAchievement('cascade_15');
 
       showToast('CASCADE! +' + (disconnected.length * 150 * combo));
       for (const b of disconnected) {
         const c = BUBBLE_COLORS[b.color];
-        particles.burst(b.mesh.position.x, b.mesh.position.y, 0, new Color(c.r, c.g, c.b), 8);
-        removeGridBubble(b);
+        particles.burst(b.mesh.position.x, b.mesh.position.y, 0, new Color(c.r, c.g, c.b), 6);
+        // Animated fall instead of instant removal
+        particles.animateFall(b.mesh);
+        grid.splice(grid.indexOf(b), 1);
         bubblesPopped++;
+        if (gameMode === 'zen') zenBubblesPopped++;
         score += 150 * combo;
       }
     }
@@ -985,6 +1189,9 @@ async function main() {
     score = 0; combo = 1; comboTimer = 0; shotsFired = 0; bubblesPopped = 0;
     cascadeCount = 0; matchingShots = 0; consecutiveMatches = 0; bestCombo = 1;
     ceilingOffset = 0; missCount = 0; gameActive = true;
+    powerUpsUsedThisGame = new Set();
+    zenBubblesPopped = 0;
+    dangerPulse = 0;
     if (shotBubble) { world.scene.remove(shotBubble.mesh); shotBubble = null; }
 
     // Mode-specific setup
@@ -1026,14 +1233,19 @@ async function main() {
     saveStats();
     checkSkinUnlocks();
 
+    unlockAchievement('first_game');
     // Score achievements
     if (score >= 1000) unlockAchievement('score_1k');
     if (score >= 5000) unlockAchievement('score_5k');
     if (score >= 10000) unlockAchievement('score_10k');
     if (score >= 25000) unlockAchievement('score_25k');
+    if (score >= 50000) unlockAchievement('score_50k');
     if (stats.games >= 10) unlockAchievement('games_10');
     if (stats.games >= 50) unlockAchievement('games_50');
+    if (stats.games >= 100) unlockAchievement('games_100');
     if (gameMode === 'daily') unlockAchievement('daily_done');
+    if (gameMode === 'timeattack' && timeLeft >= 30) unlockAchievement('speed_clear');
+    if (gameMode === 'zen' && zenBubblesPopped >= 100) unlockAchievement('zen_100');
     const accuracy = shotsFired > 0 ? matchingShots / shotsFired : 0;
     if (accuracy >= 0.8 && shotsFired >= 5) unlockAchievement('accuracy_80');
     if (accuracy >= 0.95 && shotsFired >= 10) unlockAchievement('accuracy_95');
@@ -1221,7 +1433,7 @@ async function main() {
   function bindSkinsButtons() {
     const doc = getDoc('skins');
     if (!doc) return;
-    for (let i = 0; i < 8; i++) {
+    for (let i = 0; i < 10; i++) {
       bindClick(doc, `skin-${i}`, () => {
         if (unlockedSkins.includes(i)) { skinIndex = i; showSkins(); }
       });
@@ -1305,7 +1517,7 @@ async function main() {
     const doc = getDoc('achievements');
     const count = unlockedAchievements.length;
     setText(doc, 'ach-count', count + ' / ' + ACHIEVEMENTS.length);
-    for (let i = 0; i < 15 && i < ACHIEVEMENTS.length; i++) {
+    for (let i = 0; i < 20 && i < ACHIEVEMENTS.length; i++) {
       const a = ACHIEVEMENTS[i];
       const done = unlockedAchievements.includes(a.id);
       setText(doc, `ac-${i}`, done ? '[X]' : '[ ]');
@@ -1339,8 +1551,9 @@ async function main() {
 
   function showSkins() {
     const doc = getDoc('skins');
-    for (let i = 0; i < 8; i++) {
+    for (let i = 0; i < 10; i++) {
       const skin = BUBBLE_SKINS[i];
+      if (!skin) continue;
       setText(doc, `sn-${i}`, skin.name);
       if (i === skinIndex) setText(doc, `ss-${i}`, 'EQUIPPED');
       else if (unlockedSkins.includes(i)) setText(doc, `ss-${i}`, 'UNLOCKED');
@@ -1539,6 +1752,14 @@ async function main() {
       s.x += s.vx * dt;
       s.y += s.vy * dt;
 
+      // Shot trail particles
+      trailTimer += dt;
+      if (trailTimer >= 0.03) {
+        trailTimer = 0;
+        const c = BUBBLE_COLORS[s.color] || BUBBLE_COLORS[0];
+        particles.trail(s.x, s.y, 0, new Color(c.r, c.g, c.b));
+      }
+
       // Wall bounces
       if (s.x <= PLAYFIELD_LEFT + BUBBLE_RADIUS) { s.x = PLAYFIELD_LEFT + BUBBLE_RADIUS; s.vx = Math.abs(s.vx); audio.wallBounce(); }
       if (s.x >= PLAYFIELD_RIGHT - BUBBLE_RADIUS) { s.x = PLAYFIELD_RIGHT - BUBBLE_RADIUS; s.vx = -Math.abs(s.vx); audio.wallBounce(); }
@@ -1588,6 +1809,21 @@ async function main() {
 
     // Update HUD
     if (gameState === 'playing') updateHUD();
+
+    // Danger zone pulsing
+    if (gameState === 'playing' && grid.length > 0) {
+      const lowestY = Math.min(...grid.map(b => b.mesh.position.y));
+      const dangerProximity = Math.max(0, 1 - (lowestY - DANGER_Y) / (PLAYFIELD_HEIGHT * 0.3));
+      dangerPulse += dt * (2 + dangerProximity * 4);
+      const dangerChild = wallGroup.children.find(c => c.position.y === DANGER_Y);
+      if (dangerChild) {
+        const pulse = 0.3 + dangerProximity * 0.5 + Math.sin(dangerPulse) * 0.2 * dangerProximity;
+        ((dangerChild as Mesh).material as MeshBasicMaterial).opacity = pulse;
+        if (dangerProximity > 0.5) {
+          ((dangerChild as Mesh).material as MeshBasicMaterial).color.setRGB(1, 0.1 + 0.3 * (1 - dangerProximity), 0.1);
+        }
+      }
+    }
 
     // Animate grid bubbles
     for (const b of grid) {

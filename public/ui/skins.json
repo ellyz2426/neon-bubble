@@ -161,17 +161,7 @@
               "cursor": "pointer"
             },
             "dataUid": "uid-13"
-          }
-        ],
-        "properties": {
-          "class": "skin-row"
-        },
-        "dataUid": "uid-3"
-      },
-      {
-        "type": "container",
-        "sourceTag": "div",
-        "children": [
+          },
           {
             "type": "container",
             "sourceTag": "div",
@@ -186,7 +176,7 @@
                   "id": "sn-4",
                   "class": "skin-name"
                 },
-                "dataUid": "uid-18"
+                "dataUid": "uid-17"
               },
               {
                 "sourceTag": "span",
@@ -198,7 +188,7 @@
                   "id": "ss-4",
                   "class": "skin-status"
                 },
-                "dataUid": "uid-19"
+                "dataUid": "uid-18"
               }
             ],
             "properties": {
@@ -206,8 +196,18 @@
               "class": "skin-btn",
               "cursor": "pointer"
             },
-            "dataUid": "uid-17"
-          },
+            "dataUid": "uid-16"
+          }
+        ],
+        "properties": {
+          "class": "skin-row"
+        },
+        "dataUid": "uid-3"
+      },
+      {
+        "type": "container",
+        "sourceTag": "div",
+        "children": [
           {
             "type": "container",
             "sourceTag": "div",
@@ -315,12 +315,84 @@
               "cursor": "pointer"
             },
             "dataUid": "uid-26"
+          },
+          {
+            "type": "container",
+            "sourceTag": "div",
+            "children": [
+              {
+                "sourceTag": "span",
+                "type": "custom",
+                "children": [
+                  "Midnight Prism"
+                ],
+                "properties": {
+                  "id": "sn-8",
+                  "class": "skin-name"
+                },
+                "dataUid": "uid-30"
+              },
+              {
+                "sourceTag": "span",
+                "type": "custom",
+                "children": [
+                  "LOCKED"
+                ],
+                "properties": {
+                  "id": "ss-8",
+                  "class": "skin-status"
+                },
+                "dataUid": "uid-31"
+              }
+            ],
+            "properties": {
+              "id": "skin-8",
+              "class": "skin-btn",
+              "cursor": "pointer"
+            },
+            "dataUid": "uid-29"
+          },
+          {
+            "type": "container",
+            "sourceTag": "div",
+            "children": [
+              {
+                "sourceTag": "span",
+                "type": "custom",
+                "children": [
+                  "Hologram"
+                ],
+                "properties": {
+                  "id": "sn-9",
+                  "class": "skin-name"
+                },
+                "dataUid": "uid-33"
+              },
+              {
+                "sourceTag": "span",
+                "type": "custom",
+                "children": [
+                  "LOCKED"
+                ],
+                "properties": {
+                  "id": "ss-9",
+                  "class": "skin-status"
+                },
+                "dataUid": "uid-34"
+              }
+            ],
+            "properties": {
+              "id": "skin-9",
+              "class": "skin-btn",
+              "cursor": "pointer"
+            },
+            "dataUid": "uid-32"
           }
         ],
         "properties": {
           "class": "skin-row"
         },
-        "dataUid": "uid-16"
+        "dataUid": "uid-19"
       },
       {
         "type": "container",
@@ -335,7 +407,7 @@
             "properties": {
               "class": "back-text"
             },
-            "dataUid": "uid-30"
+            "dataUid": "uid-36"
           }
         ],
         "properties": {
@@ -343,7 +415,7 @@
           "class": "back-btn",
           "cursor": "pointer"
         },
-        "dataUid": "uid-29"
+        "dataUid": "uid-35"
       }
     ],
     "properties": {
@@ -359,13 +431,13 @@
         "alignItems": "center",
         "paddingTop": "3",
         "paddingBottom": "3",
-        "paddingLeft": "5",
-        "paddingRight": "5",
-        "backgroundColor": "rgba(0, 0, 0, 0.9)",
+        "paddingLeft": "4",
+        "paddingRight": "4",
+        "backgroundColor": "rgba(0, 0, 0, 0.92)",
         "borderColor": "#00ffff",
         "borderWidth": "0.15",
         "borderRadius": 1.5,
-        "gap": "1.5"
+        "gap": "1.2"
       }
     },
     "skins-title": {
@@ -379,7 +451,7 @@
       "content": {
         "display": "flex",
         "flexDirection": "row",
-        "gap": "1.5",
+        "gap": "1",
         "width": "100%"
       }
     },
@@ -387,30 +459,30 @@
       "content": {
         "display": "flex",
         "flexDirection": "column",
-        "paddingTop": "1",
-        "paddingBottom": "1",
-        "paddingLeft": "1.5",
-        "paddingRight": "1.5",
-        "backgroundColor": "rgba(0, 255, 255, 0.1)",
+        "paddingTop": "0.8",
+        "paddingBottom": "0.8",
+        "paddingLeft": "1",
+        "paddingRight": "1",
+        "backgroundColor": "rgba(0, 255, 255, 0.08)",
         "borderColor": "#00ffff",
-        "borderWidth": "0.08",
-        "borderRadius": 0.6,
+        "borderWidth": "0.06",
+        "borderRadius": 0.5,
         "cursor": "pointer",
         "flex": "1",
         "alignItems": "center",
-        "gap": "0.3"
+        "gap": "0.2"
       }
     },
     "skin-name": {
       "content": {
-        "fontSize": "1.3",
+        "fontSize": "1.1",
         "color": "#00ffff",
         "fontWeight": "bold"
       }
     },
     "skin-status": {
       "content": {
-        "fontSize": "1",
+        "fontSize": "0.9",
         "color": "#808080"
       }
     },
@@ -521,7 +593,7 @@
         "column": 0
       },
       "end": {
-        "line": 79,
+        "line": 81,
         "column": 6
       }
     },
@@ -541,7 +613,7 @@
         "column": 2
       },
       "end": {
-        "line": 71,
+        "line": 72,
         "column": 8
       }
     },
@@ -667,42 +739,42 @@
     },
     "uid-16": {
       "start": {
-        "line": 72,
-        "column": 2
+        "line": 71,
+        "column": 4
       },
       "end": {
-        "line": 77,
-        "column": 8
+        "line": 71,
+        "column": 162
       }
     },
     "uid-17": {
       "start": {
-        "line": 73,
-        "column": 4
+        "line": 71,
+        "column": 55
       },
       "end": {
-        "line": 73,
-        "column": 162
+        "line": 71,
+        "column": 107
       }
     },
     "uid-18": {
       "start": {
-        "line": 73,
-        "column": 55
+        "line": 71,
+        "column": 107
       },
       "end": {
-        "line": 73,
-        "column": 107
+        "line": 71,
+        "column": 156
       }
     },
     "uid-19": {
       "start": {
         "line": 73,
-        "column": 107
+        "column": 2
       },
       "end": {
-        "line": 73,
-        "column": 156
+        "line": 79,
+        "column": 8
       }
     },
     "uid-20": {
@@ -797,21 +869,81 @@
     },
     "uid-29": {
       "start": {
-        "line": 78,
-        "column": 2
+        "line": 77,
+        "column": 4
       },
       "end": {
-        "line": 78,
-        "column": 96
+        "line": 77,
+        "column": 165
       }
     },
     "uid-30": {
+      "start": {
+        "line": 77,
+        "column": 55
+      },
+      "end": {
+        "line": 77,
+        "column": 110
+      }
+    },
+    "uid-31": {
+      "start": {
+        "line": 77,
+        "column": 110
+      },
+      "end": {
+        "line": 77,
+        "column": 159
+      }
+    },
+    "uid-32": {
+      "start": {
+        "line": 78,
+        "column": 4
+      },
+      "end": {
+        "line": 78,
+        "column": 159
+      }
+    },
+    "uid-33": {
       "start": {
         "line": 78,
         "column": 55
       },
       "end": {
         "line": 78,
+        "column": 104
+      }
+    },
+    "uid-34": {
+      "start": {
+        "line": 78,
+        "column": 104
+      },
+      "end": {
+        "line": 78,
+        "column": 153
+      }
+    },
+    "uid-35": {
+      "start": {
+        "line": 80,
+        "column": 2
+      },
+      "end": {
+        "line": 80,
+        "column": 96
+      }
+    },
+    "uid-36": {
+      "start": {
+        "line": 80,
+        "column": 55
+      },
+      "end": {
+        "line": 80,
         "column": 90
       }
     }
