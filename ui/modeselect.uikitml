@@ -119,6 +119,10 @@
       <span class="mode-name chal-text">CHALLENGE</span>
       <span class="mode-desc">Custom seeds</span>
     </div>
+    <div id="btn-weekly" class="mode-btn" cursor="pointer">
+      <span class="mode-name">WEEKLY</span>
+      <span class="mode-desc">Rotating weekly</span>
+    </div>
   </div>
   <div id="btn-back" class="back-btn" cursor="pointer"><span class="back-text">BACK</span></div>
 </div>

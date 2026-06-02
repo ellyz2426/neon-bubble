@@ -363,6 +363,40 @@
               "cursor": "pointer"
             },
             "dataUid": "uid-32"
+          },
+          {
+            "type": "container",
+            "sourceTag": "div",
+            "children": [
+              {
+                "sourceTag": "span",
+                "type": "custom",
+                "children": [
+                  "WEEKLY"
+                ],
+                "properties": {
+                  "class": "mode-name"
+                },
+                "dataUid": "uid-36"
+              },
+              {
+                "sourceTag": "span",
+                "type": "custom",
+                "children": [
+                  "Rotating weekly"
+                ],
+                "properties": {
+                  "class": "mode-desc"
+                },
+                "dataUid": "uid-37"
+              }
+            ],
+            "properties": {
+              "id": "btn-weekly",
+              "class": "mode-btn",
+              "cursor": "pointer"
+            },
+            "dataUid": "uid-35"
           }
         ],
         "properties": {
@@ -383,7 +417,7 @@
             "properties": {
               "class": "back-text"
             },
-            "dataUid": "uid-36"
+            "dataUid": "uid-39"
           }
         ],
         "properties": {
@@ -391,7 +425,7 @@
           "class": "back-btn",
           "cursor": "pointer"
         },
-        "dataUid": "uid-35"
+        "dataUid": "uid-38"
       }
     ],
     "properties": {
@@ -631,7 +665,7 @@
         "column": 0
       },
       "end": {
-        "line": 123,
+        "line": 127,
         "column": 6
       }
     },
@@ -931,7 +965,7 @@
         "column": 2
       },
       "end": {
-        "line": 121,
+        "line": 125,
         "column": 8
       }
     },
@@ -967,21 +1001,51 @@
     },
     "uid-35": {
       "start": {
-        "line": 122,
-        "column": 2
+        "line": 121,
+        "column": 4
       },
       "end": {
-        "line": 122,
-        "column": 96
+        "line": 124,
+        "column": 10
       }
     },
     "uid-36": {
       "start": {
         "line": 122,
-        "column": 55
+        "column": 6
       },
       "end": {
         "line": 122,
+        "column": 43
+      }
+    },
+    "uid-37": {
+      "start": {
+        "line": 123,
+        "column": 6
+      },
+      "end": {
+        "line": 123,
+        "column": 52
+      }
+    },
+    "uid-38": {
+      "start": {
+        "line": 126,
+        "column": 2
+      },
+      "end": {
+        "line": 126,
+        "column": 96
+      }
+    },
+    "uid-39": {
+      "start": {
+        "line": 126,
+        "column": 55
+      },
+      "end": {
+        "line": 126,
         "column": 90
       }
     }

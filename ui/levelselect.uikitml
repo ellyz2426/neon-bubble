@@ -1,0 +1,142 @@
+<style>
+  .ls-panel {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding-top: 2;
+    padding-bottom: 2;
+    padding-left: 3;
+    padding-right: 3;
+    background-color: rgba(0, 0, 0, 0.9);
+    border-color: #00ffff;
+    border-width: 0.15;
+    border-radius: 1.5;
+    gap: 1;
+  }
+  .ls-title {
+    font-size: 3;
+    color: #00ffff;
+    font-weight: bold;
+  }
+  .ls-subtitle {
+    font-size: 1.2;
+    color: #808080;
+  }
+  .ls-grid {
+    display: flex;
+    flex-direction: column;
+    gap: 0.8;
+    width: 100%;
+  }
+  .ls-row {
+    display: flex;
+    flex-direction: row;
+    gap: 0.8;
+    width: 100%;
+  }
+  .ls-cell {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding-top: 0.6;
+    padding-bottom: 0.6;
+    padding-left: 0.4;
+    padding-right: 0.4;
+    background-color: rgba(0, 255, 255, 0.08);
+    border-color: #00ffff;
+    border-width: 0.06;
+    border-radius: 0.5;
+    flex: 1;
+    cursor: pointer;
+    gap: 0.2;
+  }
+  .ls-cell-locked {
+    background-color: rgba(80, 80, 80, 0.15);
+    border-color: #444444;
+  }
+  .ls-cell-boss {
+    background-color: rgba(255, 68, 68, 0.12);
+    border-color: #ff4444;
+  }
+  .ls-num {
+    font-size: 1.8;
+    color: #00ffff;
+    font-weight: bold;
+  }
+  .ls-num-locked {
+    color: #444444;
+  }
+  .ls-num-boss {
+    color: #ff4444;
+  }
+  .ls-stars {
+    font-size: 1;
+    color: #ffaa00;
+  }
+  .ls-stars-empty {
+    color: #333333;
+  }
+  .ls-nav {
+    display: flex;
+    flex-direction: row;
+    gap: 2;
+    align-items: center;
+  }
+  .ls-nav-btn {
+    padding-top: 0.5;
+    padding-bottom: 0.5;
+    padding-left: 2;
+    padding-right: 2;
+    background-color: rgba(0, 255, 255, 0.15);
+    border-color: #00ffff;
+    border-width: 0.08;
+    border-radius: 0.5;
+    cursor: pointer;
+  }
+  .ls-nav-text {
+    font-size: 1.4;
+    color: #00ffff;
+  }
+  .ls-page-text {
+    font-size: 1.2;
+    color: #808080;
+  }
+  .back-btn {
+    padding-top: 0.6;
+    padding-bottom: 0.6;
+    padding-left: 3;
+    padding-right: 3;
+    background-color: rgba(128, 128, 128, 0.15);
+    border-color: #888888;
+    border-width: 0.08;
+    border-radius: 0.6;
+    cursor: pointer;
+  }
+  .back-text { font-size: 1.4; color: #888888; }
+</style>
+<div class="ls-panel">
+  <span class="ls-title">CAMPAIGN LEVELS</span>
+  <span id="ls-subtitle" class="ls-subtitle">Zone 1 — Levels 1-10</span>
+  <div class="ls-grid">
+    <div class="ls-row">
+      <div id="ls-0" class="ls-cell" cursor="pointer"><span id="ls-num-0" class="ls-num">1</span><span id="ls-stars-0" class="ls-stars">☆☆☆</span></div>
+      <div id="ls-1" class="ls-cell" cursor="pointer"><span id="ls-num-1" class="ls-num">2</span><span id="ls-stars-1" class="ls-stars">☆☆☆</span></div>
+      <div id="ls-2" class="ls-cell" cursor="pointer"><span id="ls-num-2" class="ls-num">3</span><span id="ls-stars-2" class="ls-stars">☆☆☆</span></div>
+      <div id="ls-3" class="ls-cell" cursor="pointer"><span id="ls-num-3" class="ls-num">4</span><span id="ls-stars-3" class="ls-stars">☆☆☆</span></div>
+      <div id="ls-4" class="ls-cell" cursor="pointer"><span id="ls-num-4" class="ls-num">5</span><span id="ls-stars-4" class="ls-stars">☆☆☆</span></div>
+    </div>
+    <div class="ls-row">
+      <div id="ls-5" class="ls-cell" cursor="pointer"><span id="ls-num-5" class="ls-num">6</span><span id="ls-stars-5" class="ls-stars">☆☆☆</span></div>
+      <div id="ls-6" class="ls-cell" cursor="pointer"><span id="ls-num-6" class="ls-num">7</span><span id="ls-stars-6" class="ls-stars">☆☆☆</span></div>
+      <div id="ls-7" class="ls-cell" cursor="pointer"><span id="ls-num-7" class="ls-num">8</span><span id="ls-stars-7" class="ls-stars">☆☆☆</span></div>
+      <div id="ls-8" class="ls-cell" cursor="pointer"><span id="ls-num-8" class="ls-num">9</span><span id="ls-stars-8" class="ls-stars">☆☆☆</span></div>
+      <div id="ls-9" class="ls-cell" cursor="pointer"><span id="ls-num-9" class="ls-num">10</span><span id="ls-stars-9" class="ls-stars">☆☆☆</span></div>
+    </div>
+  </div>
+  <div class="ls-nav">
+    <div id="btn-ls-prev" class="ls-nav-btn" cursor="pointer"><span class="ls-nav-text">◀ PREV</span></div>
+    <span id="ls-page" class="ls-page-text">1 / 5</span>
+    <div id="btn-ls-next" class="ls-nav-btn" cursor="pointer"><span class="ls-nav-text">NEXT ▶</span></div>
+  </div>
+  <div id="btn-ls-back" class="back-btn" cursor="pointer"><span class="back-text">BACK</span></div>
+</div>

@@ -1,0 +1,130 @@
+<style>
+  .trails-panel {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding-top: 2;
+    padding-bottom: 2;
+    padding-left: 4;
+    padding-right: 4;
+    background-color: rgba(0, 0, 0, 0.9);
+    border-color: #00ffff;
+    border-width: 0.15;
+    border-radius: 1.5;
+    gap: 1;
+  }
+  .trails-title {
+    font-size: 3;
+    color: #00ffff;
+    font-weight: bold;
+  }
+  .trails-subtitle {
+    font-size: 1.2;
+    color: #808080;
+  }
+  .trails-grid {
+    display: flex;
+    flex-direction: column;
+    gap: 0.8;
+    width: 100%;
+  }
+  .trails-row {
+    display: flex;
+    flex-direction: row;
+    gap: 1;
+    width: 100%;
+  }
+  .trail-btn {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding-top: 0.8;
+    padding-bottom: 0.8;
+    padding-left: 1;
+    padding-right: 1;
+    background-color: rgba(0, 255, 255, 0.1);
+    border-color: #00ffff;
+    border-width: 0.08;
+    border-radius: 0.6;
+    flex: 1;
+    cursor: pointer;
+    gap: 0.3;
+  }
+  .trail-btn-locked {
+    background-color: rgba(80, 80, 80, 0.1);
+    border-color: #444444;
+  }
+  .trail-btn-active {
+    background-color: rgba(0, 255, 255, 0.25);
+    border-color: #00ffff;
+    border-width: 0.15;
+  }
+  .trail-name {
+    font-size: 1.4;
+    color: #00ffff;
+    font-weight: bold;
+  }
+  .trail-name-locked {
+    color: #444444;
+  }
+  .trail-desc {
+    font-size: 0.9;
+    color: #808080;
+  }
+  .trail-icon {
+    font-size: 2;
+  }
+  .back-btn {
+    padding-top: 0.6;
+    padding-bottom: 0.6;
+    padding-left: 3;
+    padding-right: 3;
+    background-color: rgba(128, 128, 128, 0.15);
+    border-color: #888888;
+    border-width: 0.08;
+    border-radius: 0.6;
+    cursor: pointer;
+  }
+  .back-text { font-size: 1.4; color: #888888; }
+</style>
+<div class="trails-panel">
+  <span class="trails-title">TRAIL STYLES</span>
+  <span id="trails-current" class="trails-subtitle">Current: Classic</span>
+  <div class="trails-grid">
+    <div class="trails-row">
+      <div id="trail-0" class="trail-btn" cursor="pointer">
+        <span class="trail-icon">✧</span>
+        <span id="trail-name-0" class="trail-name">CLASSIC</span>
+        <span class="trail-desc">Default trail</span>
+      </div>
+      <div id="trail-1" class="trail-btn" cursor="pointer">
+        <span class="trail-icon">🔥</span>
+        <span id="trail-name-1" class="trail-name">FLAME</span>
+        <span class="trail-desc">10 games</span>
+      </div>
+      <div id="trail-2" class="trail-btn" cursor="pointer">
+        <span class="trail-icon">⚡</span>
+        <span id="trail-name-2" class="trail-name">ELECTRIC</span>
+        <span class="trail-desc">Level 10</span>
+      </div>
+    </div>
+    <div class="trails-row">
+      <div id="trail-3" class="trail-btn" cursor="pointer">
+        <span class="trail-icon">❄</span>
+        <span id="trail-name-3" class="trail-name">FROST</span>
+        <span class="trail-desc">3-star 5 lvls</span>
+      </div>
+      <div id="trail-4" class="trail-btn" cursor="pointer">
+        <span class="trail-icon">🌈</span>
+        <span id="trail-name-4" class="trail-name">RAINBOW</span>
+        <span class="trail-desc">Level 20</span>
+      </div>
+      <div id="trail-5" class="trail-btn" cursor="pointer">
+        <span class="trail-icon">💎</span>
+        <span id="trail-name-5" class="trail-name">PRISMATIC</span>
+        <span class="trail-desc">50 achievements</span>
+      </div>
+    </div>
+  </div>
+  <div id="btn-trails-back" class="back-btn" cursor="pointer"><span class="back-text">BACK</span></div>
+</div>

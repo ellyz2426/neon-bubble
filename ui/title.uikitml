@@ -78,6 +78,7 @@
     <span id="title-streak" class="streak-display">🔥 0 Day Streak</span>
   </div>
   <div id="btn-play" class="menu-btn" cursor="pointer"><span class="menu-btn-text">PLAY</span></div>
+  <div id="btn-levelselect" class="menu-btn" cursor="pointer"><span class="menu-btn-text">LEVEL SELECT</span></div>
   <div id="btn-scores" class="menu-btn btn-scores" cursor="pointer"><span class="menu-btn-text btn-scores-text">SCORES</span></div>
   <div id="btn-achievements" class="menu-btn btn-achievements" cursor="pointer"><span class="menu-btn-text btn-achievements-text">ACHIEVEMENTS</span></div>
   <div id="btn-xp" class="menu-btn btn-xp" cursor="pointer"><span class="menu-btn-text btn-xp-text">XP / LEVEL</span></div>
@@ -85,6 +86,7 @@
   <div id="btn-career" class="menu-btn btn-career" cursor="pointer"><span class="menu-btn-text btn-career-text">CAREER</span></div>
   <div id="btn-stats" class="menu-btn btn-stats" cursor="pointer"><span class="menu-btn-text btn-stats-text">STATS</span></div>
   <div id="btn-skins" class="menu-btn" cursor="pointer"><span class="menu-btn-text">BUBBLE SKINS</span></div>
+  <div id="btn-trails" class="menu-btn" cursor="pointer"><span class="menu-btn-text">TRAIL STYLES</span></div>
   <div id="btn-settings" class="menu-btn btn-settings" cursor="pointer"><span class="menu-btn-text btn-settings-text">SETTINGS</span></div>
   <div id="btn-help" class="menu-btn btn-help" cursor="pointer"><span class="menu-btn-text btn-help-text">HELP</span></div>
 </div>

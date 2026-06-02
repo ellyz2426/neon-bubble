@@ -1,6 +1,6 @@
 // Neon Bubble VR — Holodeck Puzzle Bobble / Bubble Shooter
 // IWSDK 0.4.1 | All UI via PanelUI | Zero HTML DOM
-// Round 4: Daily streaks, career/prestige, boss health, 100 achievements, enhanced difficulty curve
+// Round 5: Level select, trail styles, weekly challenge, dynamic music, 115 achievements
 
 import {
   World,
@@ -40,8 +40,27 @@ import {
 // ─── TYPES & CONSTANTS ────────────────────────────────────────────
 type GameState = 'title' | 'modeselect' | 'difficulty' | 'playing' | 'paused' | 'gameover' |
   'leaderboard' | 'achievements' | 'settings' | 'help' | 'stats' | 'skins' | 'countdown' |
-  'levelcomplete' | 'xp' | 'tournament' | 'challenge' | 'bossintro' | 'streak' | 'season';
-type GameMode = 'campaign' | 'endless' | 'timeattack' | 'precision' | 'daily' | 'zen' | 'practice' | 'tournament' | 'challenge';
+  'levelcomplete' | 'xp' | 'tournament' | 'challenge' | 'bossintro' | 'streak' | 'season' |
+  'levelselect' | 'trails';
+type GameMode = 'campaign' | 'endless' | 'timeattack' | 'precision' | 'daily' | 'weekly' | 'zen' | 'practice' | 'tournament' | 'challenge';
+
+// ─── TRAIL STYLES ─────────────────────────────────────────────
+interface TrailStyle {
+  name: string;
+  colors: [number, number, number][];
+  size: number;
+  count: number; // particles per emit
+  life: number;
+  unlockCondition: string;
+}
+const TRAIL_STYLES: TrailStyle[] = [
+  { name: 'CLASSIC', colors: [[0,1,1]], size: 0.008, count: 1, life: 0.25, unlockCondition: 'default' },
+  { name: 'FLAME', colors: [[1,0.5,0],[1,0.2,0],[1,0.8,0]], size: 0.01, count: 2, life: 0.3, unlockCondition: '10 games played' },
+  { name: 'ELECTRIC', colors: [[0.3,0.5,1],[0.6,0.8,1],[1,1,1]], size: 0.006, count: 3, life: 0.15, unlockCondition: 'Player level 10' },
+  { name: 'FROST', colors: [[0.5,0.8,1],[0.8,0.95,1],[1,1,1]], size: 0.009, count: 2, life: 0.35, unlockCondition: '3-star 5 campaign levels' },
+  { name: 'RAINBOW', colors: [[1,0,0],[1,0.5,0],[1,1,0],[0,1,0],[0,0.5,1],[0.5,0,1]], size: 0.008, count: 2, life: 0.3, unlockCondition: 'Player level 20' },
+  { name: 'PRISMATIC', colors: [[1,0,1],[0,1,1],[1,1,0],[1,0.5,0.5]], size: 0.012, count: 3, life: 0.4, unlockCondition: '50 achievements unlocked' },
+];
 type BubbleColor = 0 | 1 | 2 | 3 | 4 | 5;
 type Difficulty = 'easy' | 'medium' | 'hard';
 type SpecialBubble = 'bomb' | 'rainbow' | 'lightning' | 'fire' | 'frozen' | 'stone' | 'poison';
@@ -165,7 +184,7 @@ const THEMES: Theme[] = [
   { name: 'Solar Blaze', grid: '#ff8800', accent: '#ffff00', bg: '#0a0400', fog: '#0a0400', bubbleGlow: 1.0, wallColor: '#442200' },
 ];
 
-// ─── ACHIEVEMENTS (84) ───────────────────────────────────────────
+// ─── ACHIEVEMENTS (115) ───────────────────────────────────────────
 interface Achievement { id: string; name: string; desc: string; }
 const ACHIEVEMENTS: Achievement[] = [
   // Popping (8)
@@ -289,6 +308,24 @@ const ACHIEVEMENTS: Achievement[] = [
   { id: 'prestige_3', name: 'Prestige III', desc: 'Reach Prestige level 3' },
   { id: 'season_complete', name: 'Season Vet', desc: 'Complete a season' },
   { id: 'century', name: 'Century', desc: 'Unlock all 100 achievements' },
+  // Round 5: Trail & Level Select (5)
+  { id: 'trail_unlock', name: 'Trail Blazer', desc: 'Unlock a trail style' },
+  { id: 'trail_all', name: 'Trail Master', desc: 'Unlock all trail styles' },
+  { id: 'level_replay_3star', name: 'Replay Hero', desc: 'Replay a level and earn 3 stars' },
+  { id: 'weekly_complete', name: 'Weekly Warrior', desc: 'Complete a weekly challenge' },
+  { id: 'weekly_3', name: 'Week Streak', desc: 'Complete 3 weekly challenges' },
+  // Round 5: Mastery depth (5)
+  { id: 'combo_cascade', name: 'Chain Lightning', desc: 'Cascade during x5+ combo' },
+  { id: 'boss_all_hard', name: 'Ultimate Boss', desc: 'Defeat all bosses on hard' },
+  { id: 'consecutive_5', name: 'Streak Runner', desc: 'Clear 5 levels without game over' },
+  { id: 'score_200k', name: 'Transcendent', desc: 'Score 200,000+ in one game' },
+  { id: 'diamond_tier', name: 'Diamond League', desc: 'Reach Diamond prestige tier' },
+  // Round 5: Variety (5)
+  { id: 'first_campaign_clear', name: 'Story Mode', desc: 'Select a level from Level Select' },
+  { id: 'all_themes_used', name: 'World Traveler', desc: 'Play on all 5 arena themes' },
+  { id: 'total_pops_5k', name: 'Pop Factory', desc: 'Pop 5,000 bubbles lifetime' },
+  { id: 'session_60m', name: 'Dedicated Gamer', desc: 'Play for 60 min in one session' },
+  { id: 'century_plus', name: 'Beyond Century', desc: 'Unlock all 115 achievements' },
 ];
 
 
@@ -389,6 +426,14 @@ function getStreakXPBonus(streak: number): number {
   return 0;
 }
 
+function getWeeklySeed(): number {
+  const d = new Date();
+  const start = new Date(d.getFullYear(), 0, 1);
+  const diff = d.getTime() - start.getTime();
+  const weekNum = Math.floor(diff / (7 * 24 * 60 * 60 * 1000));
+  return d.getFullYear() * 100 + weekNum;
+}
+
 // ─── SEASON / PRESTIGE SYSTEM ─────────────────────────────────────
 interface SeasonData {
   season: number;
@@ -419,6 +464,8 @@ class AudioManager {
   private musicGain: GainNode | null = null;
   private musicOscs: OscillatorNode[] = [];
   private musicPlaying = false;
+  private intensityFilter: BiquadFilterNode | null = null;
+  private intensityGain: GainNode | null = null;
 
   init() {
     if (this.ctx) return;
@@ -545,13 +592,40 @@ class AudioManager {
     const lfo2Gain = this.ctx.createGain(); lfo2Gain.gain.value = 0.02;
     lfo2.connect(lfo2Gain); lfo2Gain.connect(shimmerGain.gain); lfo2.start();
 
-    this.musicOscs = [bass, pad, pad2, shimmer, lfo, lfo2];
+    // Dynamic intensity layer — arpeggiator that rises with intensity
+    const arp = this.ctx.createOscillator();
+    arp.type = 'sine'; arp.frequency.value = 220;
+    const arpFilter = this.ctx.createBiquadFilter();
+    arpFilter.type = 'lowpass'; arpFilter.frequency.value = 200; // starts barely audible
+    this.intensityFilter = arpFilter;
+    const arpGain = this.ctx.createGain(); arpGain.gain.value = 0.06;
+    this.intensityGain = arpGain;
+    arp.connect(arpFilter); arpFilter.connect(arpGain); arpGain.connect(this.musicGain); arp.start();
+
+    // LFO for arp pitch wobble
+    const arpLfo = this.ctx.createOscillator();
+    arpLfo.type = 'sine'; arpLfo.frequency.value = 3;
+    const arpLfoGain = this.ctx.createGain(); arpLfoGain.gain.value = 40;
+    arpLfo.connect(arpLfoGain); arpLfoGain.connect(arp.frequency); arpLfo.start();
+
+    this.musicOscs = [bass, pad, pad2, shimmer, lfo, lfo2, arp, arpLfo];
+  }
+
+  // Call each frame with combo level and danger proximity (0-1)
+  setIntensity(comboLevel: number, danger: number) {
+    if (!this.intensityFilter || !this.intensityGain) return;
+    // Open filter with intensity — combo adds brightness, danger adds volume
+    const intensity = Math.min(1, (comboLevel - 1) * 0.15 + danger * 0.4);
+    this.intensityFilter.frequency.value = 200 + intensity * 1800;
+    this.intensityGain.gain.value = 0.02 + intensity * 0.08;
   }
 
   stopMusic() {
     this.musicOscs.forEach(o => { try { o.stop(); } catch {} });
     this.musicOscs = [];
     this.musicPlaying = false;
+    this.intensityFilter = null;
+    this.intensityGain = null;
   }
 }
 
@@ -767,6 +841,14 @@ async function main() {
   // Season / Prestige
   let seasonData: SeasonData = { season: 1, seasonPoints: 0, prestigeLevel: 0, careerTotal: 0, tier: 0 };
 
+  // Trail styles
+  let trailStyleIndex = 0;
+  let unlockedTrails: number[] = [0];
+
+  // Level select
+  let levelSelectPage = 0;
+  let highestLevelUnlocked = 0;
+
   // Modes played tracking
   let modesPlayed: Set<string> = new Set();
 
@@ -823,6 +905,9 @@ async function main() {
   streakData = storage.get('streakData', streakData);
   seasonData = storage.get('seasonData', seasonData);
   modesPlayed = new Set(storage.get('modesPlayed', []));
+  trailStyleIndex = storage.get('trailStyleIndex', 0);
+  unlockedTrails = storage.get('unlockedTrails', [0]);
+  highestLevelUnlocked = storage.get('highestLevelUnlocked', 0);
 
   // Check and update streak on load
   function updateDailyStreak() {
@@ -870,6 +955,7 @@ async function main() {
       if (seasonData.prestigeLevel >= 1) unlockAchievement('prestige_1');
       if (seasonData.prestigeLevel >= 3) unlockAchievement('prestige_3');
     }
+    if (seasonData.tier >= 3) unlockAchievement('diamond_tier');
     storage.set('seasonData', seasonData);
   }
 
@@ -887,6 +973,26 @@ async function main() {
     saveAchievements();
     audio.achievement();
     showToast('🏆 ' + ACHIEVEMENTS.find(a => a.id === id)?.name);
+    // Check trail unlocks on achievement count
+    checkTrailUnlocks();
+    // Check century+ (all 115)
+    if (unlockedAchievements.length >= 115) unlockAchievement('century_plus');
+  }
+
+  function checkTrailUnlocks() {
+    // Trail 1 (Flame): 10 games
+    if (stats.games >= 10 && !unlockedTrails.includes(1)) { unlockedTrails.push(1); storage.set('unlockedTrails', unlockedTrails); unlockAchievement('trail_unlock'); showToast('🔥 Trail Unlocked: FLAME'); }
+    // Trail 2 (Electric): Level 10
+    if (playerLevel >= 10 && !unlockedTrails.includes(2)) { unlockedTrails.push(2); storage.set('unlockedTrails', unlockedTrails); unlockAchievement('trail_unlock'); showToast('⚡ Trail Unlocked: ELECTRIC'); }
+    // Trail 3 (Frost): 5 three-star levels
+    const threeStarCount = Object.values(levelStars).filter(s => s >= 3).length;
+    if (threeStarCount >= 5 && !unlockedTrails.includes(3)) { unlockedTrails.push(3); storage.set('unlockedTrails', unlockedTrails); unlockAchievement('trail_unlock'); showToast('❄ Trail Unlocked: FROST'); }
+    // Trail 4 (Rainbow): Level 20
+    if (playerLevel >= 20 && !unlockedTrails.includes(4)) { unlockedTrails.push(4); storage.set('unlockedTrails', unlockedTrails); unlockAchievement('trail_unlock'); showToast('🌈 Trail Unlocked: RAINBOW'); }
+    // Trail 5 (Prismatic): 50 achievements
+    if (unlockedAchievements.length >= 50 && !unlockedTrails.includes(5)) { unlockedTrails.push(5); storage.set('unlockedTrails', unlockedTrails); unlockAchievement('trail_unlock'); showToast('💎 Trail Unlocked: PRISMATIC'); }
+    // All trails unlocked
+    if (unlockedTrails.length >= TRAIL_STYLES.length) unlockAchievement('trail_all');
   }
 
   function awardXP(amount: number) {
@@ -1518,6 +1624,7 @@ async function main() {
       if (disconnected.length >= 10) unlockAchievement('cascade_10');
       if (disconnected.length >= 15) unlockAchievement('cascade_15');
       if (disconnected.length >= 20) unlockAchievement('cascade_20');
+      if (combo >= 5 && disconnected.length >= 5) unlockAchievement('combo_cascade');
       if (stats.totalCascades >= 50) unlockAchievement('cascades_50');
 
       // Big cascade = screen shake + replay trigger
@@ -1789,6 +1896,19 @@ async function main() {
       for (let r = 0; r < layout.length; r++) {
         for (let c = 0; c < layout[r].length; c++) addGridBubble(r, c, layout[r][c]);
       }
+    } else if (gameMode === 'weekly') {
+      const wSeed = getWeeklySeed();
+      const layout = generateCampaignLevel(12, wSeed);
+      for (let r = 0; r < layout.length; r++) {
+        for (let c = 0; c < layout[r].length; c++) addGridBubble(r, c, layout[r][c]);
+      }
+      // Add some special bubbles for weekly challenge
+      const rng = seededRandom(wSeed * 17);
+      const allBubbles = [...grid];
+      for (const b of allBubbles) {
+        if (rng() < 0.04) { b.specialType = 'frozen'; b.frozenHits = 0; }
+        else if (rng() < 0.03) { b.specialType = 'stone'; }
+      }
     } else if (gameMode === 'challenge') {
       generateChallengeGrid(challengeConfig);
     } else if (gameMode === 'tournament') {
@@ -1835,7 +1955,7 @@ async function main() {
     // Track mode played
     modesPlayed.add(gameMode);
     storage.set('modesPlayed', [...modesPlayed]);
-    if (modesPlayed.size >= 9) unlockAchievement('all_modes_played');
+    if (modesPlayed.size >= 10) unlockAchievement('all_modes_played');
     if (shotBubble) { world.scene.remove(shotBubble.mesh); shotBubble = null; }
 
     if (gameMode === 'timeattack') timeLeft = 90;
@@ -1876,7 +1996,16 @@ async function main() {
       if (bossDefeatedCount >= BOSS_CONFIGS.length) unlockAchievement('boss_all');
       if (bossMissCount === 0) unlockAchievement('boss_no_miss');
       if (gamePlayTime - bossGameStartTime < 60) unlockAchievement('boss_speed');
-      if (difficulty === 'hard') unlockAchievement('boss_hard');
+      if (difficulty === 'hard') {
+        unlockAchievement('boss_hard');
+        let hardBossesDefeated: number[] = storage.get('hardBossesDefeated', []);
+        const bossIdx = getBossIndex(campaignLevel);
+        if (!hardBossesDefeated.includes(bossIdx)) {
+          hardBossesDefeated.push(bossIdx);
+          storage.set('hardBossesDefeated', hardBossesDefeated);
+        }
+        if (hardBossesDefeated.length >= BOSS_CONFIGS.length) unlockAchievement('boss_all_hard');
+      }
       // Check if boss was beaten before first regen
       if (currentBossConfig && currentBossConfig.regenInterval > 0 && bossRegenTimer < currentBossConfig.regenInterval) {
         unlockAchievement('boss_pre_regen');
@@ -1885,6 +2014,11 @@ async function main() {
 
     // New round 4 achievements
     consecutiveLevelsCleared++;
+    // Track highest level unlocked for level select
+    if (gameMode === 'campaign' && campaignLevel + 1 > highestLevelUnlocked) {
+      highestLevelUnlocked = campaignLevel + 1;
+      storage.set('highestLevelUnlocked', highestLevelUnlocked);
+    }
     if (touchedDangerZone) unlockAchievement('comeback_win');
     if (powerUpsUsedThisGame.size === 0) unlockAchievement('no_powerup');
     if (difficulty === 'hard') unlockAchievement('max_diff_win');
@@ -1954,6 +2088,12 @@ async function main() {
     if (stats.games >= 100) unlockAchievement('games_100');
     if (stats.games >= 500) unlockAchievement('games_500');
     if (gameMode === 'daily') unlockAchievement('daily_done');
+    if (gameMode === 'weekly') {
+      let weekliesCompleted = storage.get('weekliesCompleted', 0) + 1;
+      storage.set('weekliesCompleted', weekliesCompleted);
+      unlockAchievement('weekly_complete');
+      if (weekliesCompleted >= 3) unlockAchievement('weekly_3');
+    }
     if (gameMode === 'timeattack' && timeLeft >= 30) unlockAchievement('speed_clear');
     if (gameMode === 'zen' && zenBubblesPopped >= 100) unlockAchievement('zen_100');
     if (gameMode === 'endless' && gamePlayTime >= 300) unlockAchievement('endless_survive_5m');
@@ -1961,6 +2101,10 @@ async function main() {
     if (comboAbove3Timer >= 30) unlockAchievement('combo_30s');
     if (neverBrokeCombo && score > 0 && matchingShots >= 5) unlockAchievement('no_break_game');
     if (sessionPlayTime >= 1800) unlockAchievement('marathon'); // 30 minutes
+    if (sessionPlayTime >= 3600) unlockAchievement('session_60m'); // 60 minutes
+    if (score >= 200000) unlockAchievement('score_200k');
+    if (stats.totalPopped + bubblesPopped >= 5000) unlockAchievement('total_pops_5k');
+    if (consecutiveLevelsCleared >= 5) unlockAchievement('consecutive_5');
     const accuracy = shotsFired > 0 ? matchingShots / shotsFired : 0;
     if (accuracy >= 0.8 && shotsFired >= 5) unlockAchievement('accuracy_80');
     if (accuracy >= 0.95 && shotsFired >= 10) unlockAchievement('accuracy_95');
@@ -2074,6 +2218,8 @@ async function main() {
   createUIPanel('bossintro', '/ui/bossintro.json', { maxWidth: 0.6, maxHeight: 0.6, position: [0, 1.2, -1.2] });
   createUIPanel('streak', '/ui/streak.json', { maxWidth: 0.7, maxHeight: 1.0, position: [0, 1.2, -1.5] });
   createUIPanel('season', '/ui/season.json', { maxWidth: 0.8, maxHeight: 1.0, position: [0, 1.2, -1.5] });
+  createUIPanel('levelselect', '/ui/levelselect.json', { maxWidth: 0.9, maxHeight: 1.1, position: [0, 1.2, -1.5] });
+  createUIPanel('trails', '/ui/trails.json', { maxWidth: 0.7, maxHeight: 0.9, position: [0, 1.2, -1.5] });
 
   let uiBindingsReady = false;
   function tryBindUI() {
@@ -2093,6 +2239,8 @@ async function main() {
     bindClick(titleDoc, 'btn-xp', () => { showXP(); setGameState('xp'); });
     bindClick(titleDoc, 'btn-streak', () => { showStreak(); setGameState('streak'); });
     bindClick(titleDoc, 'btn-career', () => { showSeason(); setGameState('season'); });
+    bindClick(titleDoc, 'btn-levelselect', () => { levelSelectPage = 0; showLevelSelect(); setGameState('levelselect'); });
+    bindClick(titleDoc, 'btn-trails', () => { showTrails(); setGameState('trails'); });
     updateTitleXP();
 
     // Mode select
@@ -2105,6 +2253,7 @@ async function main() {
       bindClick(modeDoc, btnId, () => { gameMode = mode; setGameState('difficulty'); });
     }
     bindClick(modeDoc, 'btn-tournament', () => { gameMode = 'tournament'; initTournament(); showTournamentBracket(); setGameState('tournament'); });
+    bindClick(modeDoc, 'btn-weekly', () => { gameMode = 'weekly'; setGameState('difficulty'); });
     bindClick(modeDoc, 'btn-challenge', () => { gameMode = 'challenge'; updateChallengeUI(); setGameState('challenge'); });
     bindClick(modeDoc, 'btn-back', () => setGameState('title'));
 
@@ -2207,6 +2356,50 @@ async function main() {
 
     // Season
     bindClick(getDoc('season'), 'btn-back', () => setGameState('title'));
+
+    // Level Select
+    const lsDoc = getDoc('levelselect');
+    bindClick(lsDoc, 'btn-ls-prev', () => { levelSelectPage = Math.max(0, levelSelectPage - 1); showLevelSelect(); });
+    bindClick(lsDoc, 'btn-ls-next', () => { levelSelectPage = Math.min(4, levelSelectPage + 1); showLevelSelect(); });
+    bindClick(lsDoc, 'btn-ls-back', () => setGameState('title'));
+    for (let i = 0; i < 10; i++) {
+      const idx = i;
+      bindClick(lsDoc, `ls-${idx}`, () => {
+        const levelIdx = levelSelectPage * 10 + idx;
+        if (levelIdx <= highestLevelUnlocked) {
+          gameMode = 'campaign';
+          campaignLevel = levelIdx;
+          unlockAchievement('first_campaign_clear');
+          // Check if it's a boss level
+          if (isBossLevel(campaignLevel)) {
+            clearGrid(); generateGrid();
+            showBossIntro(); setGameState('bossintro');
+          } else {
+            clearGrid(); generateGrid();
+            setGameState('difficulty');
+          }
+        } else {
+          showToast('🔒 Level locked!');
+        }
+      });
+    }
+
+    // Trails
+    const trailsDoc = getDoc('trails');
+    bindClick(trailsDoc, 'btn-trails-back', () => setGameState('title'));
+    for (let i = 0; i < TRAIL_STYLES.length; i++) {
+      const ti = i;
+      bindClick(trailsDoc, `trail-${ti}`, () => {
+        if (unlockedTrails.includes(ti)) {
+          trailStyleIndex = ti;
+          storage.set('trailStyleIndex', trailStyleIndex);
+          showTrails();
+          showToast(`Trail: ${TRAIL_STYLES[ti].name}`);
+        } else {
+          showToast(`🔒 ${TRAIL_STYLES[ti].unlockCondition}`);
+        }
+      });
+    }
   }
 
   function bindSettingsButtons() {
@@ -2227,8 +2420,16 @@ async function main() {
         setText(doc, valueId, Math.round(audio[key] * 100).toString());
       });
     }
-    bindClick(doc, 'btn-theme-prev', () => { themeIndex = (themeIndex - 1 + THEMES.length) % THEMES.length; applyTheme(); setText(doc, 'theme-name', THEMES[themeIndex].name); });
-    bindClick(doc, 'btn-theme-next', () => { themeIndex = (themeIndex + 1) % THEMES.length; applyTheme(); setText(doc, 'theme-name', THEMES[themeIndex].name); });
+    bindClick(doc, 'btn-theme-prev', () => {
+      themeIndex = (themeIndex - 1 + THEMES.length) % THEMES.length; applyTheme(); setText(doc, 'theme-name', THEMES[themeIndex].name);
+      if (!usedThemes.includes(themeIndex)) { usedThemes.push(themeIndex); storage.set('usedThemes', usedThemes); }
+      if (usedThemes.length >= THEMES.length) unlockAchievement('all_themes_used');
+    });
+    bindClick(doc, 'btn-theme-next', () => {
+      themeIndex = (themeIndex + 1) % THEMES.length; applyTheme(); setText(doc, 'theme-name', THEMES[themeIndex].name);
+      if (!usedThemes.includes(themeIndex)) { usedThemes.push(themeIndex); storage.set('usedThemes', usedThemes); }
+      if (usedThemes.length >= THEMES.length) unlockAchievement('all_themes_used');
+    });
     bindClick(doc, 'btn-colorblind', () => {
       colorBlindMode = !colorBlindMode;
       storage.set('colorBlindMode', colorBlindMode);
@@ -2275,6 +2476,8 @@ async function main() {
       case 'bossintro': showPanel('bossintro'); break;
       case 'streak': showPanel('streak'); break;
       case 'season': showPanel('season'); break;
+      case 'levelselect': showPanel('levelselect'); break;
+      case 'trails': showPanel('trails'); break;
     }
   }
 
@@ -2466,6 +2669,42 @@ async function main() {
       } else {
         setText(doc, `tm-${i}a`, '--'); setText(doc, `tm-${i}b`, '--'); setText(doc, `tm-${i}s`, '--');
       }
+    }
+  }
+
+  // ─── LEVEL SELECT ──────────────────────────────────────────
+  function showLevelSelect() {
+    const doc = getDoc('levelselect');
+    const pageStart = levelSelectPage * 10;
+    const zoneNames = ['Alpha', 'Beta', 'Gamma', 'Delta', 'Epsilon'];
+    setText(doc, 'ls-subtitle', `Zone ${zoneNames[levelSelectPage] || levelSelectPage + 1} — Levels ${pageStart + 1}-${pageStart + 10}`);
+    setText(doc, 'ls-page', `${levelSelectPage + 1} / 5`);
+
+    for (let i = 0; i < 10; i++) {
+      const levelIdx = pageStart + i;
+      const levelNum = levelIdx + 1;
+      const isUnlocked = levelIdx <= highestLevelUnlocked;
+      const isBossLvl = isBossLevel(levelIdx);
+      const stars = levelStars[levelIdx] || 0;
+
+      setText(doc, `ls-num-${i}`, isUnlocked ? levelNum.toString() : '🔒');
+
+      if (isUnlocked) {
+        const starStr = (stars >= 1 ? '★' : '☆') + (stars >= 2 ? '★' : '☆') + (stars >= 3 ? '★' : '☆');
+        setText(doc, `ls-stars-${i}`, starStr);
+      } else {
+        setText(doc, `ls-stars-${i}`, '☆☆☆');
+      }
+    }
+  }
+
+  function showTrails() {
+    const doc = getDoc('trails');
+    setText(doc, 'trails-current', `Current: ${TRAIL_STYLES[trailStyleIndex].name}`);
+    for (let i = 0; i < TRAIL_STYLES.length; i++) {
+      const isUnlocked = unlockedTrails.includes(i);
+      const isActive = i === trailStyleIndex;
+      setText(doc, `trail-name-${i}`, isUnlocked ? TRAIL_STYLES[i].name : '🔒 LOCKED');
     }
   }
 
@@ -2694,8 +2933,17 @@ async function main() {
         trailTimer += dt;
         if (trailTimer >= 0.03) {
           trailTimer = 0;
-          const c = getColors()[s.color] || getColors()[0];
-          particles.trail(s.x, s.y, 0, new Color(c.r, c.g, c.b));
+          const ts = TRAIL_STYLES[trailStyleIndex] || TRAIL_STYLES[0];
+          const baseC = getColors()[s.color] || getColors()[0];
+          for (let ti = 0; ti < ts.count; ti++) {
+            const tc = ts.colors[Math.floor(Math.random() * ts.colors.length)];
+            const blendR = baseC.r * 0.5 + tc[0] * 0.5;
+            const blendG = baseC.g * 0.5 + tc[1] * 0.5;
+            const blendB = baseC.b * 0.5 + tc[2] * 0.5;
+            const offsetX = (Math.random() - 0.5) * 0.03 * (ts.count > 1 ? 1 : 0);
+            const offsetY = (Math.random() - 0.5) * 0.03 * (ts.count > 1 ? 1 : 0);
+            particles.trail(s.x + offsetX, s.y + offsetY, 0, new Color(blendR, blendG, blendB));
+          }
         }
 
         if (s.x <= PLAYFIELD_LEFT + BUBBLE_RADIUS) { s.x = PLAYFIELD_LEFT + BUBBLE_RADIUS; s.vx = Math.abs(s.vx); audio.wallBounce(); }
@@ -2735,6 +2983,8 @@ async function main() {
         const dangerProximity = Math.max(0, 1 - (lowestY - DANGER_Y) / (PLAYFIELD_HEIGHT * 0.3));
         if (dangerProximity > 0.7) touchedDangerZone = true;
         dangerPulse += dt * (2 + dangerProximity * 4);
+        // Dynamic music intensity
+        audio.setIntensity(combo, dangerProximity);
         const dangerChild = wallGroup.children.find(c => c.position.y === DANGER_Y);
         if (dangerChild) {
           const pulse = 0.3 + dangerProximity * 0.5 + Math.sin(dangerPulse) * 0.2 * dangerProximity;
