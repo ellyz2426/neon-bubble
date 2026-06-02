@@ -1,0 +1,53 @@
+<style>
+  .boss-panel {
+    display: flex;
+    flex-direction: column;
+    padding: 4;
+    background-color: rgba(20, 0, 0, 0.95);
+    border-color: #ff4444;
+    border-width: 0.2;
+    border-radius: 1.5;
+    gap: 2;
+    align-items: center;
+  }
+  .boss-warning {
+    font-size: 3;
+    color: #ff4444;
+    font-weight: bold;
+  }
+  .boss-name {
+    font-size: 5;
+    color: #ffaa00;
+    font-weight: bold;
+  }
+  .boss-desc {
+    font-size: 2;
+    color: #cccccc;
+  }
+  .boss-mechanic {
+    font-size: 1.5;
+    color: #ff8888;
+  }
+  .menu-button {
+    padding-x: 4;
+    padding-y: 1.2;
+    background-color: rgba(255, 68, 68, 0.2);
+    border-color: #ff4444;
+    border-width: 0.1;
+    border-radius: 0.8;
+    cursor: pointer;
+  }
+  .menu-button-text {
+    font-size: 2.5;
+    color: #ff4444;
+    font-weight: bold;
+  }
+</style>
+<div class="boss-panel">
+  <span class="boss-warning">WARNING</span>
+  <span id="boss-name" class="boss-name">BOSS LEVEL</span>
+  <span id="boss-desc" class="boss-desc">Defeat the formation!</span>
+  <span id="boss-mech1" class="boss-mechanic">Armored bubbles need 2 hits</span>
+  <span id="boss-mech2" class="boss-mechanic">Bubbles regenerate over time</span>
+  <button id="btn-boss-start" class="menu-button"><span class="menu-button-text">ENGAGE!</span></button>
+</div>

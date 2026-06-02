@@ -3,15 +3,15 @@
     display: flex;
     flex-direction: column;
     align-items: center;
-    padding-top: 3;
-    padding-bottom: 3;
-    padding-left: 5;
-    padding-right: 5;
+    padding-top: 2;
+    padding-bottom: 2;
+    padding-left: 4;
+    padding-right: 4;
     background-color: rgba(0, 0, 0, 0.9);
     border-color: #00ffff;
     border-width: 0.15;
     border-radius: 1.5;
-    gap: 1.5;
+    gap: 1;
   }
   .mode-title {
     font-size: 3.5;
@@ -27,8 +27,8 @@
   .mode-btn {
     display: flex;
     flex-direction: column;
-    padding-top: 1;
-    padding-bottom: 1;
+    padding-top: 0.8;
+    padding-bottom: 0.8;
     padding-left: 2;
     padding-right: 2;
     background-color: rgba(0, 255, 255, 0.12);
@@ -41,17 +41,27 @@
     gap: 0.3;
   }
   .mode-name {
-    font-size: 1.8;
+    font-size: 1.6;
     color: #00ffff;
     font-weight: bold;
   }
   .mode-desc {
-    font-size: 1;
+    font-size: 0.9;
     color: #808080;
   }
+  .tourn-btn {
+    background-color: rgba(255, 170, 0, 0.12);
+    border-color: #ffaa00;
+  }
+  .tourn-text { color: #ffaa00; }
+  .chal-btn {
+    background-color: rgba(255, 0, 255, 0.12);
+    border-color: #ff00ff;
+  }
+  .chal-text { color: #ff00ff; }
   .back-btn {
-    padding-top: 0.8;
-    padding-bottom: 0.8;
+    padding-top: 0.6;
+    padding-bottom: 0.6;
     padding-left: 3;
     padding-right: 3;
     background-color: rgba(128, 128, 128, 0.15);
@@ -60,17 +70,14 @@
     border-radius: 0.6;
     cursor: pointer;
   }
-  .back-text {
-    font-size: 1.8;
-    color: #888888;
-  }
+  .back-text { font-size: 1.6; color: #888888; }
 </style>
 <div class="mode-panel">
   <span class="mode-title">SELECT MODE</span>
   <div class="mode-row">
     <div id="btn-campaign" class="mode-btn" cursor="pointer">
       <span class="mode-name">CAMPAIGN</span>
-      <span class="mode-desc">36 levels, 6 zones</span>
+      <span class="mode-desc">50 levels, bosses</span>
     </div>
     <div id="btn-endless" class="mode-btn" cursor="pointer">
       <span class="mode-name">ENDLESS</span>
@@ -101,6 +108,16 @@
     <div id="btn-practice" class="mode-btn" cursor="pointer">
       <span class="mode-name">PRACTICE</span>
       <span class="mode-desc">Free play</span>
+    </div>
+    <div id="btn-tournament" class="mode-btn tourn-btn" cursor="pointer">
+      <span class="mode-name tourn-text">TOURNAMENT</span>
+      <span class="mode-desc">Bracket elimination</span>
+    </div>
+  </div>
+  <div class="mode-row">
+    <div id="btn-challenge" class="mode-btn chal-btn" cursor="pointer">
+      <span class="mode-name chal-text">CHALLENGE</span>
+      <span class="mode-desc">Custom seeds</span>
     </div>
   </div>
   <div id="btn-back" class="back-btn" cursor="pointer"><span class="back-text">BACK</span></div>

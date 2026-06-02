@@ -11,47 +11,44 @@
     border-color: #ff00ff;
     border-width: 0.15;
     border-radius: 1.5;
-    gap: 0.5;
+    gap: 0.4;
   }
-  .ach-title {
-    font-size: 3;
-    color: #ff00ff;
-    font-weight: bold;
-  }
-  .ach-count {
-    font-size: 1.5;
-    color: #808080;
-  }
+  .ach-title { font-size: 3; color: #ff00ff; font-weight: bold; }
+  .ach-count { font-size: 1.5; color: #808080; }
+  .ach-page { font-size: 1.2; color: #00ffff; }
   .ach-row {
     display: flex;
     flex-direction: row;
     width: 100%;
-    padding-top: 0.2;
-    padding-bottom: 0.2;
+    padding-top: 0.15;
+    padding-bottom: 0.15;
     gap: 0.8;
   }
-  .ach-check {
-    font-size: 1;
-    color: #444444;
-    width: 7%;
+  .ach-check { font-size: 1; color: #444444; width: 7%; }
+  .ach-done { color: #00ff80; }
+  .ach-name { font-size: 1; color: #ff00ff; width: 30%; font-weight: bold; }
+  .ach-desc { font-size: 0.9; color: #808080; width: 63%; }
+  .nav-row {
+    display: flex;
+    flex-direction: row;
+    gap: 2;
+    margin-top: 0.5;
   }
-  .ach-done {
-    color: #00ff80;
+  .nav-btn {
+    padding-top: 0.5;
+    padding-bottom: 0.5;
+    padding-left: 2;
+    padding-right: 2;
+    background-color: rgba(255, 0, 255, 0.15);
+    border-color: #ff00ff;
+    border-width: 0.08;
+    border-radius: 0.5;
+    cursor: pointer;
   }
-  .ach-name {
-    font-size: 1;
-    color: #ff00ff;
-    width: 30%;
-    font-weight: bold;
-  }
-  .ach-desc {
-    font-size: 0.9;
-    color: #808080;
-    width: 63%;
-  }
+  .nav-text { font-size: 1.5; color: #ff00ff; font-weight: bold; }
   .back-btn {
-    padding-top: 0.8;
-    padding-bottom: 0.8;
+    padding-top: 0.6;
+    padding-bottom: 0.6;
     padding-left: 3;
     padding-right: 3;
     background-color: rgba(128, 128, 128, 0.15);
@@ -59,32 +56,33 @@
     border-width: 0.08;
     border-radius: 0.6;
     cursor: pointer;
-    margin-top: 0.5;
   }
-  .back-text { font-size: 1.8; color: #888888; }
+  .back-text { font-size: 1.6; color: #888888; }
 </style>
 <div class="ach-panel">
   <span class="ach-title">ACHIEVEMENTS</span>
-  <span id="ach-count" class="ach-count">0 / 41</span>
-  <div id="ach-0" class="ach-row"><span id="ac-0" class="ach-check">[ ]</span><span id="an-0" class="ach-name">--</span><span id="ad-0" class="ach-desc">--</span></div>
-  <div id="ach-1" class="ach-row"><span id="ac-1" class="ach-check">[ ]</span><span id="an-1" class="ach-name">--</span><span id="ad-1" class="ach-desc">--</span></div>
-  <div id="ach-2" class="ach-row"><span id="ac-2" class="ach-check">[ ]</span><span id="an-2" class="ach-name">--</span><span id="ad-2" class="ach-desc">--</span></div>
-  <div id="ach-3" class="ach-row"><span id="ac-3" class="ach-check">[ ]</span><span id="an-3" class="ach-name">--</span><span id="ad-3" class="ach-desc">--</span></div>
-  <div id="ach-4" class="ach-row"><span id="ac-4" class="ach-check">[ ]</span><span id="an-4" class="ach-name">--</span><span id="ad-4" class="ach-desc">--</span></div>
-  <div id="ach-5" class="ach-row"><span id="ac-5" class="ach-check">[ ]</span><span id="an-5" class="ach-name">--</span><span id="ad-5" class="ach-desc">--</span></div>
-  <div id="ach-6" class="ach-row"><span id="ac-6" class="ach-check">[ ]</span><span id="an-6" class="ach-name">--</span><span id="ad-6" class="ach-desc">--</span></div>
-  <div id="ach-7" class="ach-row"><span id="ac-7" class="ach-check">[ ]</span><span id="an-7" class="ach-name">--</span><span id="ad-7" class="ach-desc">--</span></div>
-  <div id="ach-8" class="ach-row"><span id="ac-8" class="ach-check">[ ]</span><span id="an-8" class="ach-name">--</span><span id="ad-8" class="ach-desc">--</span></div>
-  <div id="ach-9" class="ach-row"><span id="ac-9" class="ach-check">[ ]</span><span id="an-9" class="ach-name">--</span><span id="ad-9" class="ach-desc">--</span></div>
-  <div id="ach-10" class="ach-row"><span id="ac-10" class="ach-check">[ ]</span><span id="an-10" class="ach-name">--</span><span id="ad-10" class="ach-desc">--</span></div>
-  <div id="ach-11" class="ach-row"><span id="ac-11" class="ach-check">[ ]</span><span id="an-11" class="ach-name">--</span><span id="ad-11" class="ach-desc">--</span></div>
-  <div id="ach-12" class="ach-row"><span id="ac-12" class="ach-check">[ ]</span><span id="an-12" class="ach-name">--</span><span id="ad-12" class="ach-desc">--</span></div>
-  <div id="ach-13" class="ach-row"><span id="ac-13" class="ach-check">[ ]</span><span id="an-13" class="ach-name">--</span><span id="ad-13" class="ach-desc">--</span></div>
-  <div id="ach-14" class="ach-row"><span id="ac-14" class="ach-check">[ ]</span><span id="an-14" class="ach-name">--</span><span id="ad-14" class="ach-desc">--</span></div>
-  <div id="ach-15" class="ach-row"><span id="ac-15" class="ach-check">[ ]</span><span id="an-15" class="ach-name">--</span><span id="ad-15" class="ach-desc">--</span></div>
-  <div id="ach-16" class="ach-row"><span id="ac-16" class="ach-check">[ ]</span><span id="an-16" class="ach-name">--</span><span id="ad-16" class="ach-desc">--</span></div>
-  <div id="ach-17" class="ach-row"><span id="ac-17" class="ach-check">[ ]</span><span id="an-17" class="ach-name">--</span><span id="ad-17" class="ach-desc">--</span></div>
-  <div id="ach-18" class="ach-row"><span id="ac-18" class="ach-check">[ ]</span><span id="an-18" class="ach-name">--</span><span id="ad-18" class="ach-desc">--</span></div>
-  <div id="ach-19" class="ach-row"><span id="ac-19" class="ach-check">[ ]</span><span id="an-19" class="ach-name">--</span><span id="ad-19" class="ach-desc">--</span></div>
+  <span id="ach-count" class="ach-count">0 / 84</span>
+  <span id="ach-page" class="ach-page">Page 1 / 5</span>
+  <div class="ach-row"><span id="ac-0" class="ach-check">[ ]</span><span id="an-0" class="ach-name">--</span><span id="ad-0" class="ach-desc">--</span></div>
+  <div class="ach-row"><span id="ac-1" class="ach-check">[ ]</span><span id="an-1" class="ach-name">--</span><span id="ad-1" class="ach-desc">--</span></div>
+  <div class="ach-row"><span id="ac-2" class="ach-check">[ ]</span><span id="an-2" class="ach-name">--</span><span id="ad-2" class="ach-desc">--</span></div>
+  <div class="ach-row"><span id="ac-3" class="ach-check">[ ]</span><span id="an-3" class="ach-name">--</span><span id="ad-3" class="ach-desc">--</span></div>
+  <div class="ach-row"><span id="ac-4" class="ach-check">[ ]</span><span id="an-4" class="ach-name">--</span><span id="ad-4" class="ach-desc">--</span></div>
+  <div class="ach-row"><span id="ac-5" class="ach-check">[ ]</span><span id="an-5" class="ach-name">--</span><span id="ad-5" class="ach-desc">--</span></div>
+  <div class="ach-row"><span id="ac-6" class="ach-check">[ ]</span><span id="an-6" class="ach-name">--</span><span id="ad-6" class="ach-desc">--</span></div>
+  <div class="ach-row"><span id="ac-7" class="ach-check">[ ]</span><span id="an-7" class="ach-name">--</span><span id="ad-7" class="ach-desc">--</span></div>
+  <div class="ach-row"><span id="ac-8" class="ach-check">[ ]</span><span id="an-8" class="ach-name">--</span><span id="ad-8" class="ach-desc">--</span></div>
+  <div class="ach-row"><span id="ac-9" class="ach-check">[ ]</span><span id="an-9" class="ach-name">--</span><span id="ad-9" class="ach-desc">--</span></div>
+  <div class="ach-row"><span id="ac-10" class="ach-check">[ ]</span><span id="an-10" class="ach-name">--</span><span id="ad-10" class="ach-desc">--</span></div>
+  <div class="ach-row"><span id="ac-11" class="ach-check">[ ]</span><span id="an-11" class="ach-name">--</span><span id="ad-11" class="ach-desc">--</span></div>
+  <div class="ach-row"><span id="ac-12" class="ach-check">[ ]</span><span id="an-12" class="ach-name">--</span><span id="ad-12" class="ach-desc">--</span></div>
+  <div class="ach-row"><span id="ac-13" class="ach-check">[ ]</span><span id="an-13" class="ach-name">--</span><span id="ad-13" class="ach-desc">--</span></div>
+  <div class="ach-row"><span id="ac-14" class="ach-check">[ ]</span><span id="an-14" class="ach-name">--</span><span id="ad-14" class="ach-desc">--</span></div>
+  <div class="ach-row"><span id="ac-15" class="ach-check">[ ]</span><span id="an-15" class="ach-name">--</span><span id="ad-15" class="ach-desc">--</span></div>
+  <div class="ach-row"><span id="ac-16" class="ach-check">[ ]</span><span id="an-16" class="ach-name">--</span><span id="ad-16" class="ach-desc">--</span></div>
+  <div class="nav-row">
+    <div id="btn-ach-prev" class="nav-btn" cursor="pointer"><span class="nav-text">&lt; PREV</span></div>
+    <div id="btn-ach-next" class="nav-btn" cursor="pointer"><span class="nav-text">NEXT &gt;</span></div>
+  </div>
   <div id="btn-back" class="back-btn" cursor="pointer"><span class="back-text">BACK</span></div>
 </div>

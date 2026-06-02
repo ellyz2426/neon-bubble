@@ -26,6 +26,18 @@
         "dataUid": "uid-3"
       },
       {
+        "sourceTag": "span",
+        "type": "custom",
+        "children": [
+          "Level 1 | 0 XP"
+        ],
+        "properties": {
+          "id": "title-xp",
+          "class": "xp-bar"
+        },
+        "dataUid": "uid-4"
+      },
+      {
         "type": "container",
         "sourceTag": "div",
         "children": [
@@ -38,7 +50,7 @@
             "properties": {
               "class": "menu-btn-text"
             },
-            "dataUid": "uid-5"
+            "dataUid": "uid-6"
           }
         ],
         "properties": {
@@ -46,7 +58,7 @@
           "class": "menu-btn",
           "cursor": "pointer"
         },
-        "dataUid": "uid-4"
+        "dataUid": "uid-5"
       },
       {
         "type": "container",
@@ -61,7 +73,7 @@
             "properties": {
               "class": "menu-btn-text btn-scores-text"
             },
-            "dataUid": "uid-7"
+            "dataUid": "uid-8"
           }
         ],
         "properties": {
@@ -69,7 +81,7 @@
           "class": "menu-btn btn-scores",
           "cursor": "pointer"
         },
-        "dataUid": "uid-6"
+        "dataUid": "uid-7"
       },
       {
         "type": "container",
@@ -84,7 +96,7 @@
             "properties": {
               "class": "menu-btn-text btn-achievements-text"
             },
-            "dataUid": "uid-9"
+            "dataUid": "uid-10"
           }
         ],
         "properties": {
@@ -92,7 +104,30 @@
           "class": "menu-btn btn-achievements",
           "cursor": "pointer"
         },
-        "dataUid": "uid-8"
+        "dataUid": "uid-9"
+      },
+      {
+        "type": "container",
+        "sourceTag": "div",
+        "children": [
+          {
+            "sourceTag": "span",
+            "type": "custom",
+            "children": [
+              "XP / LEVEL"
+            ],
+            "properties": {
+              "class": "menu-btn-text btn-xp-text"
+            },
+            "dataUid": "uid-12"
+          }
+        ],
+        "properties": {
+          "id": "btn-xp",
+          "class": "menu-btn btn-xp",
+          "cursor": "pointer"
+        },
+        "dataUid": "uid-11"
       },
       {
         "type": "container",
@@ -107,7 +142,7 @@
             "properties": {
               "class": "menu-btn-text btn-stats-text"
             },
-            "dataUid": "uid-11"
+            "dataUid": "uid-14"
           }
         ],
         "properties": {
@@ -115,7 +150,7 @@
           "class": "menu-btn btn-stats",
           "cursor": "pointer"
         },
-        "dataUid": "uid-10"
+        "dataUid": "uid-13"
       },
       {
         "type": "container",
@@ -130,7 +165,7 @@
             "properties": {
               "class": "menu-btn-text"
             },
-            "dataUid": "uid-13"
+            "dataUid": "uid-16"
           }
         ],
         "properties": {
@@ -138,7 +173,7 @@
           "class": "menu-btn",
           "cursor": "pointer"
         },
-        "dataUid": "uid-12"
+        "dataUid": "uid-15"
       },
       {
         "type": "container",
@@ -153,7 +188,7 @@
             "properties": {
               "class": "menu-btn-text btn-settings-text"
             },
-            "dataUid": "uid-15"
+            "dataUid": "uid-18"
           }
         ],
         "properties": {
@@ -161,7 +196,7 @@
           "class": "menu-btn btn-settings",
           "cursor": "pointer"
         },
-        "dataUid": "uid-14"
+        "dataUid": "uid-17"
       },
       {
         "type": "container",
@@ -176,7 +211,7 @@
             "properties": {
               "class": "menu-btn-text btn-help-text"
             },
-            "dataUid": "uid-17"
+            "dataUid": "uid-20"
           }
         ],
         "properties": {
@@ -184,7 +219,7 @@
           "class": "menu-btn btn-help",
           "cursor": "pointer"
         },
-        "dataUid": "uid-16"
+        "dataUid": "uid-19"
       }
     ],
     "properties": {
@@ -206,7 +241,7 @@
         "borderColor": "#00ffff",
         "borderWidth": "0.15",
         "borderRadius": 1.5,
-        "gap": "2"
+        "gap": "1.5"
       }
     },
     "game-title": {
@@ -222,10 +257,16 @@
         "color": "#a0a0a0"
       }
     },
+    "xp-bar": {
+      "content": {
+        "fontSize": "1.2",
+        "color": "#ffaa00"
+      }
+    },
     "menu-btn": {
       "content": {
-        "paddingTop": "1.2",
-        "paddingBottom": "1.2",
+        "paddingTop": "1",
+        "paddingBottom": "1",
         "paddingLeft": "4",
         "paddingRight": "4",
         "backgroundColor": "rgba(0, 255, 255, 0.15)",
@@ -239,7 +280,7 @@
     },
     "menu-btn-text": {
       "content": {
-        "fontSize": "2.2",
+        "fontSize": "2",
         "color": "#00ffff",
         "fontWeight": "bold"
       }
@@ -275,6 +316,17 @@
     "btn-stats-text": {
       "content": {
         "color": "#00ff80"
+      }
+    },
+    "btn-xp": {
+      "content": {
+        "backgroundColor": "rgba(255, 170, 0, 0.15)",
+        "borderColor": "#ffaa00"
+      }
+    },
+    "btn-xp-text": {
+      "content": {
+        "color": "#ffaa00"
       }
     },
     "btn-settings": {
@@ -331,293 +383,353 @@
         "column": 11
       }
     },
-    "menu-btn": {
+    "xp-bar": {
       "start": {
         "line": 24,
         "column": 2
       },
       "end": {
         "line": 24,
+        "column": 9
+      }
+    },
+    "menu-btn": {
+      "start": {
+        "line": 28,
+        "column": 2
+      },
+      "end": {
+        "line": 28,
         "column": 11
       }
     },
     "menu-btn-text": {
       "start": {
-        "line": 37,
+        "line": 41,
         "column": 2
       },
       "end": {
-        "line": 37,
+        "line": 41,
         "column": 16
       }
     },
     "btn-scores": {
       "start": {
-        "line": 42,
+        "line": 46,
         "column": 2
       },
       "end": {
-        "line": 42,
+        "line": 46,
         "column": 13
       }
     },
     "btn-scores-text": {
       "start": {
-        "line": 46,
+        "line": 47,
         "column": 2
       },
       "end": {
-        "line": 46,
+        "line": 47,
         "column": 18
       }
     },
     "btn-achievements": {
       "start": {
-        "line": 49,
+        "line": 48,
         "column": 2
       },
       "end": {
-        "line": 49,
+        "line": 48,
         "column": 19
       }
     },
     "btn-achievements-text": {
       "start": {
-        "line": 53,
+        "line": 49,
         "column": 2
       },
       "end": {
-        "line": 53,
+        "line": 49,
         "column": 24
       }
     },
     "btn-stats": {
       "start": {
-        "line": 56,
+        "line": 50,
         "column": 2
       },
       "end": {
-        "line": 56,
+        "line": 50,
         "column": 12
       }
     },
     "btn-stats-text": {
       "start": {
-        "line": 60,
+        "line": 51,
         "column": 2
       },
       "end": {
-        "line": 60,
+        "line": 51,
         "column": 17
+      }
+    },
+    "btn-xp": {
+      "start": {
+        "line": 52,
+        "column": 2
+      },
+      "end": {
+        "line": 52,
+        "column": 9
+      }
+    },
+    "btn-xp-text": {
+      "start": {
+        "line": 53,
+        "column": 2
+      },
+      "end": {
+        "line": 53,
+        "column": 14
       }
     },
     "btn-settings": {
       "start": {
-        "line": 63,
+        "line": 54,
         "column": 2
       },
       "end": {
-        "line": 63,
+        "line": 54,
         "column": 15
       }
     },
     "btn-settings-text": {
       "start": {
-        "line": 67,
+        "line": 55,
         "column": 2
       },
       "end": {
-        "line": 67,
+        "line": 55,
         "column": 20
       }
     },
     "btn-help": {
       "start": {
-        "line": 70,
+        "line": 56,
         "column": 2
       },
       "end": {
-        "line": 70,
+        "line": 56,
         "column": 11
       }
     },
     "btn-help-text": {
       "start": {
-        "line": 74,
+        "line": 57,
         "column": 2
       },
       "end": {
-        "line": 74,
+        "line": 57,
         "column": 16
       }
     },
     "uid-1": {
       "start": {
-        "line": 78,
+        "line": 59,
         "column": 0
       },
       "end": {
-        "line": 88,
+        "line": 71,
         "column": 6
       }
     },
     "uid-2": {
       "start": {
-        "line": 79,
+        "line": 60,
         "column": 2
       },
       "end": {
-        "line": 79,
+        "line": 60,
         "column": 45
       }
     },
     "uid-3": {
       "start": {
-        "line": 80,
+        "line": 61,
         "column": 2
       },
       "end": {
-        "line": 80,
+        "line": 61,
         "column": 55
       }
     },
     "uid-4": {
       "start": {
-        "line": 81,
+        "line": 62,
         "column": 2
       },
       "end": {
-        "line": 81,
-        "column": 100
+        "line": 62,
+        "column": 58
       }
     },
     "uid-5": {
       "start": {
-        "line": 81,
-        "column": 55
+        "line": 63,
+        "column": 2
       },
       "end": {
-        "line": 81,
-        "column": 94
+        "line": 63,
+        "column": 100
       }
     },
     "uid-6": {
       "start": {
-        "line": 82,
-        "column": 2
+        "line": 63,
+        "column": 55
       },
       "end": {
-        "line": 82,
-        "column": 131
+        "line": 63,
+        "column": 94
       }
     },
     "uid-7": {
       "start": {
-        "line": 82,
-        "column": 68
+        "line": 64,
+        "column": 2
       },
       "end": {
-        "line": 82,
-        "column": 125
+        "line": 64,
+        "column": 131
       }
     },
     "uid-8": {
       "start": {
-        "line": 83,
-        "column": 2
+        "line": 64,
+        "column": 68
       },
       "end": {
-        "line": 83,
-        "column": 155
+        "line": 64,
+        "column": 125
       }
     },
     "uid-9": {
       "start": {
-        "line": 83,
-        "column": 80
+        "line": 65,
+        "column": 2
       },
       "end": {
-        "line": 83,
-        "column": 149
+        "line": 65,
+        "column": 155
       }
     },
     "uid-10": {
       "start": {
-        "line": 84,
-        "column": 2
+        "line": 65,
+        "column": 80
       },
       "end": {
-        "line": 84,
-        "column": 127
+        "line": 65,
+        "column": 149
       }
     },
     "uid-11": {
       "start": {
-        "line": 84,
-        "column": 66
+        "line": 66,
+        "column": 2
       },
       "end": {
-        "line": 84,
-        "column": 121
+        "line": 66,
+        "column": 123
       }
     },
     "uid-12": {
       "start": {
-        "line": 85,
-        "column": 2
+        "line": 66,
+        "column": 60
       },
       "end": {
-        "line": 85,
-        "column": 109
+        "line": 66,
+        "column": 117
       }
     },
     "uid-13": {
       "start": {
-        "line": 85,
-        "column": 56
+        "line": 67,
+        "column": 2
       },
       "end": {
-        "line": 85,
-        "column": 103
+        "line": 67,
+        "column": 127
       }
     },
     "uid-14": {
       "start": {
-        "line": 86,
-        "column": 2
+        "line": 67,
+        "column": 66
       },
       "end": {
-        "line": 86,
-        "column": 139
+        "line": 67,
+        "column": 121
       }
     },
     "uid-15": {
       "start": {
-        "line": 86,
-        "column": 72
+        "line": 68,
+        "column": 2
       },
       "end": {
-        "line": 86,
-        "column": 133
+        "line": 68,
+        "column": 109
       }
     },
     "uid-16": {
       "start": {
-        "line": 87,
-        "column": 2
+        "line": 68,
+        "column": 56
       },
       "end": {
-        "line": 87,
-        "column": 123
+        "line": 68,
+        "column": 103
       }
     },
     "uid-17": {
       "start": {
-        "line": 87,
+        "line": 69,
+        "column": 2
+      },
+      "end": {
+        "line": 69,
+        "column": 139
+      }
+    },
+    "uid-18": {
+      "start": {
+        "line": 69,
+        "column": 72
+      },
+      "end": {
+        "line": 69,
+        "column": 133
+      }
+    },
+    "uid-19": {
+      "start": {
+        "line": 70,
+        "column": 2
+      },
+      "end": {
+        "line": 70,
+        "column": 123
+      }
+    },
+    "uid-20": {
+      "start": {
+        "line": 70,
         "column": 64
       },
       "end": {
-        "line": 87,
+        "line": 70,
         "column": 117
       }
     }

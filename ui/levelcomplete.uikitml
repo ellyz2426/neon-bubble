@@ -22,6 +22,16 @@
     font-size: 2;
     color: #a0a0a0;
   }
+  .lc-stars {
+    font-size: 5;
+    color: #ffaa00;
+    font-weight: bold;
+  }
+  .lc-xp-text {
+    font-size: 2;
+    color: #00ffff;
+    font-weight: bold;
+  }
   .lc-row {
     display: flex;
     flex-direction: row;
@@ -74,6 +84,8 @@
 <div class="lc-panel">
   <span class="lc-title">LEVEL CLEAR!</span>
   <span id="lc-levelname" class="lc-subtitle">Level 1</span>
+  <span id="lc-stars" class="lc-stars">★★★</span>
+  <span id="lc-xp" class="lc-xp-text">+150 XP</span>
   <div class="lc-row">
     <div class="lc-item">
       <span class="lc-label">SCORE</span>

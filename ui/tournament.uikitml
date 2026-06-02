@@ -1,0 +1,91 @@
+<style>
+  .tourn-panel {
+    display: flex;
+    flex-direction: column;
+    padding: 3;
+    background-color: rgba(0, 8, 20, 0.92);
+    border-color: #ffaa00;
+    border-width: 0.15;
+    border-radius: 1.5;
+    gap: 1;
+    align-items: center;
+  }
+  .tourn-title {
+    font-size: 4;
+    color: #ffaa00;
+    font-weight: bold;
+  }
+  .tourn-subtitle {
+    font-size: 2;
+    color: #cccccc;
+  }
+  .tourn-bracket {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5;
+    width: 100%;
+  }
+  .tourn-match {
+    display: flex;
+    flex-direction: row;
+    gap: 1;
+    padding: 0.5;
+    background-color: rgba(255, 170, 0, 0.08);
+    border-color: rgba(255, 170, 0, 0.3);
+    border-width: 0.05;
+    border-radius: 0.5;
+  }
+  .tourn-name {
+    font-size: 1.5;
+    color: #cccccc;
+    flex-grow: 1;
+  }
+  .tourn-score {
+    font-size: 1.5;
+    color: #ffaa00;
+    font-weight: bold;
+  }
+  .tourn-vs {
+    font-size: 1.2;
+    color: #ff00ff;
+  }
+  .tourn-status {
+    font-size: 2;
+    color: #00ffff;
+    font-weight: bold;
+  }
+  .tourn-round {
+    font-size: 2;
+    color: #ff00ff;
+    font-weight: bold;
+  }
+  .menu-button {
+    padding-x: 3;
+    padding-y: 1;
+    background-color: rgba(255, 170, 0, 0.15);
+    border-color: #ffaa00;
+    border-width: 0.1;
+    border-radius: 0.8;
+    cursor: pointer;
+  }
+  .menu-button-text {
+    font-size: 2;
+    color: #ffaa00;
+    font-weight: bold;
+  }
+</style>
+<div class="tourn-panel">
+  <span class="tourn-title">TOURNAMENT</span>
+  <span id="tourn-round" class="tourn-round">ROUND 1 / 4</span>
+  <span id="tourn-status" class="tourn-status">READY</span>
+  <div class="tourn-bracket">
+    <div class="tourn-match"><span id="tm-0a" class="tourn-name">Player</span><span class="tourn-vs">VS</span><span id="tm-0b" class="tourn-name">Ghost 1</span><span id="tm-0s" class="tourn-score">--</span></div>
+    <div class="tourn-match"><span id="tm-1a" class="tourn-name">Ghost 2</span><span class="tourn-vs">VS</span><span id="tm-1b" class="tourn-name">Ghost 3</span><span id="tm-1s" class="tourn-score">--</span></div>
+    <div class="tourn-match"><span id="tm-2a" class="tourn-name">Ghost 4</span><span class="tourn-vs">VS</span><span id="tm-2b" class="tourn-name">Ghost 5</span><span id="tm-2s" class="tourn-score">--</span></div>
+    <div class="tourn-match"><span id="tm-3a" class="tourn-name">Ghost 6</span><span class="tourn-vs">VS</span><span id="tm-3b" class="tourn-name">Ghost 7</span><span id="tm-3s" class="tourn-score">--</span></div>
+  </div>
+  <div class="tourn-bracket">
+    <button id="btn-tourn-play" class="menu-button"><span class="menu-button-text">PLAY MATCH</span></button>
+    <button id="btn-back" class="menu-button"><span class="menu-button-text">BACK</span></button>
+  </div>
+</div>

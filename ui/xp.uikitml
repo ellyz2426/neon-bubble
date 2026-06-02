@@ -1,0 +1,105 @@
+<style>
+  .xp-panel {
+    display: flex;
+    flex-direction: column;
+    padding: 3;
+    background-color: rgba(0, 8, 20, 0.92);
+    border-color: #00ffff;
+    border-width: 0.15;
+    border-radius: 1.5;
+    gap: 1.5;
+    align-items: center;
+  }
+  .xp-title {
+    font-size: 4;
+    color: #00ffff;
+    font-weight: bold;
+  }
+  .xp-level-row {
+    display: flex;
+    flex-direction: row;
+    gap: 3;
+    align-items: center;
+  }
+  .xp-level-label {
+    font-size: 2;
+    color: #a0a0a0;
+  }
+  .xp-level-value {
+    font-size: 5;
+    color: #ffaa00;
+    font-weight: bold;
+  }
+  .xp-bar-bg {
+    width: 100%;
+    height: 2;
+    background-color: rgba(255, 255, 255, 0.1);
+    border-radius: 1;
+    border-color: #00ffff;
+    border-width: 0.05;
+  }
+  .xp-bar-fill {
+    height: 100%;
+    background-color: #00ffff;
+    border-radius: 1;
+  }
+  .xp-text {
+    font-size: 1.5;
+    color: #00ffff;
+  }
+  .xp-reward-title {
+    font-size: 2.5;
+    color: #ffaa00;
+    font-weight: bold;
+  }
+  .xp-reward-row {
+    display: flex;
+    flex-direction: row;
+    gap: 1;
+    width: 100%;
+  }
+  .xp-reward-item {
+    font-size: 1.5;
+    color: #cccccc;
+  }
+  .xp-reward-done {
+    font-size: 1.5;
+    color: #00ff80;
+  }
+  .menu-button {
+    padding-x: 3;
+    padding-y: 1;
+    background-color: rgba(0, 255, 255, 0.15);
+    border-color: #00ffff;
+    border-width: 0.1;
+    border-radius: 0.8;
+    cursor: pointer;
+  }
+  .menu-button-text {
+    font-size: 2;
+    color: #00ffff;
+    font-weight: bold;
+  }
+</style>
+<div class="xp-panel">
+  <span class="xp-title">PLAYER LEVEL</span>
+  <div class="xp-level-row">
+    <span class="xp-level-label">LEVEL</span>
+    <span id="xp-level" class="xp-level-value">1</span>
+  </div>
+  <div class="xp-bar-bg">
+    <div id="xp-bar" class="xp-bar-fill" style="width: 0%"></div>
+  </div>
+  <span id="xp-progress" class="xp-text">0 / 100 XP</span>
+  <span class="xp-reward-title">REWARDS</span>
+  <div class="xp-reward-row"><span id="rw-0" class="xp-reward-item">Lv5: Solar Flare skin</span></div>
+  <div class="xp-reward-row"><span id="rw-1" class="xp-reward-item">Lv10: Crimson Arcade theme</span></div>
+  <div class="xp-reward-row"><span id="rw-2" class="xp-reward-item">Lv15: Frost Core skin</span></div>
+  <div class="xp-reward-row"><span id="rw-3" class="xp-reward-item">Lv20: Toxic Neon theme</span></div>
+  <div class="xp-reward-row"><span id="rw-4" class="xp-reward-item">Lv25: Plasma Pink skin</span></div>
+  <div class="xp-reward-row"><span id="rw-5" class="xp-reward-item">Lv30: Ultra Violet theme</span></div>
+  <div class="xp-reward-row"><span id="rw-6" class="xp-reward-item">Lv35: Rainbow skin</span></div>
+  <div class="xp-reward-row"><span id="rw-7" class="xp-reward-item">Lv40: Solar Blaze theme</span></div>
+  <div class="xp-reward-row"><span id="rw-8" class="xp-reward-item">Lv50: Hologram skin</span></div>
+  <button id="btn-back" class="menu-button"><span class="menu-button-text">BACK</span></button>
+</div>

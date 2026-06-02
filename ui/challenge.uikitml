@@ -1,0 +1,121 @@
+<style>
+  .chal-panel {
+    display: flex;
+    flex-direction: column;
+    padding: 3;
+    background-color: rgba(0, 8, 20, 0.92);
+    border-color: #ff00ff;
+    border-width: 0.15;
+    border-radius: 1.5;
+    gap: 1.5;
+    align-items: center;
+  }
+  .chal-title {
+    font-size: 4;
+    color: #ff00ff;
+    font-weight: bold;
+  }
+  .chal-subtitle {
+    font-size: 1.8;
+    color: #cccccc;
+  }
+  .chal-code-label {
+    font-size: 2;
+    color: #a0a0a0;
+  }
+  .chal-code {
+    font-size: 3;
+    color: #00ffff;
+    font-weight: bold;
+  }
+  .chal-desc {
+    font-size: 1.5;
+    color: #888888;
+  }
+  .chal-row {
+    display: flex;
+    flex-direction: row;
+    gap: 2;
+  }
+  .menu-button {
+    padding-x: 3;
+    padding-y: 1;
+    background-color: rgba(255, 0, 255, 0.15);
+    border-color: #ff00ff;
+    border-width: 0.1;
+    border-radius: 0.8;
+    cursor: pointer;
+  }
+  .menu-button-text {
+    font-size: 2;
+    color: #ff00ff;
+    font-weight: bold;
+  }
+  .param-row {
+    display: flex;
+    flex-direction: row;
+    gap: 1;
+    align-items: center;
+    width: 100%;
+  }
+  .param-label {
+    font-size: 1.5;
+    color: #a0a0a0;
+    width: 30%;
+  }
+  .param-value {
+    font-size: 1.8;
+    color: #00ffff;
+    font-weight: bold;
+  }
+  .nav-btn {
+    padding-x: 1;
+    padding-y: 0.3;
+    background-color: rgba(255, 0, 255, 0.2);
+    border-color: #ff00ff;
+    border-width: 0.08;
+    border-radius: 0.5;
+    cursor: pointer;
+  }
+  .nav-btn-text {
+    font-size: 1.5;
+    color: #ff00ff;
+    font-weight: bold;
+  }
+</style>
+<div class="chal-panel">
+  <span class="chal-title">CHALLENGE CREATOR</span>
+  <span class="chal-subtitle">Create and share custom levels</span>
+  <div class="param-row">
+    <span class="param-label">ROWS</span>
+    <button id="btn-rows-down" class="nav-btn"><span class="nav-btn-text">-</span></button>
+    <span id="chal-rows" class="param-value">6</span>
+    <button id="btn-rows-up" class="nav-btn"><span class="nav-btn-text">+</span></button>
+  </div>
+  <div class="param-row">
+    <span class="param-label">COLORS</span>
+    <button id="btn-colors-down" class="nav-btn"><span class="nav-btn-text">-</span></button>
+    <span id="chal-colors" class="param-value">4</span>
+    <button id="btn-colors-up" class="nav-btn"><span class="nav-btn-text">+</span></button>
+  </div>
+  <div class="param-row">
+    <span class="param-label">DENSITY</span>
+    <button id="btn-density-down" class="nav-btn"><span class="nav-btn-text">-</span></button>
+    <span id="chal-density" class="param-value">70%</span>
+    <button id="btn-density-up" class="nav-btn"><span class="nav-btn-text">+</span></button>
+  </div>
+  <div class="param-row">
+    <span class="param-label">SPECIALS</span>
+    <button id="btn-specials-down" class="nav-btn"><span class="nav-btn-text">-</span></button>
+    <span id="chal-specials" class="param-value">SOME</span>
+    <button id="btn-specials-up" class="nav-btn"><span class="nav-btn-text">+</span></button>
+  </div>
+  <span class="chal-code-label">SEED CODE</span>
+  <span id="chal-code" class="chal-code">XXXX-XXXX</span>
+  <span class="chal-desc">Share this code with friends!</span>
+  <div class="chal-row">
+    <button id="btn-chal-gen" class="menu-button"><span class="menu-button-text">GENERATE</span></button>
+    <button id="btn-chal-play" class="menu-button"><span class="menu-button-text">PLAY</span></button>
+  </div>
+  <button id="btn-back" class="menu-button"><span class="menu-button-text">BACK</span></button>
+</div>
