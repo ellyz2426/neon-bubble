@@ -26,14 +26,36 @@
         "dataUid": "uid-3"
       },
       {
-        "sourceTag": "span",
-        "type": "custom",
+        "type": "container",
+        "sourceTag": "div",
         "children": [
-          "Level 1 | 0 XP"
+          {
+            "sourceTag": "span",
+            "type": "custom",
+            "children": [
+              "Level 1 | 0 XP"
+            ],
+            "properties": {
+              "id": "title-xp",
+              "class": "xp-bar"
+            },
+            "dataUid": "uid-5"
+          },
+          {
+            "sourceTag": "span",
+            "type": "custom",
+            "children": [
+              "🔥 0 Day Streak"
+            ],
+            "properties": {
+              "id": "title-streak",
+              "class": "streak-display"
+            },
+            "dataUid": "uid-6"
+          }
         ],
         "properties": {
-          "id": "title-xp",
-          "class": "xp-bar"
+          "class": "info-row"
         },
         "dataUid": "uid-4"
       },
@@ -50,7 +72,7 @@
             "properties": {
               "class": "menu-btn-text"
             },
-            "dataUid": "uid-6"
+            "dataUid": "uid-8"
           }
         ],
         "properties": {
@@ -58,7 +80,7 @@
           "class": "menu-btn",
           "cursor": "pointer"
         },
-        "dataUid": "uid-5"
+        "dataUid": "uid-7"
       },
       {
         "type": "container",
@@ -73,7 +95,7 @@
             "properties": {
               "class": "menu-btn-text btn-scores-text"
             },
-            "dataUid": "uid-8"
+            "dataUid": "uid-10"
           }
         ],
         "properties": {
@@ -81,7 +103,7 @@
           "class": "menu-btn btn-scores",
           "cursor": "pointer"
         },
-        "dataUid": "uid-7"
+        "dataUid": "uid-9"
       },
       {
         "type": "container",
@@ -96,7 +118,7 @@
             "properties": {
               "class": "menu-btn-text btn-achievements-text"
             },
-            "dataUid": "uid-10"
+            "dataUid": "uid-12"
           }
         ],
         "properties": {
@@ -104,7 +126,7 @@
           "class": "menu-btn btn-achievements",
           "cursor": "pointer"
         },
-        "dataUid": "uid-9"
+        "dataUid": "uid-11"
       },
       {
         "type": "container",
@@ -119,7 +141,7 @@
             "properties": {
               "class": "menu-btn-text btn-xp-text"
             },
-            "dataUid": "uid-12"
+            "dataUid": "uid-14"
           }
         ],
         "properties": {
@@ -127,7 +149,53 @@
           "class": "menu-btn btn-xp",
           "cursor": "pointer"
         },
-        "dataUid": "uid-11"
+        "dataUid": "uid-13"
+      },
+      {
+        "type": "container",
+        "sourceTag": "div",
+        "children": [
+          {
+            "sourceTag": "span",
+            "type": "custom",
+            "children": [
+              "DAILY STREAK"
+            ],
+            "properties": {
+              "class": "menu-btn-text btn-streak-text"
+            },
+            "dataUid": "uid-16"
+          }
+        ],
+        "properties": {
+          "id": "btn-streak",
+          "class": "menu-btn btn-streak",
+          "cursor": "pointer"
+        },
+        "dataUid": "uid-15"
+      },
+      {
+        "type": "container",
+        "sourceTag": "div",
+        "children": [
+          {
+            "sourceTag": "span",
+            "type": "custom",
+            "children": [
+              "CAREER"
+            ],
+            "properties": {
+              "class": "menu-btn-text btn-career-text"
+            },
+            "dataUid": "uid-18"
+          }
+        ],
+        "properties": {
+          "id": "btn-career",
+          "class": "menu-btn btn-career",
+          "cursor": "pointer"
+        },
+        "dataUid": "uid-17"
       },
       {
         "type": "container",
@@ -142,7 +210,7 @@
             "properties": {
               "class": "menu-btn-text btn-stats-text"
             },
-            "dataUid": "uid-14"
+            "dataUid": "uid-20"
           }
         ],
         "properties": {
@@ -150,7 +218,7 @@
           "class": "menu-btn btn-stats",
           "cursor": "pointer"
         },
-        "dataUid": "uid-13"
+        "dataUid": "uid-19"
       },
       {
         "type": "container",
@@ -165,7 +233,7 @@
             "properties": {
               "class": "menu-btn-text"
             },
-            "dataUid": "uid-16"
+            "dataUid": "uid-22"
           }
         ],
         "properties": {
@@ -173,7 +241,7 @@
           "class": "menu-btn",
           "cursor": "pointer"
         },
-        "dataUid": "uid-15"
+        "dataUid": "uid-21"
       },
       {
         "type": "container",
@@ -188,7 +256,7 @@
             "properties": {
               "class": "menu-btn-text btn-settings-text"
             },
-            "dataUid": "uid-18"
+            "dataUid": "uid-24"
           }
         ],
         "properties": {
@@ -196,7 +264,7 @@
           "class": "menu-btn btn-settings",
           "cursor": "pointer"
         },
-        "dataUid": "uid-17"
+        "dataUid": "uid-23"
       },
       {
         "type": "container",
@@ -211,7 +279,7 @@
             "properties": {
               "class": "menu-btn-text btn-help-text"
             },
-            "dataUid": "uid-20"
+            "dataUid": "uid-26"
           }
         ],
         "properties": {
@@ -219,7 +287,7 @@
           "class": "menu-btn btn-help",
           "cursor": "pointer"
         },
-        "dataUid": "uid-19"
+        "dataUid": "uid-25"
       }
     ],
     "properties": {
@@ -261,6 +329,12 @@
       "content": {
         "fontSize": "1.2",
         "color": "#ffaa00"
+      }
+    },
+    "streak-display": {
+      "content": {
+        "fontSize": "1.2",
+        "color": "#ffcc00"
       }
     },
     "menu-btn": {
@@ -329,6 +403,28 @@
         "color": "#ffaa00"
       }
     },
+    "btn-streak": {
+      "content": {
+        "backgroundColor": "rgba(255, 204, 0, 0.15)",
+        "borderColor": "#ffcc00"
+      }
+    },
+    "btn-streak-text": {
+      "content": {
+        "color": "#ffcc00"
+      }
+    },
+    "btn-career": {
+      "content": {
+        "backgroundColor": "rgba(170, 68, 255, 0.15)",
+        "borderColor": "#aa44ff"
+      }
+    },
+    "btn-career-text": {
+      "content": {
+        "color": "#aa44ff"
+      }
+    },
     "btn-settings": {
       "content": {
         "backgroundColor": "rgba(128, 128, 128, 0.15)",
@@ -349,6 +445,13 @@
     "btn-help-text": {
       "content": {
         "color": "#ffa500"
+      }
+    },
+    "info-row": {
+      "content": {
+        "display": "flex",
+        "flexDirection": "row",
+        "gap": "3"
       }
     }
   },
@@ -393,343 +496,463 @@
         "column": 9
       }
     },
-    "menu-btn": {
+    "streak-display": {
       "start": {
         "line": 28,
         "column": 2
       },
       "end": {
         "line": 28,
+        "column": 17
+      }
+    },
+    "menu-btn": {
+      "start": {
+        "line": 32,
+        "column": 2
+      },
+      "end": {
+        "line": 32,
         "column": 11
       }
     },
     "menu-btn-text": {
       "start": {
-        "line": 41,
+        "line": 45,
         "column": 2
       },
       "end": {
-        "line": 41,
+        "line": 45,
         "column": 16
       }
     },
     "btn-scores": {
       "start": {
-        "line": 46,
+        "line": 50,
         "column": 2
       },
       "end": {
-        "line": 46,
+        "line": 50,
         "column": 13
       }
     },
     "btn-scores-text": {
       "start": {
-        "line": 47,
+        "line": 51,
         "column": 2
       },
       "end": {
-        "line": 47,
+        "line": 51,
         "column": 18
       }
     },
     "btn-achievements": {
       "start": {
-        "line": 48,
+        "line": 52,
         "column": 2
       },
       "end": {
-        "line": 48,
+        "line": 52,
         "column": 19
       }
     },
     "btn-achievements-text": {
       "start": {
-        "line": 49,
+        "line": 53,
         "column": 2
       },
       "end": {
-        "line": 49,
+        "line": 53,
         "column": 24
       }
     },
     "btn-stats": {
       "start": {
-        "line": 50,
+        "line": 54,
         "column": 2
       },
       "end": {
-        "line": 50,
+        "line": 54,
         "column": 12
       }
     },
     "btn-stats-text": {
       "start": {
-        "line": 51,
+        "line": 55,
         "column": 2
       },
       "end": {
-        "line": 51,
+        "line": 55,
         "column": 17
       }
     },
     "btn-xp": {
       "start": {
-        "line": 52,
+        "line": 56,
         "column": 2
       },
       "end": {
-        "line": 52,
+        "line": 56,
         "column": 9
       }
     },
     "btn-xp-text": {
       "start": {
-        "line": 53,
+        "line": 57,
         "column": 2
       },
       "end": {
-        "line": 53,
+        "line": 57,
         "column": 14
+      }
+    },
+    "btn-streak": {
+      "start": {
+        "line": 58,
+        "column": 2
+      },
+      "end": {
+        "line": 58,
+        "column": 13
+      }
+    },
+    "btn-streak-text": {
+      "start": {
+        "line": 59,
+        "column": 2
+      },
+      "end": {
+        "line": 59,
+        "column": 18
+      }
+    },
+    "btn-career": {
+      "start": {
+        "line": 60,
+        "column": 2
+      },
+      "end": {
+        "line": 60,
+        "column": 13
+      }
+    },
+    "btn-career-text": {
+      "start": {
+        "line": 61,
+        "column": 2
+      },
+      "end": {
+        "line": 61,
+        "column": 18
       }
     },
     "btn-settings": {
       "start": {
-        "line": 54,
+        "line": 62,
         "column": 2
       },
       "end": {
-        "line": 54,
+        "line": 62,
         "column": 15
       }
     },
     "btn-settings-text": {
       "start": {
-        "line": 55,
+        "line": 63,
         "column": 2
       },
       "end": {
-        "line": 55,
+        "line": 63,
         "column": 20
       }
     },
     "btn-help": {
       "start": {
-        "line": 56,
+        "line": 64,
         "column": 2
       },
       "end": {
-        "line": 56,
+        "line": 64,
         "column": 11
       }
     },
     "btn-help-text": {
       "start": {
-        "line": 57,
+        "line": 65,
         "column": 2
       },
       "end": {
-        "line": 57,
+        "line": 65,
         "column": 16
+      }
+    },
+    "info-row": {
+      "start": {
+        "line": 66,
+        "column": 2
+      },
+      "end": {
+        "line": 66,
+        "column": 11
       }
     },
     "uid-1": {
       "start": {
-        "line": 59,
+        "line": 72,
         "column": 0
       },
       "end": {
-        "line": 71,
+        "line": 89,
         "column": 6
       }
     },
     "uid-2": {
       "start": {
-        "line": 60,
+        "line": 73,
         "column": 2
       },
       "end": {
-        "line": 60,
+        "line": 73,
         "column": 45
       }
     },
     "uid-3": {
       "start": {
-        "line": 61,
+        "line": 74,
         "column": 2
       },
       "end": {
-        "line": 61,
+        "line": 74,
         "column": 55
       }
     },
     "uid-4": {
       "start": {
-        "line": 62,
+        "line": 75,
         "column": 2
       },
       "end": {
-        "line": 62,
-        "column": 58
+        "line": 78,
+        "column": 8
       }
     },
     "uid-5": {
       "start": {
-        "line": 63,
-        "column": 2
+        "line": 76,
+        "column": 4
       },
       "end": {
-        "line": 63,
-        "column": 100
+        "line": 76,
+        "column": 60
       }
     },
     "uid-6": {
       "start": {
-        "line": 63,
-        "column": 55
+        "line": 77,
+        "column": 4
       },
       "end": {
-        "line": 63,
-        "column": 94
+        "line": 77,
+        "column": 73
       }
     },
     "uid-7": {
       "start": {
-        "line": 64,
+        "line": 79,
         "column": 2
       },
       "end": {
-        "line": 64,
-        "column": 131
+        "line": 79,
+        "column": 100
       }
     },
     "uid-8": {
       "start": {
-        "line": 64,
-        "column": 68
+        "line": 79,
+        "column": 55
       },
       "end": {
-        "line": 64,
-        "column": 125
+        "line": 79,
+        "column": 94
       }
     },
     "uid-9": {
       "start": {
-        "line": 65,
+        "line": 80,
         "column": 2
       },
       "end": {
-        "line": 65,
-        "column": 155
+        "line": 80,
+        "column": 131
       }
     },
     "uid-10": {
       "start": {
-        "line": 65,
-        "column": 80
+        "line": 80,
+        "column": 68
       },
       "end": {
-        "line": 65,
-        "column": 149
+        "line": 80,
+        "column": 125
       }
     },
     "uid-11": {
       "start": {
-        "line": 66,
+        "line": 81,
         "column": 2
       },
       "end": {
-        "line": 66,
-        "column": 123
+        "line": 81,
+        "column": 155
       }
     },
     "uid-12": {
       "start": {
-        "line": 66,
-        "column": 60
+        "line": 81,
+        "column": 80
       },
       "end": {
-        "line": 66,
-        "column": 117
+        "line": 81,
+        "column": 149
       }
     },
     "uid-13": {
       "start": {
-        "line": 67,
+        "line": 82,
         "column": 2
       },
       "end": {
-        "line": 67,
-        "column": 127
+        "line": 82,
+        "column": 123
       }
     },
     "uid-14": {
       "start": {
-        "line": 67,
-        "column": 66
+        "line": 82,
+        "column": 60
       },
       "end": {
-        "line": 67,
-        "column": 121
+        "line": 82,
+        "column": 117
       }
     },
     "uid-15": {
       "start": {
-        "line": 68,
+        "line": 83,
         "column": 2
       },
       "end": {
-        "line": 68,
-        "column": 109
+        "line": 83,
+        "column": 137
       }
     },
     "uid-16": {
       "start": {
-        "line": 68,
-        "column": 56
+        "line": 83,
+        "column": 68
       },
       "end": {
-        "line": 68,
-        "column": 103
+        "line": 83,
+        "column": 131
       }
     },
     "uid-17": {
       "start": {
-        "line": 69,
+        "line": 84,
         "column": 2
       },
       "end": {
-        "line": 69,
-        "column": 139
+        "line": 84,
+        "column": 131
       }
     },
     "uid-18": {
       "start": {
-        "line": 69,
-        "column": 72
+        "line": 84,
+        "column": 68
       },
       "end": {
-        "line": 69,
-        "column": 133
+        "line": 84,
+        "column": 125
       }
     },
     "uid-19": {
       "start": {
-        "line": 70,
+        "line": 85,
         "column": 2
       },
       "end": {
-        "line": 70,
-        "column": 123
+        "line": 85,
+        "column": 127
       }
     },
     "uid-20": {
       "start": {
-        "line": 70,
+        "line": 85,
+        "column": 66
+      },
+      "end": {
+        "line": 85,
+        "column": 121
+      }
+    },
+    "uid-21": {
+      "start": {
+        "line": 86,
+        "column": 2
+      },
+      "end": {
+        "line": 86,
+        "column": 109
+      }
+    },
+    "uid-22": {
+      "start": {
+        "line": 86,
+        "column": 56
+      },
+      "end": {
+        "line": 86,
+        "column": 103
+      }
+    },
+    "uid-23": {
+      "start": {
+        "line": 87,
+        "column": 2
+      },
+      "end": {
+        "line": 87,
+        "column": 139
+      }
+    },
+    "uid-24": {
+      "start": {
+        "line": 87,
+        "column": 72
+      },
+      "end": {
+        "line": 87,
+        "column": 133
+      }
+    },
+    "uid-25": {
+      "start": {
+        "line": 88,
+        "column": 2
+      },
+      "end": {
+        "line": 88,
+        "column": 123
+      }
+    },
+    "uid-26": {
+      "start": {
+        "line": 88,
         "column": 64
       },
       "end": {
-        "line": 70,
+        "line": 88,
         "column": 117
       }
     }

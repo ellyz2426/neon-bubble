@@ -39,6 +39,13 @@
   .hud-level {
     color: #ffa500;
   }
+  .hud-boss {
+    color: #ff4444;
+  }
+  .hud-streak {
+    color: #ffcc00;
+    font-size: 1;
+  }
 </style>
 <div class="hud-panel">
   <div class="hud-item">
@@ -64,5 +71,12 @@
   <div class="hud-item">
     <span class="hud-label">MODE</span>
     <span id="hud-mode" class="hud-value">CAMPAIGN</span>
+  </div>
+  <div class="hud-item">
+    <span class="hud-label">BOSS HP</span>
+    <span id="hud-boss-hp" class="hud-value hud-boss">--</span>
+  </div>
+  <div class="hud-item">
+    <span id="hud-streak-display" class="hud-streak"></span>
   </div>
 </div>

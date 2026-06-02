@@ -26,6 +26,10 @@
     font-size: 1.2;
     color: #ffaa00;
   }
+  .streak-display {
+    font-size: 1.2;
+    color: #ffcc00;
+  }
   .menu-btn {
     padding-top: 1;
     padding-bottom: 1;
@@ -52,19 +56,33 @@
   .btn-stats-text { color: #00ff80; }
   .btn-xp { background-color: rgba(255, 170, 0, 0.15); border-color: #ffaa00; }
   .btn-xp-text { color: #ffaa00; }
+  .btn-streak { background-color: rgba(255, 204, 0, 0.15); border-color: #ffcc00; }
+  .btn-streak-text { color: #ffcc00; }
+  .btn-career { background-color: rgba(170, 68, 255, 0.15); border-color: #aa44ff; }
+  .btn-career-text { color: #aa44ff; }
   .btn-settings { background-color: rgba(128, 128, 128, 0.15); border-color: #888888; }
   .btn-settings-text { color: #888888; }
   .btn-help { background-color: rgba(255, 165, 0, 0.15); border-color: #ffa500; }
   .btn-help-text { color: #ffa500; }
+  .info-row {
+    display: flex;
+    flex-direction: row;
+    gap: 3;
+  }
 </style>
 <div class="title-panel">
   <span class="game-title">NEON BUBBLE</span>
   <span class="subtitle">Holodeck Bubble Shooter</span>
-  <span id="title-xp" class="xp-bar">Level 1 | 0 XP</span>
+  <div class="info-row">
+    <span id="title-xp" class="xp-bar">Level 1 | 0 XP</span>
+    <span id="title-streak" class="streak-display">🔥 0 Day Streak</span>
+  </div>
   <div id="btn-play" class="menu-btn" cursor="pointer"><span class="menu-btn-text">PLAY</span></div>
   <div id="btn-scores" class="menu-btn btn-scores" cursor="pointer"><span class="menu-btn-text btn-scores-text">SCORES</span></div>
   <div id="btn-achievements" class="menu-btn btn-achievements" cursor="pointer"><span class="menu-btn-text btn-achievements-text">ACHIEVEMENTS</span></div>
   <div id="btn-xp" class="menu-btn btn-xp" cursor="pointer"><span class="menu-btn-text btn-xp-text">XP / LEVEL</span></div>
+  <div id="btn-streak" class="menu-btn btn-streak" cursor="pointer"><span class="menu-btn-text btn-streak-text">DAILY STREAK</span></div>
+  <div id="btn-career" class="menu-btn btn-career" cursor="pointer"><span class="menu-btn-text btn-career-text">CAREER</span></div>
   <div id="btn-stats" class="menu-btn btn-stats" cursor="pointer"><span class="menu-btn-text btn-stats-text">STATS</span></div>
   <div id="btn-skins" class="menu-btn" cursor="pointer"><span class="menu-btn-text">BUBBLE SKINS</span></div>
   <div id="btn-settings" class="menu-btn btn-settings" cursor="pointer"><span class="menu-btn-text btn-settings-text">SETTINGS</span></div>

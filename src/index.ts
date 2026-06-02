@@ -1,6 +1,6 @@
 // Neon Bubble VR — Holodeck Puzzle Bobble / Bubble Shooter
 // IWSDK 0.4.1 | All UI via PanelUI | Zero HTML DOM
-// Round 3: XP progression, boss levels, new bubble types, tournament, instant replay, 80+ achievements
+// Round 4: Daily streaks, career/prestige, boss health, 100 achievements, enhanced difficulty curve
 
 import {
   World,
@@ -40,7 +40,7 @@ import {
 // ─── TYPES & CONSTANTS ────────────────────────────────────────────
 type GameState = 'title' | 'modeselect' | 'difficulty' | 'playing' | 'paused' | 'gameover' |
   'leaderboard' | 'achievements' | 'settings' | 'help' | 'stats' | 'skins' | 'countdown' |
-  'levelcomplete' | 'xp' | 'tournament' | 'challenge' | 'bossintro';
+  'levelcomplete' | 'xp' | 'tournament' | 'challenge' | 'bossintro' | 'streak' | 'season';
 type GameMode = 'campaign' | 'endless' | 'timeattack' | 'precision' | 'daily' | 'zen' | 'practice' | 'tournament' | 'challenge';
 type BubbleColor = 0 | 1 | 2 | 3 | 4 | 5;
 type Difficulty = 'easy' | 'medium' | 'hard';
@@ -270,6 +270,25 @@ const ACHIEVEMENTS: Achievement[] = [
   // Star rating (2)
   { id: 'star_first_3', name: 'Perfect Level', desc: 'Get 3 stars on any level' },
   { id: 'star_all_3', name: 'Perfectionist', desc: 'Get 3 stars on 10+ levels' },
+  // Daily Streak (4)
+  { id: 'streak_3', name: 'Getting Started', desc: 'Play 3 days in a row' },
+  { id: 'streak_7', name: 'Weekly Warrior', desc: 'Play 7 days in a row' },
+  { id: 'streak_14', name: 'Fortnight Fighter', desc: 'Play 14 days in a row' },
+  { id: 'streak_30', name: 'Monthly Master', desc: 'Play 30 days in a row' },
+  // Mastery (8)
+  { id: 'comeback_win', name: 'Comeback Kid', desc: 'Win after bubbles past danger zone' },
+  { id: 'no_powerup', name: 'Purist', desc: 'Clear a level without using power-ups' },
+  { id: 'all_modes_played', name: 'Mode Explorer', desc: 'Play all 9 game modes' },
+  { id: 'max_diff_win', name: 'Masochist', desc: 'Win a campaign level on hard' },
+  { id: 'flawless', name: 'Flawless', desc: 'Complete a level with 100% accuracy' },
+  { id: 'marathon', name: 'Marathon', desc: 'Play for 30 min in one session' },
+  { id: 'minimal_shots', name: 'Minimalist', desc: 'Clear a board in under 15 shots' },
+  { id: 'boss_pre_regen', name: 'Overwhelming', desc: 'Beat a regen boss before first regen' },
+  // Career / Prestige (4)
+  { id: 'prestige_1', name: 'Prestige I', desc: 'Reach Prestige level 1' },
+  { id: 'prestige_3', name: 'Prestige III', desc: 'Reach Prestige level 3' },
+  { id: 'season_complete', name: 'Season Vet', desc: 'Complete a season' },
+  { id: 'century', name: 'Century', desc: 'Unlock all 100 achievements' },
 ];
 
 
@@ -294,14 +313,18 @@ function getBossIndex(level: number): number { return Math.floor(level / 6); }
 
 function generateCampaignLevel(level: number, seed: number): BubbleColor[][] {
   const rng = seededRandom(seed + level * 137);
-  const rows = Math.min(5 + Math.floor(level / 6), 12);
-  const numColors = Math.min(3 + Math.floor(level / 8), 6) as number;
+  // Smoother difficulty curve: rows grow gradually, cap at 10
+  const rows = Math.min(4 + Math.floor(level / 5), 10);
+  // Colors scale more gradually: start 3, add 1 every 10 levels
+  const numColors = Math.min(3 + Math.floor(level / 10), 6) as number;
+  // Density: early levels have more gaps, later levels denser
+  const gapChance = Math.max(0.05, 0.2 - level * 0.003);
   const grid: BubbleColor[][] = [];
   for (let r = 0; r < rows; r++) {
     const cols = r % 2 === 0 ? MAX_COLS : MAX_COLS - 1;
     const row: BubbleColor[] = [];
     for (let c = 0; c < cols; c++) {
-      if (rng() < 0.15 + level * 0.004) row.push(-1 as BubbleColor);
+      if (rng() < gapChance) row.push(-1 as BubbleColor);
       else row.push((Math.floor(rng() * numColors)) as BubbleColor);
     }
     grid.push(row);
@@ -339,6 +362,52 @@ function decodeChallengeCode(code: string): ChallengeConfig | null {
     specials: Math.floor(n / 1000) % 10,
     seed: n % 1000,
   };
+}
+
+// ─── DAILY STREAK SYSTEM ──────────────────────────────────────────
+interface StreakData {
+  currentStreak: number;
+  bestStreak: number;
+  lastPlayDate: string; // YYYY-MM-DD
+  totalDaysPlayed: number;
+  streakHistory: boolean[]; // last 7 days
+}
+function getTodayStr(): string {
+  const d = new Date();
+  return `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, '0')}-${String(d.getDate()).padStart(2, '0')}`;
+}
+function getYesterdayStr(): string {
+  const d = new Date();
+  d.setDate(d.getDate() - 1);
+  return `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, '0')}-${String(d.getDate()).padStart(2, '0')}`;
+}
+function getStreakXPBonus(streak: number): number {
+  if (streak >= 30) return 0.5;  // 50% bonus
+  if (streak >= 14) return 0.35;
+  if (streak >= 7) return 0.25;
+  if (streak >= 3) return 0.1;
+  return 0;
+}
+
+// ─── SEASON / PRESTIGE SYSTEM ─────────────────────────────────────
+interface SeasonData {
+  season: number;
+  seasonPoints: number;
+  prestigeLevel: number;
+  careerTotal: number;
+  tier: number; // 0=bronze,1=silver,2=gold,3=diamond
+}
+const SEASON_TIERS = [
+  { name: 'BRONZE', threshold: 0 },
+  { name: 'SILVER', threshold: 10000 },
+  { name: 'GOLD', threshold: 25000 },
+  { name: 'DIAMOND', threshold: 50000 },
+];
+function getSeasonTier(points: number): number {
+  for (let i = SEASON_TIERS.length - 1; i >= 0; i--) {
+    if (points >= SEASON_TIERS[i].threshold) return i;
+  }
+  return 0;
 }
 
 // ─── AUDIO ────────────────────────────────────────────────────────
@@ -435,6 +504,9 @@ class AudioManager {
   poisonSpread() { this.playSfx(200, 'sawtooth', 0.3, 0.2); this.playSfx(150, 'square', 0.2, 0.15); }
   tournamentWin() { [523, 659, 784, 1047, 1319, 1568].forEach((f, i) => setTimeout(() => this.playSfx(f, 'sine', 0.25, 0.35), i * 100)); }
   firework() { this.playSfx(2000 + Math.random() * 2000, 'sine', 0.15, 0.15, 0.2); }
+  streakFanfare() { [660, 784, 880, 1047, 1320].forEach((f, i) => setTimeout(() => this.playSfx(f, 'triangle', 0.2, 0.3), i * 80)); }
+  bossPhaseShift() { this.playSfx(120, 'sawtooth', 0.5, 0.35); this.playSfx(90, 'square', 0.6, 0.2); setTimeout(() => this.playSfx(180, 'triangle', 0.3, 0.25), 200); }
+  prestigeUp() { [523, 659, 784, 1047, 1319, 1568, 2093].forEach((f, i) => setTimeout(() => this.playSfx(f, 'sine', 0.3, 0.3), i * 90)); }
 
   startMusic() {
     if (!this.ctx || !this.musicGain || this.musicPlaying) return;
@@ -689,6 +761,27 @@ async function main() {
   let challengeConfig: ChallengeConfig = { rows: 6, colors: 4, density: 0.7, specials: 1, seed: Math.floor(Math.random() * 999) };
   let challengesPlayed = 0;
 
+  // Daily streak
+  let streakData: StreakData = { currentStreak: 0, bestStreak: 0, lastPlayDate: '', totalDaysPlayed: 0, streakHistory: [false, false, false, false, false, false, false] };
+
+  // Season / Prestige
+  let seasonData: SeasonData = { season: 1, seasonPoints: 0, prestigeLevel: 0, careerTotal: 0, tier: 0 };
+
+  // Modes played tracking
+  let modesPlayed: Set<string> = new Set();
+
+  // Danger zone touched tracking (for comeback achievement)
+  let touchedDangerZone = false;
+
+  // Boss initial bubble count for health display
+  let bossInitialBubbleCount = 0;
+
+  // Session timer for marathon achievement
+  let sessionPlayTime = 0;
+
+  // Levels cleared without game over (for streak)
+  let consecutiveLevelsCleared = 0;
+
   // Star ratings per level
   let levelStars: Record<number, number> = {};
 
@@ -727,6 +820,58 @@ async function main() {
   tournamentsWon = storage.get('tournamentsWon', 0);
   challengesPlayed = storage.get('challengesPlayed', 0);
   colorBlindMode = storage.get('colorBlindMode', false);
+  streakData = storage.get('streakData', streakData);
+  seasonData = storage.get('seasonData', seasonData);
+  modesPlayed = new Set(storage.get('modesPlayed', []));
+
+  // Check and update streak on load
+  function updateDailyStreak() {
+    const today = getTodayStr();
+    const yesterday = getYesterdayStr();
+    if (streakData.lastPlayDate === today) return; // Already counted today
+    if (streakData.lastPlayDate === yesterday) {
+      streakData.currentStreak++;
+    } else if (streakData.lastPlayDate !== '') {
+      streakData.currentStreak = 1; // Streak broken, start fresh
+    } else {
+      streakData.currentStreak = 1; // First ever play
+    }
+    streakData.lastPlayDate = today;
+    streakData.totalDaysPlayed++;
+    if (streakData.currentStreak > streakData.bestStreak) streakData.bestStreak = streakData.currentStreak;
+    // Update 7-day history
+    streakData.streakHistory.push(true);
+    if (streakData.streakHistory.length > 7) streakData.streakHistory.shift();
+    storage.set('streakData', streakData);
+    // Check streak achievements
+    if (streakData.currentStreak >= 3) unlockAchievement('streak_3');
+    if (streakData.currentStreak >= 7) unlockAchievement('streak_7');
+    if (streakData.currentStreak >= 14) unlockAchievement('streak_14');
+    if (streakData.currentStreak >= 30) unlockAchievement('streak_30');
+  }
+
+  function awardSeasonPoints(points: number) {
+    seasonData.seasonPoints += points;
+    seasonData.careerTotal += points;
+    const newTier = getSeasonTier(seasonData.seasonPoints);
+    if (newTier > seasonData.tier) {
+      seasonData.tier = newTier;
+      showToast(`🏅 SEASON TIER: ${SEASON_TIERS[newTier].name}!`);
+    }
+    // Check season completion
+    if (seasonData.seasonPoints >= 50000 && seasonData.season === seasonData.prestigeLevel + 1) {
+      seasonData.season++;
+      seasonData.prestigeLevel++;
+      seasonData.seasonPoints = 0;
+      seasonData.tier = 0;
+      audio.prestigeUp();
+      showToast(`⭐ PRESTIGE LEVEL ${seasonData.prestigeLevel}!`);
+      unlockAchievement('season_complete');
+      if (seasonData.prestigeLevel >= 1) unlockAchievement('prestige_1');
+      if (seasonData.prestigeLevel >= 3) unlockAchievement('prestige_3');
+    }
+    storage.set('seasonData', seasonData);
+  }
 
   function getColors() { return colorBlindMode ? CB_BUBBLE_COLORS : BUBBLE_COLORS; }
 
@@ -746,8 +891,11 @@ async function main() {
 
   function awardXP(amount: number) {
     if (playerLevel >= MAX_PLAYER_LEVEL) return;
-    playerXP += amount;
-    totalXPEarned += amount;
+    const streakBonus = getStreakXPBonus(streakData.currentStreak);
+    const bonusAmount = Math.floor(amount * streakBonus);
+    const totalAmount = amount + bonusAmount;
+    playerXP += totalAmount;
+    totalXPEarned += totalAmount;
     if (totalXPEarned >= 10000) unlockAchievement('xp_total_10k');
     while (playerLevel < MAX_PLAYER_LEVEL && playerXP >= xpForLevel(playerLevel)) {
       playerXP -= xpForLevel(playerLevel);
@@ -1472,6 +1620,7 @@ async function main() {
       if (b.specialType) specialTypesEncountered.add(b.specialType);
     }
     if (specialTypesEncountered.size >= 3) unlockAchievement('special_all');
+    bossInitialBubbleCount = grid.filter(b => b.specialType !== 'stone').length;
   }
 
   function handleBossRegen(dt: number) {
@@ -1678,7 +1827,15 @@ async function main() {
     gamePlayTime = 0; specialTypesEncountered = new Set();
     frozenBrokenTotal = 0; replayBuffer = [];
     isReplaying = false; lastBigCascade = false;
-    bossMissCount = 0;
+    bossMissCount = 0; touchedDangerZone = false;
+
+    // Update daily streak
+    updateDailyStreak();
+
+    // Track mode played
+    modesPlayed.add(gameMode);
+    storage.set('modesPlayed', [...modesPlayed]);
+    if (modesPlayed.size >= 9) unlockAchievement('all_modes_played');
     if (shotBubble) { world.scene.remove(shotBubble.mesh); shotBubble = null; }
 
     if (gameMode === 'timeattack') timeLeft = 90;
@@ -1720,7 +1877,19 @@ async function main() {
       if (bossMissCount === 0) unlockAchievement('boss_no_miss');
       if (gamePlayTime - bossGameStartTime < 60) unlockAchievement('boss_speed');
       if (difficulty === 'hard') unlockAchievement('boss_hard');
+      // Check if boss was beaten before first regen
+      if (currentBossConfig && currentBossConfig.regenInterval > 0 && bossRegenTimer < currentBossConfig.regenInterval) {
+        unlockAchievement('boss_pre_regen');
+      }
     }
+
+    // New round 4 achievements
+    consecutiveLevelsCleared++;
+    if (touchedDangerZone) unlockAchievement('comeback_win');
+    if (powerUpsUsedThisGame.size === 0) unlockAchievement('no_powerup');
+    if (difficulty === 'hard') unlockAchievement('max_diff_win');
+    if (shotsFired > 0 && matchingShots === shotsFired && shotsFired >= 5) unlockAchievement('flawless');
+    if (shotsFired > 0 && shotsFired <= 15 && grid.filter(b => b.specialType !== 'stone').length === 0) unlockAchievement('minimal_shots');
 
     // Star rating
     const stars = calculateStarRating();
@@ -1742,6 +1911,9 @@ async function main() {
     let xpEarned = 100 + stars * 50;
     if (isBoss) xpEarned += 200;
     awardXP(xpEarned);
+
+    // Award season points
+    awardSeasonPoints(score + (isBoss ? 500 : 0) + stars * 100);
 
     audio.levelComplete();
     spawnFireworks();
@@ -1788,6 +1960,7 @@ async function main() {
     if (gameMode === 'challenge') { challengesPlayed++; stats.challengesPlayed = challengesPlayed; storage.set('challengesPlayed', challengesPlayed); unlockAchievement('challenge_play'); if (challengesPlayed >= 10) unlockAchievement('challenge_10'); }
     if (comboAbove3Timer >= 30) unlockAchievement('combo_30s');
     if (neverBrokeCombo && score > 0 && matchingShots >= 5) unlockAchievement('no_break_game');
+    if (sessionPlayTime >= 1800) unlockAchievement('marathon'); // 30 minutes
     const accuracy = shotsFired > 0 ? matchingShots / shotsFired : 0;
     if (accuracy >= 0.8 && shotsFired >= 5) unlockAchievement('accuracy_80');
     if (accuracy >= 0.95 && shotsFired >= 10) unlockAchievement('accuracy_95');
@@ -1803,6 +1976,13 @@ async function main() {
     leaderboard.sort((a, b) => b.score - a.score);
     leaderboard = leaderboard.slice(0, 20);
     saveLeaderboard();
+
+    // Season points (half for losses)
+    awardSeasonPoints(Math.floor(score / 2));
+    consecutiveLevelsCleared = 0;
+
+    // Century check
+    if (unlockedAchievements.length >= 100) unlockAchievement('century');
 
     if (gameMode === 'tournament') {
       submitTournamentScore(score);
@@ -1892,6 +2072,8 @@ async function main() {
   createUIPanel('tournament', '/ui/tournament.json', { maxWidth: 0.8, maxHeight: 1.0, position: [0, 1.2, -1.5] });
   createUIPanel('challenge', '/ui/challenge.json', { maxWidth: 0.7, maxHeight: 1.0, position: [0, 1.2, -1.5] });
   createUIPanel('bossintro', '/ui/bossintro.json', { maxWidth: 0.6, maxHeight: 0.6, position: [0, 1.2, -1.2] });
+  createUIPanel('streak', '/ui/streak.json', { maxWidth: 0.7, maxHeight: 1.0, position: [0, 1.2, -1.5] });
+  createUIPanel('season', '/ui/season.json', { maxWidth: 0.8, maxHeight: 1.0, position: [0, 1.2, -1.5] });
 
   let uiBindingsReady = false;
   function tryBindUI() {
@@ -1909,6 +2091,8 @@ async function main() {
     bindClick(titleDoc, 'btn-settings', () => { showSettings(); setGameState('settings'); });
     bindClick(titleDoc, 'btn-help', () => setGameState('help'));
     bindClick(titleDoc, 'btn-xp', () => { showXP(); setGameState('xp'); });
+    bindClick(titleDoc, 'btn-streak', () => { showStreak(); setGameState('streak'); });
+    bindClick(titleDoc, 'btn-career', () => { showSeason(); setGameState('season'); });
     updateTitleXP();
 
     // Mode select
@@ -2017,6 +2201,12 @@ async function main() {
 
     // Boss intro
     bindClick(getDoc('bossintro'), 'btn-boss-start', () => { startCountdown(); });
+
+    // Streak
+    bindClick(getDoc('streak'), 'btn-back', () => setGameState('title'));
+
+    // Season
+    bindClick(getDoc('season'), 'btn-back', () => setGameState('title'));
   }
 
   function bindSettingsButtons() {
@@ -2083,6 +2273,8 @@ async function main() {
       case 'tournament': showPanel('tournament'); break;
       case 'challenge': showPanel('challenge'); break;
       case 'bossintro': showPanel('bossintro'); break;
+      case 'streak': showPanel('streak'); break;
+      case 'season': showPanel('season'); break;
     }
   }
 
@@ -2103,6 +2295,8 @@ async function main() {
   function updateTitleXP() {
     const doc = getDoc('title');
     setText(doc, 'title-xp', `Level ${playerLevel} | ${playerXP}/${xpForLevel(playerLevel)} XP`);
+    const streakStr = streakData.currentStreak > 0 ? `🔥 ${streakData.currentStreak} Day Streak` : '🔥 No Streak';
+    setText(doc, 'title-streak', streakStr);
   }
 
   function showGameOver() {
@@ -2226,6 +2420,38 @@ async function main() {
     }
   }
 
+  function showStreak() {
+    const doc = getDoc('streak');
+    setText(doc, 'streak-count', streakData.currentStreak.toString());
+    setText(doc, 'streak-best', `BEST: ${streakData.bestStreak} DAYS`);
+    const bonus = getStreakXPBonus(streakData.currentStreak);
+    setText(doc, 'streak-bonus', bonus > 0 ? `XP BONUS: +${Math.round(bonus * 100)}%` : 'XP BONUS: +0%');
+    const msgs = ['Play daily to build your streak!', 'Nice start!', 'Keep it going!', 'On fire!', 'Legendary streak!'];
+    const msgIdx = streakData.currentStreak >= 14 ? 4 : streakData.currentStreak >= 7 ? 3 : streakData.currentStreak >= 3 ? 2 : streakData.currentStreak >= 1 ? 1 : 0;
+    setText(doc, 'streak-info', msgs[msgIdx]);
+    for (let i = 0; i < 7; i++) {
+      const active = i < streakData.streakHistory.length && streakData.streakHistory[i];
+      setText(doc, `d${i}`, active ? '●' : '○');
+    }
+  }
+
+  function showSeason() {
+    const doc = getDoc('season');
+    setText(doc, 'prestige-level', `PRESTIGE ${seasonData.prestigeLevel}`);
+    setText(doc, 'season-status', `Season ${seasonData.season} — ${seasonData.seasonPoints >= 50000 ? 'Complete!' : 'In Progress'}`);
+    const pct = Math.min(100, Math.floor((seasonData.seasonPoints / 50000) * 100));
+    setText(doc, 'season-progress-text', `${seasonData.seasonPoints.toLocaleString()} / 50,000 SP`);
+    const barEl = doc?.getElementById('season-bar');
+    if (barEl && (barEl as any).width) (barEl as any).width.value = `${pct}%`;
+    const nextTierIdx = Math.min(seasonData.tier + 1, SEASON_TIERS.length - 1);
+    if (seasonData.tier < SEASON_TIERS.length - 1) {
+      setText(doc, 'season-reward', `Next: ${SEASON_TIERS[nextTierIdx].name} at ${SEASON_TIERS[nextTierIdx].threshold.toLocaleString()} SP`);
+    } else {
+      setText(doc, 'season-reward', 'Max tier reached! Complete season at 50,000 SP');
+    }
+    setText(doc, 'career-total', `Career Total: ${seasonData.careerTotal.toLocaleString()} SP`);
+  }
+
   function showTournamentBracket() {
     const doc = getDoc('tournament');
     if (!tournament) return;
@@ -2266,6 +2492,20 @@ async function main() {
     if (gameMode === 'timeattack') setText(doc, 'hud-time', Math.ceil(timeLeft).toString());
     else setText(doc, 'hud-time', '--');
     setText(doc, 'hud-mode', gameMode.toUpperCase());
+    // Boss health display
+    if (isBoss && bossInitialBubbleCount > 0) {
+      const remaining = grid.filter(b => b.specialType !== 'stone').length;
+      const hp = Math.max(0, Math.round((remaining / bossInitialBubbleCount) * 100));
+      setText(doc, 'hud-boss-hp', hp + '%');
+    } else {
+      setText(doc, 'hud-boss-hp', '--');
+    }
+    // Streak indicator
+    if (streakData.currentStreak > 0) {
+      setText(doc, 'hud-streak-display', '🔥' + streakData.currentStreak);
+    } else {
+      setText(doc, 'hud-streak-display', '');
+    }
   }
 
   function updateNextBubbleUI() {
@@ -2430,6 +2670,7 @@ async function main() {
     // Game logic
     if (gameState === 'playing' && gameActive) {
       gamePlayTime += dt;
+      sessionPlayTime += dt;
 
       // Combo decay
       if (comboTimer > 0) { comboTimer -= dt; if (comboTimer <= 0) { combo = 1; } }
@@ -2492,6 +2733,7 @@ async function main() {
       if (grid.length > 0) {
         const lowestY = Math.min(...grid.map(b => b.mesh.position.y));
         const dangerProximity = Math.max(0, 1 - (lowestY - DANGER_Y) / (PLAYFIELD_HEIGHT * 0.3));
+        if (dangerProximity > 0.7) touchedDangerZone = true;
         dangerPulse += dt * (2 + dangerProximity * 4);
         const dangerChild = wallGroup.children.find(c => c.position.y === DANGER_Y);
         if (dangerChild) {
@@ -2501,12 +2743,39 @@ async function main() {
             ((dangerChild as Mesh).material as MeshBasicMaterial).color.setRGB(1, 0.1 + 0.3 * (1 - dangerProximity), 0.1);
           }
         }
+        // Boss phase visual effects - intensify as health drops
+        if (isBoss && bossInitialBubbleCount > 0) {
+          const remaining = grid.filter(b => b.specialType !== 'stone').length;
+          const hpRatio = remaining / bossInitialBubbleCount;
+          // Phase 2: below 50% - red tint on accent lights
+          if (hpRatio < 0.5) {
+            accentLight2.color.setRGB(1, 0.2, 0.1);
+            accentLight2.intensity = 1.2 + Math.sin(elapsedTime * 3) * 0.3;
+          }
+          // Phase 3: below 25% - rapid pulse, danger ambience
+          if (hpRatio < 0.25) {
+            accentLight1.color.setRGB(1, 0.1, 0.1);
+            accentLight1.intensity = 1.5 + Math.sin(elapsedTime * 5) * 0.5;
+          }
+        }
       }
 
       // Animate grid bubbles
       for (const b of grid) {
         b.mesh.rotation.y += 0.2 * dt;
-        b.mesh.position.y += Math.sin(elapsedTime * 1.5 + b.row * 0.3 + b.col * 0.5) * 0.003;
+        // Enhanced wobble: subtle bobbing + scale pulse
+        const wobblePhase = elapsedTime * 1.5 + b.row * 0.3 + b.col * 0.5;
+        b.mesh.position.y += Math.sin(wobblePhase) * 0.003;
+        // Scale pulse for power-up bubbles
+        if (b.isPowerUp) {
+          const pulse = 1 + Math.sin(elapsedTime * 4 + b.col * 0.7) * 0.05;
+          b.mesh.scale.setScalar(pulse);
+        }
+        // Glow intensity pulse based on combo
+        if (combo > 1) {
+          const comboGlow = 0.15 + combo * 0.02 + Math.sin(elapsedTime * 2) * 0.03;
+          (b.glow.material as MeshBasicMaterial).opacity = comboGlow;
+        }
         // Poison pulse
         if (b.specialType === 'poison') {
           b.mesh.children.forEach(child => {
@@ -2518,11 +2787,25 @@ async function main() {
             }
           });
         }
+        // Boss bubbles get red tint when low health
+        if (isBoss && b.isBoss && bossInitialBubbleCount > 0) {
+          const remaining = grid.filter(g => g.specialType !== 'stone').length;
+          if (remaining / bossInitialBubbleCount < 0.3) {
+            (b.glow.material as MeshBasicMaterial).color.lerp(new Color(1, 0.2, 0.1), 0.01);
+          }
+        }
       }
     }
 
-    // Launcher glow pulse
-    (launcherGlow.material as MeshBasicMaterial).opacity = 0.3 + 0.2 * Math.sin(elapsedTime * 3);
+    // Launcher glow pulse - enhanced with combo
+    const baseGlow = 0.3 + 0.2 * Math.sin(elapsedTime * 3);
+    const comboBoost = gameState === 'playing' ? Math.min(combo * 0.05, 0.3) : 0;
+    (launcherGlow.material as MeshBasicMaterial).opacity = baseGlow + comboBoost;
+    if (combo >= 5 && gameState === 'playing') {
+      (launcherGlow.material as MeshBasicMaterial).color.setRGB(1, 0.3 + Math.sin(elapsedTime * 5) * 0.3, 0);
+    } else {
+      (launcherGlow.material as MeshBasicMaterial).color.set(0x00ffff);
+    }
   }
 
   // Initialize
