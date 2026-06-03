@@ -1,6 +1,6 @@
 // Neon Bubble VR — Holodeck Puzzle Bobble / Bubble Shooter
 // IWSDK 0.4.1 | All UI via PanelUI | Zero HTML DOM
-// Round 7: Tutorial, Boss Rush, Profile, 2 themes, 2 skins, 145 achievements
+// Round 8: Endless waves, entrance anims, audio modes, stats+, 155 achievements
 
 import {
   World,
@@ -438,7 +438,7 @@ const ACHIEVEMENTS: Achievement[] = [
   { id: 'total_score_5m', name: 'Multi-Millionaire', desc: 'Accumulate 5M total career score' },
   { id: 'accuracy_100_game', name: 'Pixel Perfect', desc: 'Finish any mode with 100% accuracy (10+ shots)' },
   { id: 'cascade_chain_3', name: 'Triple Cascade', desc: 'Trigger 3 cascades in a single turn' },
-  { id: 'ultimate', name: 'Ultimate Popper', desc: 'Unlock all 145 achievements' },
+  { id: 'ultimate', name: 'Ultimate Popper', desc: 'Unlock all 155 achievements' },
   // Round 7: Tutorial (3)
   { id: 'tut_start', name: 'Student', desc: 'Start the tutorial' },
   { id: 'tut_complete', name: 'Graduate', desc: 'Complete the tutorial' },
@@ -458,6 +458,18 @@ const ACHIEVEMENTS: Achievement[] = [
   { id: 'skins_14', name: 'Full Wardrobe', desc: 'Unlock all 14 bubble skins' },
   { id: 'total_pops_10k', name: 'Pop Factory Pro', desc: 'Pop 10,000 bubbles lifetime' },
   { id: 'score_500k', name: 'Half-Millionaire', desc: 'Score 500,000+ in one game' },
+  // Round 8: Endless Waves (3)
+  { id: 'wave_5', name: 'Wave Rider', desc: 'Reach wave 5 in Endless mode' },
+  { id: 'wave_10', name: 'Surf Legend', desc: 'Reach wave 10 in Endless mode' },
+  { id: 'wave_20', name: 'Tsunami Surfer', desc: 'Reach wave 20 in Endless mode' },
+  // Round 8: Advanced mastery (7)
+  { id: 'no_miss_50', name: 'Perfect 50', desc: '50 consecutive matching shots' },
+  { id: 'games_1000', name: 'Addicted', desc: 'Play 1000 games' },
+  { id: 'combo_x10_2', name: 'Double Perfect', desc: 'Reach x10 combo twice in one game' },
+  { id: 'rush_no_miss', name: 'Rush Perfection', desc: 'Complete Boss Rush with 0 misses' },
+  { id: 'total_score_10m', name: 'Deca-Millionaire', desc: 'Accumulate 10M total career score' },
+  { id: 'all_skins', name: 'Fashion Icon', desc: 'Unlock all bubble skins' },
+  { id: 'final_achievement', name: 'ULTIMATE MASTER', desc: 'Unlock all 155 achievements' },
 ];
 
 
@@ -747,6 +759,26 @@ class AudioManager {
     this.musicOscs = [bass, pad, pad2, shimmer, lfo, lfo2, arp, arpLfo];
   }
 
+  // Mode-specific music shift: adjust base frequencies
+  modeShift(mode: string) {
+    if (!this.ctx || this.musicOscs.length < 2) return;
+    try {
+      if (mode === 'bossrush' || mode === 'campaign') {
+        // Darker tone for bosses
+        if (this.musicOscs[0]) this.musicOscs[0].frequency.value = 44;
+        if (this.musicOscs[1]) this.musicOscs[1].frequency.value = 66;
+      } else if (mode === 'puzzle' || mode === 'tutorial') {
+        // Lighter tone for puzzles/tutorial
+        if (this.musicOscs[0]) this.musicOscs[0].frequency.value = 65;
+        if (this.musicOscs[1]) this.musicOscs[1].frequency.value = 98;
+      } else {
+        // Default
+        if (this.musicOscs[0]) this.musicOscs[0].frequency.value = 55;
+        if (this.musicOscs[1]) this.musicOscs[1].frequency.value = 82.5;
+      }
+    } catch {}
+  }
+
   // Call each frame with combo level and danger proximity (0-1)
   setIntensity(comboLevel: number, danger: number) {
     if (!this.intensityFilter || !this.intensityGain) return;
@@ -1020,6 +1052,11 @@ async function main() {
   // Per-mode best scores
   let modeBestScores: Record<string, number> = {};
 
+  // Endless wave system
+  let endlessWave = 1;
+  let endlessWaveClears = 0;
+  let maxComboHitsX10 = 0; // Track how many times x10 combo reached
+
   // Danger zone touched tracking (for comeback achievement)
   let touchedDangerZone = false;
 
@@ -1150,7 +1187,8 @@ async function main() {
     // Check century checks
     if (unlockedAchievements.length >= 100) unlockAchievement('century');
     if (unlockedAchievements.length >= 115) unlockAchievement('century_plus');
-    if (unlockedAchievements.length >= 145) unlockAchievement('ultimate');
+    if (unlockedAchievements.length >= 155) unlockAchievement('ultimate');
+    if (unlockedAchievements.length >= 155) unlockAchievement('final_achievement');
     if (unlockedAchievements.length >= 130) unlockAchievement('ultimate');
   }
 
@@ -1424,13 +1462,21 @@ async function main() {
     return { x, y };
   }
 
-  function addGridBubble(row: number, col: number, color: BubbleColor, powerUp?: string, specialType?: string): GridBubble | null {
+  // Entrance animation queue for newly spawned bubbles
+  let entranceAnims: { mesh: Mesh; timer: number; targetScale: number }[] = [];
+
+  function addGridBubble(row: number, col: number, color: BubbleColor, powerUp?: string, specialType?: string, animate = false): GridBubble | null {
     if (color === -1 as any) return null;
     const { x, y } = gridToWorld(row, col);
     const { mesh, glow, wireframe } = createBubbleMesh(color, x, y, powerUp, specialType);
     const bubble: GridBubble = { row, col, color, mesh, glow, wireframe, isPowerUp: powerUp as any, specialType: specialType as any };
     if (specialType === 'frozen') bubble.frozenHits = 0;
     grid.push(bubble);
+    // Entrance animation: scale from 0 to 1 with slight bounce
+    if (animate) {
+      mesh.scale.setScalar(0.01);
+      entranceAnims.push({ mesh, timer: 0, targetScale: 1.0 });
+    }
     return bubble;
   }
 
@@ -1721,7 +1767,7 @@ async function main() {
       if (combo >= 3) unlockAchievement('combo_x3');
       if (combo >= 5) unlockAchievement('combo_x5');
       if (combo >= 7) unlockAchievement('combo_x7');
-      if (combo >= 10) unlockAchievement('combo_x10');
+      if (combo >= 10) { unlockAchievement('combo_x10'); maxComboHitsX10++; }
       if (consecutiveMatches >= 10) unlockAchievement('no_miss_10');
       if (consecutiveMatches >= 20) unlockAchievement('no_miss_20');
       if (consecutiveMatches >= 30) unlockAchievement('no_miss_30');
@@ -1769,7 +1815,17 @@ async function main() {
         if (gameMode === 'tournament') { handleLevelComplete(); return; }
         if (gameMode === 'bossrush') { handleLevelComplete(); return; }
         if (gameMode === 'puzzle') { handlePuzzleComplete(); return; }
-        if (gameMode === 'endless') { ceilingOffset = 0; missCount = 0; generateGrid(); }
+        if (gameMode === 'endless') {
+          endlessWaveClears++;
+          endlessWave++;
+          ceilingOffset = 0; missCount = 0;
+          showToast('🌊 WAVE ' + endlessWave + '!');
+          // Increase difficulty each wave
+          generateGrid();
+          if (endlessWave >= 5) unlockAchievement('wave_5');
+          if (endlessWave >= 10) unlockAchievement('wave_10');
+          if (endlessWave >= 20) unlockAchievement('wave_20');
+        }
       }
     } else {
       audio.attach();
@@ -2288,7 +2344,7 @@ async function main() {
       const layout = generateCampaignLevel(campaignLevel, 42);
       for (let r = 0; r < layout.length; r++) {
         for (let c = 0; c < layout[r].length; c++) {
-          addGridBubble(r, c, layout[r][c]);
+          addGridBubble(r, c, layout[r][c], undefined, undefined, true);
         }
       }
       // Add special bubbles in later levels
@@ -2341,8 +2397,13 @@ async function main() {
         }
       }
     } else {
-      const numColors = difficulty === 'easy' ? 4 : difficulty === 'medium' ? 5 : 6;
-      const rows = difficulty === 'easy' ? 5 : difficulty === 'medium' ? 7 : 9;
+      let numColors = difficulty === 'easy' ? 4 : difficulty === 'medium' ? 5 : 6;
+      let rows = difficulty === 'easy' ? 5 : difficulty === 'medium' ? 7 : 9;
+      // Endless wave scaling
+      if (gameMode === 'endless' && endlessWave > 1) {
+        numColors = Math.min(6, numColors + Math.floor(endlessWave / 3));
+        rows = Math.min(12, rows + Math.floor(endlessWave / 2));
+      }
       for (let r = 0; r < rows; r++) {
         const cols = r % 2 === 0 ? MAX_COLS : MAX_COLS - 1;
         for (let c = 0; c < cols; c++) {
@@ -2354,7 +2415,7 @@ async function main() {
   }
 
   function startGame() {
-    audio.init(); audio.startMusic();
+    audio.init(); audio.startMusic(); audio.modeShift(gameMode);
     score = 0; combo = 1; comboTimer = 0; comboAbove3Timer = 0;
     shotsFired = 0; bubblesPopped = 0; cascadeCount = 0;
     matchingShots = 0; consecutiveMatches = 0; bestCombo = 1;
@@ -2366,6 +2427,7 @@ async function main() {
     frozenBrokenTotal = 0; replayBuffer = [];
     isReplaying = false; lastBigCascade = false;
     bossMissCount = 0; touchedDangerZone = false;
+    endlessWave = 1; endlessWaveClears = 0; maxComboHitsX10 = 0;
 
     // Update daily streak
     updateDailyStreak();
@@ -2621,6 +2683,13 @@ async function main() {
     // New round 7 achievements in endGame
     if (score >= 500000) unlockAchievement('score_500k');
     if (stats.totalPopped + bubblesPopped >= 10000) unlockAchievement('total_pops_10k');
+    if (consecutiveMatches >= 50) unlockAchievement('no_miss_50');
+    if (stats.games >= 1000) unlockAchievement('games_1000');
+    if (maxComboHitsX10 >= 2) unlockAchievement('combo_x10_2');
+    if (gameMode === 'bossrush' && bossMissCount === 0 && bossRushDefeated >= BOSS_CONFIGS.length) unlockAchievement('rush_no_miss');
+    if (stats.totalScore + score >= 10000000) unlockAchievement('total_score_10m');
+    const allSkinsNow = Array.from({length: BUBBLE_SKINS.length}, (_, i) => i).every(i => unlockedSkins.includes(i));
+    if (allSkinsNow) unlockAchievement('all_skins');
     const allSkins14 = Array.from({length: 14}, (_, i) => i).every(i => unlockedSkins.includes(i));
     if (allSkins14) unlockAchievement('skins_14');
 
@@ -3146,6 +3215,14 @@ async function main() {
     setText(doc, 'st-accuracy', acc + '%');
     setText(doc, 'st-powerups', stats.powerUpsUsed.toString());
     setText(doc, 'st-levels', stats.levelsCleared.toString());
+    // Enhanced stats for round 8
+    const bestEndless = modeBestScores['endless'] || 0;
+    const bestRush = modeBestScores['bossrush'] || 0;
+    // Use remaining stat slots if available (some templates may not have these IDs)
+    try {
+      setText(doc, 'st-endless', bestEndless > 0 ? bestEndless.toLocaleString() : '--');
+      setText(doc, 'st-bossrush', bestRush > 0 ? bestRush.toLocaleString() : '--');
+    } catch {}
   }
 
   function showSkins() {
@@ -3327,6 +3404,7 @@ async function main() {
       setText(doc, 'hud-level', 'TUT');
     } else setText(doc, 'hud-level', '--');
     if (gameMode === 'timeattack') setText(doc, 'hud-time', Math.ceil(timeLeft).toString());
+    else if (gameMode === 'endless') setText(doc, 'hud-time', 'W' + endlessWave);
     else setText(doc, 'hud-time', '--');
     setText(doc, 'hud-mode', gameMode.toUpperCase());
     // Boss health display
@@ -3450,6 +3528,21 @@ async function main() {
     }
 
     particles.update(dt);
+
+    // Entrance animations
+    for (let i = entranceAnims.length - 1; i >= 0; i--) {
+      const ea = entranceAnims[i];
+      ea.timer += dt * 4; // Complete in ~0.25s
+      if (ea.timer >= 1) {
+        ea.mesh.scale.setScalar(ea.targetScale);
+        entranceAnims.splice(i, 1);
+      } else {
+        // Ease-out bounce: overshoot then settle
+        const t = ea.timer;
+        const scale = t < 0.7 ? t / 0.7 * 1.15 : 1.15 - (t - 0.7) / 0.3 * 0.15;
+        ea.mesh.scale.setScalar(scale * ea.targetScale);
+      }
+    }
 
     // Screen shake
     if (screenShakeAmount > 0) {

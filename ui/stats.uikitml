@@ -60,5 +60,7 @@
   <div class="stat-row"><span class="stat-label">Accuracy</span><span id="st-accuracy" class="stat-value">0%</span></div>
   <div class="stat-row"><span class="stat-label">Power-Ups Used</span><span id="st-powerups" class="stat-value">0</span></div>
   <div class="stat-row"><span class="stat-label">Levels Cleared</span><span id="st-levels" class="stat-value">0</span></div>
+  <div class="stat-row"><span class="stat-label">Best Endless</span><span id="st-endless" class="stat-value">--</span></div>
+  <div class="stat-row"><span class="stat-label">Best Boss Rush</span><span id="st-bossrush" class="stat-value">--</span></div>
   <div id="btn-back" class="back-btn" cursor="pointer"><span class="back-text">BACK</span></div>
 </div>

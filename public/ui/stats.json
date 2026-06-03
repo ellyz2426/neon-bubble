@@ -352,12 +352,78 @@
             "sourceTag": "span",
             "type": "custom",
             "children": [
+              "Best Endless"
+            ],
+            "properties": {
+              "class": "stat-label"
+            },
+            "dataUid": "uid-34"
+          },
+          {
+            "sourceTag": "span",
+            "type": "custom",
+            "children": [
+              "--"
+            ],
+            "properties": {
+              "id": "st-endless",
+              "class": "stat-value"
+            },
+            "dataUid": "uid-35"
+          }
+        ],
+        "properties": {
+          "class": "stat-row"
+        },
+        "dataUid": "uid-33"
+      },
+      {
+        "type": "container",
+        "sourceTag": "div",
+        "children": [
+          {
+            "sourceTag": "span",
+            "type": "custom",
+            "children": [
+              "Best Boss Rush"
+            ],
+            "properties": {
+              "class": "stat-label"
+            },
+            "dataUid": "uid-37"
+          },
+          {
+            "sourceTag": "span",
+            "type": "custom",
+            "children": [
+              "--"
+            ],
+            "properties": {
+              "id": "st-bossrush",
+              "class": "stat-value"
+            },
+            "dataUid": "uid-38"
+          }
+        ],
+        "properties": {
+          "class": "stat-row"
+        },
+        "dataUid": "uid-36"
+      },
+      {
+        "type": "container",
+        "sourceTag": "div",
+        "children": [
+          {
+            "sourceTag": "span",
+            "type": "custom",
+            "children": [
               "BACK"
             ],
             "properties": {
               "class": "back-text"
             },
-            "dataUid": "uid-34"
+            "dataUid": "uid-40"
           }
         ],
         "properties": {
@@ -365,7 +431,7 @@
           "class": "back-btn",
           "cursor": "pointer"
         },
-        "dataUid": "uid-33"
+        "dataUid": "uid-39"
       }
     ],
     "properties": {
@@ -517,7 +583,7 @@
         "column": 0
       },
       "end": {
-        "line": 63,
+        "line": 65,
         "column": 6
       }
     },
@@ -838,16 +904,76 @@
       },
       "end": {
         "line": 62,
-        "column": 96
+        "column": 124
       }
     },
     "uid-34": {
       "start": {
         "line": 62,
-        "column": 55
+        "column": 24
       },
       "end": {
         "line": 62,
+        "column": 68
+      }
+    },
+    "uid-35": {
+      "start": {
+        "line": 62,
+        "column": 68
+      },
+      "end": {
+        "line": 62,
+        "column": 118
+      }
+    },
+    "uid-36": {
+      "start": {
+        "line": 63,
+        "column": 2
+      },
+      "end": {
+        "line": 63,
+        "column": 127
+      }
+    },
+    "uid-37": {
+      "start": {
+        "line": 63,
+        "column": 24
+      },
+      "end": {
+        "line": 63,
+        "column": 70
+      }
+    },
+    "uid-38": {
+      "start": {
+        "line": 63,
+        "column": 70
+      },
+      "end": {
+        "line": 63,
+        "column": 121
+      }
+    },
+    "uid-39": {
+      "start": {
+        "line": 64,
+        "column": 2
+      },
+      "end": {
+        "line": 64,
+        "column": 96
+      }
+    },
+    "uid-40": {
+      "start": {
+        "line": 64,
+        "column": 55
+      },
+      "end": {
+        "line": 64,
         "column": 90
       }
     }
