@@ -448,6 +448,47 @@
               }
             },
             "dataUid": "uid-39"
+          },
+          {
+            "type": "container",
+            "sourceTag": "div",
+            "children": [
+              {
+                "sourceTag": "span",
+                "type": "custom",
+                "children": [
+                  "👹 BOSS RUSH"
+                ],
+                "properties": {
+                  "class": "mode-name",
+                  "style": {
+                    "color": "#ff3232"
+                  }
+                },
+                "dataUid": "uid-43"
+              },
+              {
+                "sourceTag": "span",
+                "type": "custom",
+                "children": [
+                  "All 8 bosses"
+                ],
+                "properties": {
+                  "class": "mode-desc"
+                },
+                "dataUid": "uid-44"
+              }
+            ],
+            "properties": {
+              "id": "btn-bossrush",
+              "class": "mode-btn",
+              "cursor": "pointer",
+              "style": {
+                "backgroundColor": "rgba(255, 50, 50, 0.12)",
+                "borderColor": "#ff3232"
+              }
+            },
+            "dataUid": "uid-42"
           }
         ],
         "properties": {
@@ -468,7 +509,7 @@
             "properties": {
               "class": "back-text"
             },
-            "dataUid": "uid-43"
+            "dataUid": "uid-46"
           }
         ],
         "properties": {
@@ -476,7 +517,7 @@
           "class": "back-btn",
           "cursor": "pointer"
         },
-        "dataUid": "uid-42"
+        "dataUid": "uid-45"
       }
     ],
     "properties": {
@@ -716,7 +757,7 @@
         "column": 0
       },
       "end": {
-        "line": 133,
+        "line": 137,
         "column": 6
       }
     },
@@ -1086,7 +1127,7 @@
         "column": 2
       },
       "end": {
-        "line": 131,
+        "line": 135,
         "column": 8
       }
     },
@@ -1122,21 +1163,51 @@
     },
     "uid-42": {
       "start": {
-        "line": 132,
-        "column": 2
+        "line": 131,
+        "column": 4
       },
       "end": {
-        "line": 132,
-        "column": 96
+        "line": 134,
+        "column": 10
       }
     },
     "uid-43": {
       "start": {
         "line": 132,
-        "column": 55
+        "column": 6
       },
       "end": {
         "line": 132,
+        "column": 73
+      }
+    },
+    "uid-44": {
+      "start": {
+        "line": 133,
+        "column": 6
+      },
+      "end": {
+        "line": 133,
+        "column": 49
+      }
+    },
+    "uid-45": {
+      "start": {
+        "line": 136,
+        "column": 2
+      },
+      "end": {
+        "line": 136,
+        "column": 96
+      }
+    },
+    "uid-46": {
+      "start": {
+        "line": 136,
+        "column": 55
+      },
+      "end": {
+        "line": 136,
         "column": 90
       }
     }

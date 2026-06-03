@@ -88,6 +88,8 @@
   <div id="btn-skins" class="menu-btn" cursor="pointer"><span class="menu-btn-text">BUBBLE SKINS</span></div>
   <div id="btn-trails" class="menu-btn" cursor="pointer"><span class="menu-btn-text">TRAIL STYLES</span></div>
   <div id="btn-codex" class="menu-btn" cursor="pointer"><span class="menu-btn-text">📖 CODEX</span></div>
+  <div id="btn-profile" class="menu-btn btn-xp" cursor="pointer"><span class="menu-btn-text btn-xp-text">🏆 PROFILE</span></div>
+  <div id="btn-tutorial" class="menu-btn btn-stats" cursor="pointer"><span class="menu-btn-text btn-stats-text">📖 TUTORIAL</span></div>
   <div id="btn-settings" class="menu-btn btn-settings" cursor="pointer"><span class="menu-btn-text btn-settings-text">SETTINGS</span></div>
   <div id="btn-help" class="menu-btn btn-help" cursor="pointer"><span class="menu-btn-text btn-help-text">HELP</span></div>
 </div>

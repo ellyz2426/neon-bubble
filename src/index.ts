@@ -1,6 +1,6 @@
 // Neon Bubble VR — Holodeck Puzzle Bobble / Bubble Shooter
 // IWSDK 0.4.1 | All UI via PanelUI | Zero HTML DOM
-// Round 6: Puzzle mode, Lucky Wheel, Codex, 130 achievements, 12 skins
+// Round 7: Tutorial, Boss Rush, Profile, 2 themes, 2 skins, 145 achievements
 
 import {
   World,
@@ -41,8 +41,8 @@ import {
 type GameState = 'title' | 'modeselect' | 'difficulty' | 'playing' | 'paused' | 'gameover' |
   'leaderboard' | 'achievements' | 'settings' | 'help' | 'stats' | 'skins' | 'countdown' |
   'levelcomplete' | 'xp' | 'tournament' | 'challenge' | 'bossintro' | 'streak' | 'season' |
-  'levelselect' | 'trails' | 'puzzleselect' | 'luckywheel' | 'codex';
-type GameMode = 'campaign' | 'endless' | 'timeattack' | 'precision' | 'daily' | 'weekly' | 'zen' | 'practice' | 'tournament' | 'challenge' | 'puzzle';
+  'levelselect' | 'trails' | 'puzzleselect' | 'luckywheel' | 'codex' | 'tutorial' | 'profile';
+type GameMode = 'campaign' | 'endless' | 'timeattack' | 'precision' | 'daily' | 'weekly' | 'zen' | 'practice' | 'tournament' | 'challenge' | 'puzzle' | 'tutorial' | 'bossrush';
 
 // ─── TRAIL STYLES ─────────────────────────────────────────────
 interface TrailStyle {
@@ -275,6 +275,8 @@ const THEMES: Theme[] = [
   { name: 'Toxic Neon', grid: '#00ff80', accent: '#ff00ff', bg: '#000a04', fog: '#000a04', bubbleGlow: 1.1, wallColor: '#004400' },
   { name: 'Ultra Violet', grid: '#aa44ff', accent: '#00ffff', bg: '#050010', fog: '#050010', bubbleGlow: 1.3, wallColor: '#220044' },
   { name: 'Solar Blaze', grid: '#ff8800', accent: '#ffff00', bg: '#0a0400', fog: '#0a0400', bubbleGlow: 1.0, wallColor: '#442200' },
+  { name: 'Cyber City', grid: '#ff0066', accent: '#00ccff', bg: '#05000a', fog: '#05000a', bubbleGlow: 1.2, wallColor: '#330022' },
+  { name: 'Deep Ocean', grid: '#0088aa', accent: '#00ffcc', bg: '#000608', fog: '#000608', bubbleGlow: 0.9, wallColor: '#003344' },
 ];
 
 // ─── ACHIEVEMENTS (115) ───────────────────────────────────────────
@@ -436,7 +438,26 @@ const ACHIEVEMENTS: Achievement[] = [
   { id: 'total_score_5m', name: 'Multi-Millionaire', desc: 'Accumulate 5M total career score' },
   { id: 'accuracy_100_game', name: 'Pixel Perfect', desc: 'Finish any mode with 100% accuracy (10+ shots)' },
   { id: 'cascade_chain_3', name: 'Triple Cascade', desc: 'Trigger 3 cascades in a single turn' },
-  { id: 'ultimate', name: 'Ultimate Popper', desc: 'Unlock all 130 achievements' },
+  { id: 'ultimate', name: 'Ultimate Popper', desc: 'Unlock all 145 achievements' },
+  // Round 7: Tutorial (3)
+  { id: 'tut_start', name: 'Student', desc: 'Start the tutorial' },
+  { id: 'tut_complete', name: 'Graduate', desc: 'Complete the tutorial' },
+  { id: 'tut_ace', name: 'Honor Roll', desc: 'Complete tutorial with 100% accuracy' },
+  // Round 7: Boss Rush (4)
+  { id: 'rush_start', name: 'Gauntlet Runner', desc: 'Start a Boss Rush' },
+  { id: 'rush_3', name: 'Rush Warrior', desc: 'Defeat 3 bosses in Boss Rush' },
+  { id: 'rush_complete', name: 'Rush Champion', desc: 'Complete Boss Rush (all 8 bosses)' },
+  { id: 'rush_speed', name: 'Speed Rush', desc: 'Complete Boss Rush in under 10 minutes' },
+  // Round 7: Themes & Profile (4)
+  { id: 'theme_cyber', name: 'Cyberpunk', desc: 'Play on Cyber City theme' },
+  { id: 'theme_ocean', name: 'Deep Diver', desc: 'Play on Deep Ocean theme' },
+  { id: 'all_themes_7', name: 'World Explorer', desc: 'Play on all 7 arena themes' },
+  { id: 'profile_view', name: 'Self-Aware', desc: 'View your Player Profile' },
+  // Round 7: Mastery (4)
+  { id: 'all_modes_13', name: 'Mode Master', desc: 'Play all 13 game modes' },
+  { id: 'skins_14', name: 'Full Wardrobe', desc: 'Unlock all 14 bubble skins' },
+  { id: 'total_pops_10k', name: 'Pop Factory Pro', desc: 'Pop 10,000 bubbles lifetime' },
+  { id: 'score_500k', name: 'Half-Millionaire', desc: 'Score 500,000+ in one game' },
 ];
 
 
@@ -455,6 +476,8 @@ const BUBBLE_SKINS: BubbleSkin[] = [
   { name: 'Hologram', multiplier: 1.0, wireColor: '#44ffee', glowIntensity: 1.3, unlock: 'Level 50' },
   { name: 'Starfield', multiplier: 1.1, wireColor: '#ffffff', glowIntensity: 1.5, unlock: 'Complete 6 puzzles' },
   { name: 'Nebula', multiplier: 1.2, wireColor: '#ff66cc', glowIntensity: 1.7, unlock: 'Win 5 Lucky Wheels' },
+  { name: 'Crystal', multiplier: 1.0, wireColor: '#88ddff', glowIntensity: 1.9, unlock: 'Complete Tutorial' },
+  { name: 'Void Fire', multiplier: 1.3, wireColor: '#ff2200', glowIntensity: 2.0, unlock: 'Complete Boss Rush' },
 ];
 
 // ─── CAMPAIGN LEVELS (50 + bosses) ────────────────────────────────
@@ -978,6 +1001,25 @@ async function main() {
   // Codex discovered entries
   let discoveredCodex: string[] = [];
 
+  // Tutorial state
+  let tutorialStep = 0;
+  const TUTORIAL_STEPS = [
+    { title: 'Step 1: AIM', instruction: 'Move your mouse to aim the launcher', hint: 'The guide line shows where your bubble will go', progress: '●○○○○' },
+    { title: 'Step 2: SHOOT', instruction: 'Click to shoot a bubble!', hint: 'Try to hit the colored bubbles above', progress: '●●○○○' },
+    { title: 'Step 3: MATCH', instruction: 'Match 3+ same-color bubbles to pop them', hint: 'Your bubble joins the grid — colors must match!', progress: '●●●○○' },
+    { title: 'Step 4: CASCADE', instruction: 'Disconnected bubbles fall automatically!', hint: 'Pop a supporting cluster to cascade above', progress: '●●●●○' },
+    { title: 'Step 5: POWER-UPS', instruction: 'Glowing bubbles are power-ups: 💣 Bomb, 🌈 Rainbow, ⚡ Lightning, 🔥 Fire', hint: 'They activate on impact — use them wisely!', progress: '●●●●●' },
+  ];
+
+  // Boss Rush state
+  let bossRushIndex = 0;
+  let bossRushScore = 0;
+  let bossRushStartTime = 0;
+  let bossRushDefeated = 0;
+
+  // Per-mode best scores
+  let modeBestScores: Record<string, number> = {};
+
   // Danger zone touched tracking (for comeback achievement)
   let touchedDangerZone = false;
 
@@ -1037,6 +1079,7 @@ async function main() {
   puzzlesCompleted = storage.get('puzzlesCompleted', []);
   wheelSpins = storage.get('wheelSpins', 0);
   discoveredCodex = storage.get('discoveredCodex', []);
+  modeBestScores = storage.get('modeBestScores', {});
 
   // Check and update streak on load
   function updateDailyStreak() {
@@ -1107,6 +1150,7 @@ async function main() {
     // Check century checks
     if (unlockedAchievements.length >= 100) unlockAchievement('century');
     if (unlockedAchievements.length >= 115) unlockAchievement('century_plus');
+    if (unlockedAchievements.length >= 145) unlockAchievement('ultimate');
     if (unlockedAchievements.length >= 130) unlockAchievement('ultimate');
   }
 
@@ -1182,6 +1226,9 @@ async function main() {
       usedThemes.push(themeIndex);
       storage.set('usedThemes', usedThemes);
       if (usedThemes.length >= 5) unlockAchievement('theme_all');
+      if (usedThemes.length >= 7) unlockAchievement('all_themes_7');
+      if (themeIndex === 5) unlockAchievement('theme_cyber');
+      if (themeIndex === 6) unlockAchievement('theme_ocean');
     }
   }
 
@@ -1720,6 +1767,7 @@ async function main() {
 
         if (gameMode === 'campaign') { handleLevelComplete(); return; }
         if (gameMode === 'tournament') { handleLevelComplete(); return; }
+        if (gameMode === 'bossrush') { handleLevelComplete(); return; }
         if (gameMode === 'puzzle') { handlePuzzleComplete(); return; }
         if (gameMode === 'endless') { ceilingOffset = 0; missCount = 0; generateGrid(); }
       }
@@ -2062,6 +2110,121 @@ async function main() {
     puzzleShotsLeft = puzzle.maxShots;
   }
 
+  // ─── TUTORIAL GRID GENERATION ─────────────────────────────
+  function generateTutorialGrid() {
+    clearGrid();
+    isBoss = false;
+    currentBossConfig = null;
+    // Simple 3-row grid with easy matches for tutorial
+    const tutGrid: BubbleColor[][] = [
+      [0, 1, 0, 1, 0, 1],
+      [1, 0, 0, 1, 1],
+      [0, 0, 1, 1, 0, 0],
+    ];
+    for (let r = 0; r < tutGrid.length; r++) {
+      for (let c = 0; c < tutGrid[r].length; c++) {
+        addGridBubble(r, c, tutGrid[r][c] as BubbleColor);
+      }
+    }
+  }
+
+  // ─── BOSS RUSH LOGIC ───────────────────────────────────────
+  function startBossRush() {
+    bossRushIndex = 0;
+    bossRushScore = 0;
+    bossRushStartTime = sessionPlayTime;
+    bossRushDefeated = 0;
+    unlockAchievement('rush_start');
+  }
+
+  function advanceBossRush() {
+    bossRushScore += score;
+    bossRushDefeated++;
+    if (bossRushDefeated >= 3) unlockAchievement('rush_3');
+
+    if (bossRushIndex + 1 >= BOSS_CONFIGS.length) {
+      // Boss Rush complete!
+      unlockAchievement('rush_complete');
+      const rushTime = sessionPlayTime - bossRushStartTime;
+      if (rushTime < 600) unlockAchievement('rush_speed'); // Under 10 min
+      // Unlock Void Fire skin
+      if (!unlockedSkins.includes(13)) {
+        unlockedSkins.push(13);
+        storage.set('skins', unlockedSkins);
+        unlockAchievement('skin_unlock');
+        showToast('🎨 Skin Unlocked: Void Fire');
+      }
+      showToast('🏆 BOSS RUSH COMPLETE! 🏆');
+      spawnFireworks();
+      audio.tournamentWin();
+      // Save rush score as mode best
+      if (!modeBestScores['bossrush'] || bossRushScore > modeBestScores['bossrush']) {
+        modeBestScores['bossrush'] = bossRushScore;
+        storage.set('modeBestScores', modeBestScores);
+      }
+      return false; // no more bosses
+    }
+    bossRushIndex++;
+    return true; // continue to next boss
+  }
+
+  // ─── PROFILE DISPLAY ──────────────────────────────────────
+  function showProfile() {
+    const doc = getDoc('profile');
+    if (!doc) return;
+    // Rank based on level and achievements
+    const rankNames = ['ROOKIE', 'ADEPT', 'EXPERT', 'MASTER', 'LEGEND', 'MYTHICAL'];
+    const rankIdx = playerLevel >= 50 ? 5 : playerLevel >= 35 ? 4 : playerLevel >= 25 ? 3 : playerLevel >= 15 ? 2 : playerLevel >= 5 ? 1 : 0;
+    setText(doc, 'profile-rank', rankNames[rankIdx]);
+
+    const hours = Math.floor(sessionPlayTime / 3600);
+    const mins = Math.floor((sessionPlayTime % 3600) / 60);
+    setText(doc, 'profile-subtitle', `Total Session: ${hours}h ${mins}m | Games: ${stats.games}`);
+
+    setText(doc, 'pf-level', playerLevel.toString());
+    setText(doc, 'pf-prestige', seasonData.prestigeLevel.toString());
+    setText(doc, 'pf-achievements', unlockedAchievements.length.toString());
+    setText(doc, 'pf-games', stats.games.toString());
+    setText(doc, 'pf-score', stats.bestScore.toLocaleString());
+    const acc = stats.totalShots > 0 ? Math.round(stats.totalPopped / stats.totalShots * 100) : 0;
+    setText(doc, 'pf-accuracy', acc + '%');
+
+    // Badges
+    const badges = [
+      { cond: stats.games >= 100, icon: '🎮', name: 'Veteran' },
+      { cond: bossDefeatedCount >= BOSS_CONFIGS.length, icon: '👹', name: 'Boss Slayer' },
+      { cond: tournamentsWon >= 3, icon: '🏆', name: 'Champion' },
+      { cond: unlockedAchievements.length >= 100, icon: '💯', name: 'Centurion' },
+      { cond: playerLevel >= 50, icon: '⭐', name: 'Max Level' },
+      { cond: seasonData.tier >= 3, icon: '💎', name: 'Diamond' },
+    ];
+    for (let i = 0; i < 6; i++) {
+      const b = badges[i];
+      setText(doc, `pf-badge-${i}`, b.cond ? `${b.icon} ${b.name}` : '🔒 ???');
+    }
+
+    // Mode records
+    const modeNames = ['campaign', 'endless', 'timeattack', 'precision', 'bossrush', 'tournament'];
+    const modeLabels = ['Campaign', 'Endless', 'Time Attack', 'Precision', 'Boss Rush', 'Tournament'];
+    for (let i = 0; i < 6; i++) {
+      const best = modeBestScores[modeNames[i]];
+      setText(doc, `pf-mode-${i}`, `${modeLabels[i]}: ${best ? best.toLocaleString() : '--'}`);
+    }
+
+    unlockAchievement('profile_view');
+  }
+
+  function showTutorialStep() {
+    const doc = getDoc('tutorial');
+    if (!doc) return;
+    const step = TUTORIAL_STEPS[tutorialStep];
+    if (!step) return;
+    setText(doc, 'tut-step', step.title);
+    setText(doc, 'tut-instruction', step.instruction);
+    setText(doc, 'tut-hint', step.hint);
+    setText(doc, 'tut-progress', step.progress);
+  }
+
   // ─── LUCKY WHEEL LOGIC ────────────────────────────────────
   function spinLuckyWheel(): LuckyPrize {
     const totalWeight = LUCKY_PRIZES.reduce((sum, p) => sum + p.weight, 0);
@@ -2162,6 +2325,10 @@ async function main() {
       generateChallengeGrid(challengeConfig);
     } else if (gameMode === 'puzzle') {
       generatePuzzleGrid(puzzleLevel);
+    } else if (gameMode === 'tutorial') {
+      generateTutorialGrid();
+    } else if (gameMode === 'bossrush') {
+      generateBossGrid(bossRushIndex);
     } else if (gameMode === 'tournament') {
       // Tournament uses medium-difficulty random grids
       const numColors = 5;
@@ -2207,12 +2374,15 @@ async function main() {
     modesPlayed.add(gameMode);
     storage.set('modesPlayed', [...modesPlayed]);
     if (modesPlayed.size >= 10) unlockAchievement('all_modes_played');
+    if (modesPlayed.size >= 13) unlockAchievement('all_modes_13');
     if (modesPlayed.size >= 11) unlockAchievement('all_modes_11');
     if (shotBubble) { world.scene.remove(shotBubble.mesh); shotBubble = null; }
 
     if (gameMode === 'timeattack') timeLeft = 90;
     else if (gameMode === 'precision') shotsLeft = difficulty === 'easy' ? 30 : difficulty === 'medium' ? 20 : 15;
     else if (gameMode === 'puzzle') { shotsLeft = puzzleShotsLeft; timeLeft = 0; }
+    else if (gameMode === 'tutorial') { shotsLeft = 20; timeLeft = 0; }
+    else if (gameMode === 'bossrush') { timeLeft = 0; shotsLeft = 0; }
     else { timeLeft = 0; shotsLeft = 0; }
 
     // Apply combo start bonus from Lucky Wheel
@@ -2237,6 +2407,20 @@ async function main() {
       submitTournamentScore(score);
       showTournamentBracket();
       setGameState('tournament');
+      return;
+    }
+
+    if (gameMode === 'bossrush') {
+      const hasMore = advanceBossRush();
+      if (hasMore) {
+        // Show level complete briefly, then auto-advance to next boss
+        showLevelComplete(3, 200);
+        setGameState('levelcomplete');
+      } else {
+        // Rush complete!
+        showLevelComplete(3, 500);
+        setGameState('levelcomplete');
+      }
       return;
     }
 
@@ -2407,6 +2591,7 @@ async function main() {
     if (accuracy >= 0.8 && shotsFired >= 5) unlockAchievement('accuracy_80');
     if (accuracy >= 0.95 && shotsFired >= 10) unlockAchievement('accuracy_95');
     if (accuracy >= 1.0 && shotsFired >= 10) unlockAchievement('accuracy_100_game');
+    if (gameMode === 'tutorial' && accuracy >= 1.0 && shotsFired >= 5) unlockAchievement('tut_ace');
     if (grid.filter(b => b.specialType === 'poison').length > 0) unlockAchievement('poison_survive');
     // Check stone_adjacent
     for (const stone of grid.filter(b => b.specialType === 'stone')) {
@@ -2427,10 +2612,30 @@ async function main() {
     // Century check
     if (unlockedAchievements.length >= 100) unlockAchievement('century');
 
+    // Save mode best score
+    if (!modeBestScores[gameMode] || score > modeBestScores[gameMode]) {
+      modeBestScores[gameMode] = score;
+      storage.set('modeBestScores', modeBestScores);
+    }
+
+    // New round 7 achievements in endGame
+    if (score >= 500000) unlockAchievement('score_500k');
+    if (stats.totalPopped + bubblesPopped >= 10000) unlockAchievement('total_pops_10k');
+    const allSkins14 = Array.from({length: 14}, (_, i) => i).every(i => unlockedSkins.includes(i));
+    if (allSkins14) unlockAchievement('skins_14');
+
     if (gameMode === 'tournament') {
       submitTournamentScore(score);
       showTournamentBracket();
       setGameState('tournament');
+      return;
+    }
+
+    if (gameMode === 'bossrush') {
+      // Boss rush game over means the current boss was lost
+      showToast('Boss Rush ended at boss ' + (bossRushIndex + 1));
+      showGameOver();
+      setGameState('gameover');
       return;
     }
 
@@ -2522,6 +2727,8 @@ async function main() {
   createUIPanel('puzzleselect', '/ui/puzzleselect.json', { maxWidth: 0.9, maxHeight: 1.1, position: [0, 1.2, -1.5] });
   createUIPanel('luckywheel', '/ui/luckywheel.json', { maxWidth: 0.6, maxHeight: 0.7, position: [0, 1.2, -1.2] });
   createUIPanel('codex', '/ui/codex.json', { maxWidth: 0.9, maxHeight: 1.1, position: [0, 1.2, -1.5] });
+  createUIPanel('tutorial', '/ui/tutorial.json', { maxWidth: 0.7, maxHeight: 0.9, position: [0, 1.2, -1.2] });
+  createUIPanel('profile', '/ui/profile.json', { maxWidth: 0.9, maxHeight: 1.2, position: [0, 1.2, -1.5] });
 
   let uiBindingsReady = false;
   function tryBindUI() {
@@ -2544,6 +2751,8 @@ async function main() {
     bindClick(titleDoc, 'btn-levelselect', () => { levelSelectPage = 0; showLevelSelect(); setGameState('levelselect'); });
     bindClick(titleDoc, 'btn-trails', () => { showTrails(); setGameState('trails'); });
     bindClick(titleDoc, 'btn-codex', () => { showCodex(); setGameState('codex'); });
+    bindClick(titleDoc, 'btn-tutorial', () => { tutorialStep = 0; unlockAchievement('tut_start'); showTutorialStep(); setGameState('tutorial'); });
+    bindClick(titleDoc, 'btn-profile', () => { showProfile(); setGameState('profile'); });
     updateTitleXP();
 
     // Mode select
@@ -2559,6 +2768,7 @@ async function main() {
     bindClick(modeDoc, 'btn-weekly', () => { gameMode = 'weekly'; setGameState('difficulty'); });
     bindClick(modeDoc, 'btn-challenge', () => { gameMode = 'challenge'; updateChallengeUI(); setGameState('challenge'); });
     bindClick(modeDoc, 'btn-puzzle', () => { showPuzzleSelect(); setGameState('puzzleselect'); });
+    bindClick(modeDoc, 'btn-bossrush', () => { gameMode = 'bossrush'; startBossRush(); setGameState('difficulty'); });
     bindClick(modeDoc, 'btn-back', () => setGameState('title'));
 
     // Difficulty
@@ -2613,6 +2823,15 @@ async function main() {
     // Level complete
     const lcDoc = getDoc('levelcomplete');
     bindClick(lcDoc, 'btn-next', () => {
+      if (gameMode === 'bossrush') {
+        if (bossRushIndex < BOSS_CONFIGS.length) {
+          clearGrid(); generateGrid();
+          showBossIntro(); setGameState('bossintro');
+        } else {
+          clearGrid(); setGameState('title');
+        }
+        return;
+      }
       campaignLevel++;
       clearGrid();
       if (campaignLevel < 50 && isBossLevel(campaignLevel)) {
@@ -2707,6 +2926,31 @@ async function main() {
     }
   }
 
+  // Tutorial bindings
+    const tutDoc = getDoc('tutorial');
+    bindClick(tutDoc, 'btn-tut-next', () => {
+      tutorialStep++;
+      if (tutorialStep >= TUTORIAL_STEPS.length) {
+        // Tutorial complete — start a practice game
+        unlockAchievement('tut_complete');
+        // Unlock Crystal skin
+        if (!unlockedSkins.includes(12)) {
+          unlockedSkins.push(12);
+          storage.set('skins', unlockedSkins);
+          unlockAchievement('skin_unlock');
+          showToast('🎨 Skin Unlocked: Crystal');
+        }
+        gameMode = 'tutorial';
+        clearGrid(); generateGrid(); startCountdown();
+      } else {
+        showTutorialStep();
+      }
+    });
+    bindClick(tutDoc, 'btn-tut-skip', () => { unlockAchievement('tut_complete'); setGameState('title'); });
+
+    // Profile bindings
+    bindClick(getDoc('profile'), 'btn-profile-back', () => setGameState('title'));
+
   function bindSettingsButtons() {
     const doc = getDoc('settings');
     if (!doc) return;
@@ -2786,6 +3030,8 @@ async function main() {
       case 'puzzleselect': showPanel('puzzleselect'); break;
       case 'luckywheel': showPanel('luckywheel'); break;
       case 'codex': showPanel('codex'); break;
+      case 'tutorial': showPanel('tutorial'); break;
+      case 'profile': showPanel('profile'); break;
     }
   }
 
@@ -3075,6 +3321,10 @@ async function main() {
       setText(doc, 'hud-level', label);
     } else if (gameMode === 'puzzle') {
       setText(doc, 'hud-level', 'P' + (puzzleLevel + 1));
+    } else if (gameMode === 'bossrush') {
+      setText(doc, 'hud-level', 'BR' + (bossRushIndex + 1));
+    } else if (gameMode === 'tutorial') {
+      setText(doc, 'hud-level', 'TUT');
     } else setText(doc, 'hud-level', '--');
     if (gameMode === 'timeattack') setText(doc, 'hud-time', Math.ceil(timeLeft).toString());
     else setText(doc, 'hud-time', '--');

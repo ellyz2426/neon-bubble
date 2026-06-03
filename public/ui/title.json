@@ -320,12 +320,58 @@
             "sourceTag": "span",
             "type": "custom",
             "children": [
+              "🏆 PROFILE"
+            ],
+            "properties": {
+              "class": "menu-btn-text btn-xp-text"
+            },
+            "dataUid": "uid-30"
+          }
+        ],
+        "properties": {
+          "id": "btn-profile",
+          "class": "menu-btn btn-xp",
+          "cursor": "pointer"
+        },
+        "dataUid": "uid-29"
+      },
+      {
+        "type": "container",
+        "sourceTag": "div",
+        "children": [
+          {
+            "sourceTag": "span",
+            "type": "custom",
+            "children": [
+              "📖 TUTORIAL"
+            ],
+            "properties": {
+              "class": "menu-btn-text btn-stats-text"
+            },
+            "dataUid": "uid-32"
+          }
+        ],
+        "properties": {
+          "id": "btn-tutorial",
+          "class": "menu-btn btn-stats",
+          "cursor": "pointer"
+        },
+        "dataUid": "uid-31"
+      },
+      {
+        "type": "container",
+        "sourceTag": "div",
+        "children": [
+          {
+            "sourceTag": "span",
+            "type": "custom",
+            "children": [
               "SETTINGS"
             ],
             "properties": {
               "class": "menu-btn-text btn-settings-text"
             },
-            "dataUid": "uid-30"
+            "dataUid": "uid-34"
           }
         ],
         "properties": {
@@ -333,7 +379,7 @@
           "class": "menu-btn btn-settings",
           "cursor": "pointer"
         },
-        "dataUid": "uid-29"
+        "dataUid": "uid-33"
       },
       {
         "type": "container",
@@ -348,7 +394,7 @@
             "properties": {
               "class": "menu-btn-text btn-help-text"
             },
-            "dataUid": "uid-32"
+            "dataUid": "uid-36"
           }
         ],
         "properties": {
@@ -356,7 +402,7 @@
           "class": "menu-btn btn-help",
           "cursor": "pointer"
         },
-        "dataUid": "uid-31"
+        "dataUid": "uid-35"
       }
     ],
     "properties": {
@@ -771,7 +817,7 @@
         "column": 0
       },
       "end": {
-        "line": 92,
+        "line": 94,
         "column": 6
       }
     },
@@ -1052,17 +1098,17 @@
       },
       "end": {
         "line": 90,
-        "column": 139
+        "column": 128
       }
     },
     "uid-30": {
       "start": {
         "line": 90,
-        "column": 72
+        "column": 65
       },
       "end": {
         "line": 90,
-        "column": 133
+        "column": 122
       }
     },
     "uid-31": {
@@ -1072,16 +1118,56 @@
       },
       "end": {
         "line": 91,
-        "column": 123
+        "column": 136
       }
     },
     "uid-32": {
       "start": {
         "line": 91,
-        "column": 64
+        "column": 69
       },
       "end": {
         "line": 91,
+        "column": 130
+      }
+    },
+    "uid-33": {
+      "start": {
+        "line": 92,
+        "column": 2
+      },
+      "end": {
+        "line": 92,
+        "column": 139
+      }
+    },
+    "uid-34": {
+      "start": {
+        "line": 92,
+        "column": 72
+      },
+      "end": {
+        "line": 92,
+        "column": 133
+      }
+    },
+    "uid-35": {
+      "start": {
+        "line": 93,
+        "column": 2
+      },
+      "end": {
+        "line": 93,
+        "column": 123
+      }
+    },
+    "uid-36": {
+      "start": {
+        "line": 93,
+        "column": 64
+      },
+      "end": {
+        "line": 93,
         "column": 117
       }
     }

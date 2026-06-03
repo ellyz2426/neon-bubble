@@ -1,0 +1,148 @@
+<style>
+  .profile-panel {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding-top: 2;
+    padding-bottom: 2;
+    padding-left: 4;
+    padding-right: 4;
+    background-color: rgba(0, 0, 0, 0.92);
+    border-color: #ffaa00;
+    border-width: 0.15;
+    border-radius: 1.5;
+    gap: 1;
+  }
+  .profile-title {
+    font-size: 3;
+    color: #ffaa00;
+    font-weight: bold;
+  }
+  .profile-subtitle {
+    font-size: 1.5;
+    color: #888888;
+  }
+  .profile-section-title {
+    font-size: 1.8;
+    color: #00ffff;
+    font-weight: bold;
+  }
+  .profile-row {
+    display: flex;
+    flex-direction: row;
+    gap: 2;
+    width: 100%;
+  }
+  .profile-stat-box {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    flex: 1;
+    padding-top: 0.5;
+    padding-bottom: 0.5;
+    background-color: rgba(0, 255, 255, 0.06);
+    border-color: #00ffff;
+    border-width: 0.05;
+    border-radius: 0.5;
+  }
+  .profile-stat-value {
+    font-size: 2;
+    color: #00ffff;
+    font-weight: bold;
+  }
+  .profile-stat-label {
+    font-size: 0.9;
+    color: #666666;
+  }
+  .profile-badge {
+    font-size: 1.4;
+    color: #ffaa00;
+  }
+  .profile-rank {
+    font-size: 2.2;
+    color: #ff00ff;
+    font-weight: bold;
+  }
+  .profile-mode-row {
+    display: flex;
+    flex-direction: row;
+    gap: 1;
+    width: 100%;
+  }
+  .profile-mode-stat {
+    font-size: 1;
+    color: #a0a0a0;
+    flex: 1;
+  }
+  .back-btn {
+    padding-top: 0.6;
+    padding-bottom: 0.6;
+    padding-left: 3;
+    padding-right: 3;
+    background-color: rgba(128, 128, 128, 0.15);
+    border-color: #888888;
+    border-width: 0.08;
+    border-radius: 0.6;
+    cursor: pointer;
+  }
+  .back-text { font-size: 1.6; color: #888888; }
+</style>
+<div class="profile-panel">
+  <span class="profile-title">🏆 PLAYER PROFILE</span>
+  <span id="profile-rank" class="profile-rank">ROOKIE</span>
+  <span id="profile-subtitle" class="profile-subtitle">Total Playtime: 0h 0m</span>
+  <span class="profile-section-title">─── OVERVIEW ───</span>
+  <div class="profile-row">
+    <div class="profile-stat-box">
+      <span id="pf-level" class="profile-stat-value">1</span>
+      <span class="profile-stat-label">LEVEL</span>
+    </div>
+    <div class="profile-stat-box">
+      <span id="pf-prestige" class="profile-stat-value">0</span>
+      <span class="profile-stat-label">PRESTIGE</span>
+    </div>
+    <div class="profile-stat-box">
+      <span id="pf-achievements" class="profile-stat-value">0</span>
+      <span class="profile-stat-label">TROPHIES</span>
+    </div>
+  </div>
+  <div class="profile-row">
+    <div class="profile-stat-box">
+      <span id="pf-games" class="profile-stat-value">0</span>
+      <span class="profile-stat-label">GAMES</span>
+    </div>
+    <div class="profile-stat-box">
+      <span id="pf-score" class="profile-stat-value">0</span>
+      <span class="profile-stat-label">BEST SCORE</span>
+    </div>
+    <div class="profile-stat-box">
+      <span id="pf-accuracy" class="profile-stat-value">0%</span>
+      <span class="profile-stat-label">ACCURACY</span>
+    </div>
+  </div>
+  <span class="profile-section-title">─── BADGES ───</span>
+  <div class="profile-row">
+    <span id="pf-badge-0" class="profile-badge">🔒 ???</span>
+    <span id="pf-badge-1" class="profile-badge">🔒 ???</span>
+    <span id="pf-badge-2" class="profile-badge">🔒 ???</span>
+  </div>
+  <div class="profile-row">
+    <span id="pf-badge-3" class="profile-badge">🔒 ???</span>
+    <span id="pf-badge-4" class="profile-badge">🔒 ???</span>
+    <span id="pf-badge-5" class="profile-badge">🔒 ???</span>
+  </div>
+  <span class="profile-section-title">─── MODE RECORDS ───</span>
+  <div class="profile-mode-row">
+    <span id="pf-mode-0" class="profile-mode-stat">Campaign: --</span>
+    <span id="pf-mode-1" class="profile-mode-stat">Endless: --</span>
+  </div>
+  <div class="profile-mode-row">
+    <span id="pf-mode-2" class="profile-mode-stat">Time Attack: --</span>
+    <span id="pf-mode-3" class="profile-mode-stat">Precision: --</span>
+  </div>
+  <div class="profile-mode-row">
+    <span id="pf-mode-4" class="profile-mode-stat">Boss Rush: --</span>
+    <span id="pf-mode-5" class="profile-mode-stat">Tournament: --</span>
+  </div>
+  <div id="btn-profile-back" class="back-btn" cursor="pointer"><span class="back-text">BACK</span></div>
+</div>

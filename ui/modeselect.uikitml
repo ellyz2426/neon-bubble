@@ -129,6 +129,10 @@
       <span class="mode-name" style="color: #00ffc8;">🧩 PUZZLE</span>
       <span class="mode-desc">12 handcrafted levels</span>
     </div>
+    <div id="btn-bossrush" class="mode-btn" cursor="pointer" style="background-color: rgba(255, 50, 50, 0.12); border-color: #ff3232;">
+      <span class="mode-name" style="color: #ff3232;">👹 BOSS RUSH</span>
+      <span class="mode-desc">All 8 bosses</span>
+    </div>
   </div>
   <div id="btn-back" class="back-btn" cursor="pointer"><span class="back-text">BACK</span></div>
 </div>

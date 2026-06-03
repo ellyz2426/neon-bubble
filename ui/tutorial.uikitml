@@ -1,0 +1,76 @@
+<style>
+  .tutorial-panel {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding-top: 3;
+    padding-bottom: 3;
+    padding-left: 5;
+    padding-right: 5;
+    background-color: rgba(0, 0, 0, 0.92);
+    border-color: #00ff88;
+    border-width: 0.15;
+    border-radius: 1.5;
+    gap: 1.5;
+  }
+  .tut-title {
+    font-size: 3.5;
+    color: #00ff88;
+    font-weight: bold;
+  }
+  .tut-step-label {
+    font-size: 2;
+    color: #ffaa00;
+    font-weight: bold;
+  }
+  .tut-instruction {
+    font-size: 1.6;
+    color: #ffffff;
+  }
+  .tut-hint {
+    font-size: 1.2;
+    color: #888888;
+  }
+  .tut-progress {
+    font-size: 1.3;
+    color: #00ffff;
+  }
+  .tut-btn {
+    padding-top: 1;
+    padding-bottom: 1;
+    padding-left: 4;
+    padding-right: 4;
+    background-color: rgba(0, 255, 136, 0.2);
+    border-color: #00ff88;
+    border-width: 0.1;
+    border-radius: 0.8;
+    cursor: pointer;
+    align-items: center;
+  }
+  .tut-btn-text {
+    font-size: 1.8;
+    color: #00ff88;
+    font-weight: bold;
+  }
+  .tut-skip-btn {
+    padding-top: 0.5;
+    padding-bottom: 0.5;
+    padding-left: 3;
+    padding-right: 3;
+    background-color: rgba(128, 128, 128, 0.15);
+    border-color: #666666;
+    border-width: 0.08;
+    border-radius: 0.6;
+    cursor: pointer;
+  }
+  .tut-skip-text { font-size: 1.2; color: #666666; }
+</style>
+<div class="tutorial-panel">
+  <span class="tut-title">📖 TUTORIAL</span>
+  <span id="tut-step" class="tut-step-label">Step 1 / 5</span>
+  <span id="tut-instruction" class="tut-instruction">Move your mouse to aim the launcher</span>
+  <span id="tut-hint" class="tut-hint">The guide line shows where your bubble will go</span>
+  <span id="tut-progress" class="tut-progress">●○○○○</span>
+  <div id="btn-tut-next" class="tut-btn" cursor="pointer"><span class="tut-btn-text">NEXT →</span></div>
+  <div id="btn-tut-skip" class="tut-skip-btn" cursor="pointer"><span class="tut-skip-text">SKIP TUTORIAL</span></div>
+</div>
