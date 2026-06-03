@@ -1,0 +1,311 @@
+{
+  "element": {
+    "sourceTag": "panel",
+    "type": "custom",
+    "children": [
+      {
+        "sourceTag": "text",
+        "type": "custom",
+        "children": [
+          "🎰 LUCKY WHEEL"
+        ],
+        "properties": {
+          "fontSize": "22",
+          "color": "#ffcc00",
+          "fontWeight": "bold",
+          "textAlign": "center"
+        },
+        "dataUid": "uid-2"
+      },
+      {
+        "sourceTag": "text",
+        "type": "custom",
+        "children": [
+          "Total Spins: 0"
+        ],
+        "properties": {
+          "id": "wheel-spins",
+          "fontSize": "10",
+          "color": "#88aacc",
+          "textAlign": "center"
+        },
+        "dataUid": "uid-3"
+      },
+      {
+        "sourceTag": "panel",
+        "type": "custom",
+        "children": [
+          {
+            "sourceTag": "text",
+            "type": "custom",
+            "children": [
+              "🎰 Tap SPIN to try your luck!"
+            ],
+            "properties": {
+              "id": "wheel-result",
+              "fontSize": "16",
+              "color": "#00ffcc",
+              "fontWeight": "bold",
+              "textAlign": "center"
+            },
+            "dataUid": "uid-5"
+          },
+          {
+            "sourceTag": "text",
+            "type": "custom",
+            "children": [],
+            "properties": {
+              "id": "wheel-prize",
+              "fontSize": "12",
+              "color": "#ffcc00",
+              "textAlign": "center"
+            },
+            "dataUid": "uid-6"
+          }
+        ],
+        "properties": {
+          "backgroundColor": "#002244cc",
+          "borderRadius": "10",
+          "padding": "14",
+          "marginTop": "10"
+        },
+        "dataUid": "uid-4"
+      },
+      {
+        "sourceTag": "panel",
+        "type": "custom",
+        "children": [
+          {
+            "sourceTag": "panel",
+            "type": "custom",
+            "children": [
+              {
+                "sourceTag": "text",
+                "type": "custom",
+                "children": [
+                  "🎰 SPIN!"
+                ],
+                "properties": {
+                  "fontSize": "16",
+                  "color": "#000000",
+                  "fontWeight": "bold",
+                  "textAlign": "center"
+                },
+                "dataUid": "uid-9"
+              }
+            ],
+            "properties": {
+              "id": "btn-spin",
+              "backgroundColor": "#ffaa00cc",
+              "borderRadius": "10",
+              "padding": "10",
+              "cursor": "pointer",
+              "minWidth": "120"
+            },
+            "dataUid": "uid-8"
+          },
+          {
+            "sourceTag": "panel",
+            "type": "custom",
+            "children": [
+              {
+                "sourceTag": "text",
+                "type": "custom",
+                "children": [
+                  "DONE"
+                ],
+                "properties": {
+                  "fontSize": "14",
+                  "color": "#00ffcc",
+                  "textAlign": "center"
+                },
+                "dataUid": "uid-11"
+              }
+            ],
+            "properties": {
+              "id": "btn-wheel-done",
+              "backgroundColor": "#004444cc",
+              "borderRadius": "8",
+              "padding": "10",
+              "cursor": "pointer",
+              "minWidth": "100"
+            },
+            "dataUid": "uid-10"
+          }
+        ],
+        "properties": {
+          "flexDirection": "row",
+          "gap": "10",
+          "marginTop": "12",
+          "justifyContent": "center"
+        },
+        "dataUid": "uid-7"
+      },
+      {
+        "sourceTag": "panel",
+        "type": "custom",
+        "children": [
+          {
+            "sourceTag": "text",
+            "type": "custom",
+            "children": [
+              "Prizes: XP Bonuses • Streak Shield • Combo Start • Mystery Bonus • JACKPOT"
+            ],
+            "properties": {
+              "fontSize": "8",
+              "color": "#668899",
+              "textAlign": "center"
+            },
+            "dataUid": "uid-13"
+          }
+        ],
+        "properties": {
+          "backgroundColor": "#001133cc",
+          "borderRadius": "6",
+          "padding": "8",
+          "marginTop": "8"
+        },
+        "dataUid": "uid-12"
+      }
+    ],
+    "properties": {
+      "backgroundColor": "#001122ee",
+      "borderRadius": "12",
+      "padding": "16"
+    },
+    "dataUid": "uid-1"
+  },
+  "classes": {},
+  "ranges": {
+    "uid-1": {
+      "start": {
+        "line": 0,
+        "column": 0
+      },
+      "end": {
+        "line": 18,
+        "column": 8
+      }
+    },
+    "uid-2": {
+      "start": {
+        "line": 1,
+        "column": 2
+      },
+      "end": {
+        "line": 1,
+        "column": 99
+      }
+    },
+    "uid-3": {
+      "start": {
+        "line": 2,
+        "column": 2
+      },
+      "end": {
+        "line": 2,
+        "column": 97
+      }
+    },
+    "uid-4": {
+      "start": {
+        "line": 3,
+        "column": 2
+      },
+      "end": {
+        "line": 6,
+        "column": 10
+      }
+    },
+    "uid-5": {
+      "start": {
+        "line": 4,
+        "column": 4
+      },
+      "end": {
+        "line": 4,
+        "column": 134
+      }
+    },
+    "uid-6": {
+      "start": {
+        "line": 5,
+        "column": 4
+      },
+      "end": {
+        "line": 5,
+        "column": 85
+      }
+    },
+    "uid-7": {
+      "start": {
+        "line": 7,
+        "column": 2
+      },
+      "end": {
+        "line": 14,
+        "column": 10
+      }
+    },
+    "uid-8": {
+      "start": {
+        "line": 8,
+        "column": 4
+      },
+      "end": {
+        "line": 10,
+        "column": 12
+      }
+    },
+    "uid-9": {
+      "start": {
+        "line": 9,
+        "column": 6
+      },
+      "end": {
+        "line": 9,
+        "column": 97
+      }
+    },
+    "uid-10": {
+      "start": {
+        "line": 11,
+        "column": 4
+      },
+      "end": {
+        "line": 13,
+        "column": 12
+      }
+    },
+    "uid-11": {
+      "start": {
+        "line": 12,
+        "column": 6
+      },
+      "end": {
+        "line": 12,
+        "column": 74
+      }
+    },
+    "uid-12": {
+      "start": {
+        "line": 15,
+        "column": 2
+      },
+      "end": {
+        "line": 17,
+        "column": 10
+      }
+    },
+    "uid-13": {
+      "start": {
+        "line": 16,
+        "column": 4
+      },
+      "end": {
+        "line": 16,
+        "column": 141
+      }
+    }
+  }
+}

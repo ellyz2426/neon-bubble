@@ -1,0 +1,51 @@
+<panel background-color="#001122ee" border-radius="12" padding="12">
+  <text font-size="20" color="#00ffcc" font-weight="bold" text-align="center">📖 CODEX</text>
+  <text id="codex-count" font-size="10" color="#88aacc" text-align="center">0 / 22 Discovered</text>
+  <panel flex-direction="column" gap="3" padding="4" max-height="600">
+    <text font-size="12" color="#ffcc00" font-weight="bold">─ BUBBLES ─</text>
+    <panel flex-direction="row" gap="4">
+      <panel flex="1"><text id="cx-name-0" font-size="9" color="#00ffcc">??? UNKNOWN ???</text><text id="cx-desc-0" font-size="7" color="#668899">Not yet discovered</text><text id="cx-cat-0" font-size="6" color="#446688"></text></panel>
+      <panel flex="1"><text id="cx-name-1" font-size="9" color="#00ffcc">??? UNKNOWN ???</text><text id="cx-desc-1" font-size="7" color="#668899">Not yet discovered</text><text id="cx-cat-1" font-size="6" color="#446688"></text></panel>
+      <panel flex="1"><text id="cx-name-2" font-size="9" color="#00ffcc">??? UNKNOWN ???</text><text id="cx-desc-2" font-size="7" color="#668899">Not yet discovered</text><text id="cx-cat-2" font-size="6" color="#446688"></text></panel>
+    </panel>
+    <panel flex-direction="row" gap="4">
+      <panel flex="1"><text id="cx-name-3" font-size="9" color="#00ffcc">??? UNKNOWN ???</text><text id="cx-desc-3" font-size="7" color="#668899">Not yet discovered</text><text id="cx-cat-3" font-size="6" color="#446688"></text></panel>
+      <panel flex="1"><text id="cx-name-4" font-size="9" color="#00ffcc">??? UNKNOWN ???</text><text id="cx-desc-4" font-size="7" color="#668899">Not yet discovered</text><text id="cx-cat-4" font-size="6" color="#446688"></text></panel>
+      <panel flex="1"><text id="cx-name-5" font-size="9" color="#00ffcc">??? UNKNOWN ???</text><text id="cx-desc-5" font-size="7" color="#668899">Not yet discovered</text><text id="cx-cat-5" font-size="6" color="#446688"></text></panel>
+    </panel>
+    <text font-size="12" color="#ffcc00" font-weight="bold" margin-top="4">─ SPECIALS ─</text>
+    <panel flex-direction="row" gap="4">
+      <panel flex="1"><text id="cx-name-6" font-size="9" color="#00ffcc">??? UNKNOWN ???</text><text id="cx-desc-6" font-size="7" color="#668899">Not yet discovered</text><text id="cx-cat-6" font-size="6" color="#446688"></text></panel>
+      <panel flex="1"><text id="cx-name-7" font-size="9" color="#00ffcc">??? UNKNOWN ???</text><text id="cx-desc-7" font-size="7" color="#668899">Not yet discovered</text><text id="cx-cat-7" font-size="6" color="#446688"></text></panel>
+      <panel flex="1"><text id="cx-name-8" font-size="9" color="#00ffcc">??? UNKNOWN ???</text><text id="cx-desc-8" font-size="7" color="#668899">Not yet discovered</text><text id="cx-cat-8" font-size="6" color="#446688"></text></panel>
+    </panel>
+    <text font-size="12" color="#ffcc00" font-weight="bold" margin-top="4">─ POWER-UPS ─</text>
+    <panel flex-direction="row" gap="4">
+      <panel flex="1"><text id="cx-name-9" font-size="9" color="#00ffcc">??? UNKNOWN ???</text><text id="cx-desc-9" font-size="7" color="#668899">Not yet discovered</text><text id="cx-cat-9" font-size="6" color="#446688"></text></panel>
+      <panel flex="1"><text id="cx-name-10" font-size="9" color="#00ffcc">??? UNKNOWN ???</text><text id="cx-desc-10" font-size="7" color="#668899">Not yet discovered</text><text id="cx-cat-10" font-size="6" color="#446688"></text></panel>
+    </panel>
+    <panel flex-direction="row" gap="4">
+      <panel flex="1"><text id="cx-name-11" font-size="9" color="#00ffcc">??? UNKNOWN ???</text><text id="cx-desc-11" font-size="7" color="#668899">Not yet discovered</text><text id="cx-cat-11" font-size="6" color="#446688"></text></panel>
+      <panel flex="1"><text id="cx-name-12" font-size="9" color="#00ffcc">??? UNKNOWN ???</text><text id="cx-desc-12" font-size="7" color="#668899">Not yet discovered</text><text id="cx-cat-12" font-size="6" color="#446688"></text></panel>
+    </panel>
+    <text font-size="12" color="#ffcc00" font-weight="bold" margin-top="4">─ BOSSES ─</text>
+    <panel flex-direction="row" gap="4">
+      <panel flex="1"><text id="cx-name-13" font-size="9" color="#00ffcc">??? UNKNOWN ???</text><text id="cx-desc-13" font-size="7" color="#668899">Not yet discovered</text><text id="cx-cat-13" font-size="6" color="#446688"></text></panel>
+      <panel flex="1"><text id="cx-name-14" font-size="9" color="#00ffcc">??? UNKNOWN ???</text><text id="cx-desc-14" font-size="7" color="#668899">Not yet discovered</text><text id="cx-cat-14" font-size="6" color="#446688"></text></panel>
+      <panel flex="1"><text id="cx-name-15" font-size="9" color="#00ffcc">??? UNKNOWN ???</text><text id="cx-desc-15" font-size="7" color="#668899">Not yet discovered</text><text id="cx-cat-15" font-size="6" color="#446688"></text></panel>
+    </panel>
+    <panel flex-direction="row" gap="4">
+      <panel flex="1"><text id="cx-name-16" font-size="9" color="#00ffcc">??? UNKNOWN ???</text><text id="cx-desc-16" font-size="7" color="#668899">Not yet discovered</text><text id="cx-cat-16" font-size="6" color="#446688"></text></panel>
+      <panel flex="1"><text id="cx-name-17" font-size="9" color="#00ffcc">??? UNKNOWN ???</text><text id="cx-desc-17" font-size="7" color="#668899">Not yet discovered</text><text id="cx-cat-17" font-size="6" color="#446688"></text></panel>
+      <panel flex="1"><text id="cx-name-18" font-size="9" color="#00ffcc">??? UNKNOWN ???</text><text id="cx-desc-18" font-size="7" color="#668899">Not yet discovered</text><text id="cx-cat-18" font-size="6" color="#446688"></text></panel>
+    </panel>
+    <panel flex-direction="row" gap="4">
+      <panel flex="1"><text id="cx-name-19" font-size="9" color="#00ffcc">??? UNKNOWN ???</text><text id="cx-desc-19" font-size="7" color="#668899">Not yet discovered</text><text id="cx-cat-19" font-size="6" color="#446688"></text></panel>
+      <panel flex="1"><text id="cx-name-20" font-size="9" color="#00ffcc">??? UNKNOWN ???</text><text id="cx-desc-20" font-size="7" color="#668899">Not yet discovered</text><text id="cx-cat-20" font-size="6" color="#446688"></text></panel>
+      <panel flex="1"><text id="cx-name-21" font-size="9" color="#00ffcc">??? UNKNOWN ???</text><text id="cx-desc-21" font-size="7" color="#668899">Not yet discovered</text><text id="cx-cat-21" font-size="6" color="#446688"></text></panel>
+    </panel>
+  </panel>
+  <panel id="btn-codex-back" background-color="#004444cc" border-radius="8" padding="6" margin-top="6" cursor="pointer">
+    <text font-size="12" color="#00ffcc" text-align="center">« BACK</text>
+  </panel>
+</panel>

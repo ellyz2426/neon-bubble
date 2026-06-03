@@ -297,12 +297,35 @@
             "sourceTag": "span",
             "type": "custom",
             "children": [
+              "📖 CODEX"
+            ],
+            "properties": {
+              "class": "menu-btn-text"
+            },
+            "dataUid": "uid-28"
+          }
+        ],
+        "properties": {
+          "id": "btn-codex",
+          "class": "menu-btn",
+          "cursor": "pointer"
+        },
+        "dataUid": "uid-27"
+      },
+      {
+        "type": "container",
+        "sourceTag": "div",
+        "children": [
+          {
+            "sourceTag": "span",
+            "type": "custom",
+            "children": [
               "SETTINGS"
             ],
             "properties": {
               "class": "menu-btn-text btn-settings-text"
             },
-            "dataUid": "uid-28"
+            "dataUid": "uid-30"
           }
         ],
         "properties": {
@@ -310,7 +333,7 @@
           "class": "menu-btn btn-settings",
           "cursor": "pointer"
         },
-        "dataUid": "uid-27"
+        "dataUid": "uid-29"
       },
       {
         "type": "container",
@@ -325,7 +348,7 @@
             "properties": {
               "class": "menu-btn-text btn-help-text"
             },
-            "dataUid": "uid-30"
+            "dataUid": "uid-32"
           }
         ],
         "properties": {
@@ -333,7 +356,7 @@
           "class": "menu-btn btn-help",
           "cursor": "pointer"
         },
-        "dataUid": "uid-29"
+        "dataUid": "uid-31"
       }
     ],
     "properties": {
@@ -748,7 +771,7 @@
         "column": 0
       },
       "end": {
-        "line": 91,
+        "line": 92,
         "column": 6
       }
     },
@@ -1009,17 +1032,17 @@
       },
       "end": {
         "line": 89,
-        "column": 139
+        "column": 105
       }
     },
     "uid-28": {
       "start": {
         "line": 89,
-        "column": 72
+        "column": 56
       },
       "end": {
         "line": 89,
-        "column": 133
+        "column": 99
       }
     },
     "uid-29": {
@@ -1029,16 +1052,36 @@
       },
       "end": {
         "line": 90,
-        "column": 123
+        "column": 139
       }
     },
     "uid-30": {
       "start": {
         "line": 90,
-        "column": 64
+        "column": 72
       },
       "end": {
         "line": 90,
+        "column": 133
+      }
+    },
+    "uid-31": {
+      "start": {
+        "line": 91,
+        "column": 2
+      },
+      "end": {
+        "line": 91,
+        "column": 123
+      }
+    },
+    "uid-32": {
+      "start": {
+        "line": 91,
+        "column": 64
+      },
+      "end": {
+        "line": 91,
         "column": 117
       }
     }

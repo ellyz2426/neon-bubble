@@ -124,5 +124,11 @@
       <span class="mode-desc">Rotating weekly</span>
     </div>
   </div>
+  <div class="mode-row">
+    <div id="btn-puzzle" class="mode-btn" cursor="pointer" style="background-color: rgba(0, 255, 200, 0.12); border-color: #00ffc8;">
+      <span class="mode-name" style="color: #00ffc8;">🧩 PUZZLE</span>
+      <span class="mode-desc">12 handcrafted levels</span>
+    </div>
+  </div>
   <div id="btn-back" class="back-btn" cursor="pointer"><span class="back-text">BACK</span></div>
 </div>

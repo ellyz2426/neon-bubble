@@ -1,0 +1,19 @@
+<panel background-color="#001122ee" border-radius="12" padding="16">
+  <text font-size="22" color="#ffcc00" font-weight="bold" text-align="center">🎰 LUCKY WHEEL</text>
+  <text id="wheel-spins" font-size="10" color="#88aacc" text-align="center">Total Spins: 0</text>
+  <panel background-color="#002244cc" border-radius="10" padding="14" margin-top="10">
+    <text id="wheel-result" font-size="16" color="#00ffcc" font-weight="bold" text-align="center">🎰 Tap SPIN to try your luck!</text>
+    <text id="wheel-prize" font-size="12" color="#ffcc00" text-align="center"></text>
+  </panel>
+  <panel flex-direction="row" gap="10" margin-top="12" justify-content="center">
+    <panel id="btn-spin" background-color="#ffaa00cc" border-radius="10" padding="10" cursor="pointer" min-width="120">
+      <text font-size="16" color="#000000" font-weight="bold" text-align="center">🎰 SPIN!</text>
+    </panel>
+    <panel id="btn-wheel-done" background-color="#004444cc" border-radius="8" padding="10" cursor="pointer" min-width="100">
+      <text font-size="14" color="#00ffcc" text-align="center">DONE</text>
+    </panel>
+  </panel>
+  <panel background-color="#001133cc" border-radius="6" padding="8" margin-top="8">
+    <text font-size="8" color="#668899" text-align="center">Prizes: XP Bonuses • Streak Shield • Combo Start • Mystery Bonus • JACKPOT</text>
+  </panel>
+</panel>

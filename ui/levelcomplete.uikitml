@@ -102,6 +102,7 @@
   </div>
   <div class="btn-row">
     <div id="btn-next" class="lc-btn next-btn" cursor="pointer"><span class="lc-btn-text next-text">NEXT LEVEL</span></div>
+    <div id="btn-lucky" class="lc-btn" cursor="pointer" style="background-color: rgba(255, 170, 0, 0.15); border-color: #ffaa00;"><span class="lc-btn-text" style="color: #ffaa00;">🎰 LUCKY</span></div>
     <div id="btn-title" class="lc-btn" cursor="pointer"><span class="lc-btn-text">TITLE</span></div>
   </div>
 </div>

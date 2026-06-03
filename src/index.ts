@@ -1,6 +1,6 @@
 // Neon Bubble VR — Holodeck Puzzle Bobble / Bubble Shooter
 // IWSDK 0.4.1 | All UI via PanelUI | Zero HTML DOM
-// Round 5: Level select, trail styles, weekly challenge, dynamic music, 115 achievements
+// Round 6: Puzzle mode, Lucky Wheel, Codex, 130 achievements, 12 skins
 
 import {
   World,
@@ -41,8 +41,8 @@ import {
 type GameState = 'title' | 'modeselect' | 'difficulty' | 'playing' | 'paused' | 'gameover' |
   'leaderboard' | 'achievements' | 'settings' | 'help' | 'stats' | 'skins' | 'countdown' |
   'levelcomplete' | 'xp' | 'tournament' | 'challenge' | 'bossintro' | 'streak' | 'season' |
-  'levelselect' | 'trails';
-type GameMode = 'campaign' | 'endless' | 'timeattack' | 'precision' | 'daily' | 'weekly' | 'zen' | 'practice' | 'tournament' | 'challenge';
+  'levelselect' | 'trails' | 'puzzleselect' | 'luckywheel' | 'codex';
+type GameMode = 'campaign' | 'endless' | 'timeattack' | 'precision' | 'daily' | 'weekly' | 'zen' | 'practice' | 'tournament' | 'challenge' | 'puzzle';
 
 // ─── TRAIL STYLES ─────────────────────────────────────────────
 interface TrailStyle {
@@ -61,6 +61,99 @@ const TRAIL_STYLES: TrailStyle[] = [
   { name: 'RAINBOW', colors: [[1,0,0],[1,0.5,0],[1,1,0],[0,1,0],[0,0.5,1],[0.5,0,1]], size: 0.008, count: 2, life: 0.3, unlockCondition: 'Player level 20' },
   { name: 'PRISMATIC', colors: [[1,0,1],[0,1,1],[1,1,0],[1,0.5,0.5]], size: 0.012, count: 3, life: 0.4, unlockCondition: '50 achievements unlocked' },
 ];
+// ─── PUZZLE DEFINITIONS (12 hand-crafted levels) ──────────────────
+interface PuzzleLevel {
+  name: string;
+  desc: string;
+  maxShots: number;
+  rows: BubbleColor[][];
+  specials?: { row: number; col: number; type: 'frozen' | 'stone' | 'poison' }[];
+}
+const PUZZLE_LEVELS: PuzzleLevel[] = [
+  { name: 'THE ARROW', desc: 'Clear the arrowhead formation', maxShots: 5,
+    rows: [[-1,-1,0,-1,-1] as any, [-1,0,0,-1] as any, [0,1,0,1,0] as any, [-1,1,1,-1] as any, [-1,-1,1,-1,-1] as any] },
+  { name: 'COLOR WALL', desc: 'Break through the color wall', maxShots: 8,
+    rows: [[0,0,0,0,0,0] as any, [1,1,1,1,1] as any, [2,2,2,2,2,2] as any, [3,3,3,3,3] as any] },
+  { name: 'DIAMOND', desc: 'Shatter the diamond', maxShots: 6,
+    rows: [[-1,-1,0,-1,-1,-1] as any, [-1,0,1,0,-1] as any, [0,1,2,1,0,-1] as any, [-1,0,1,0,-1] as any, [-1,-1,0,-1,-1,-1] as any] },
+  { name: 'FORTRESS', desc: 'Breach the frozen fortress', maxShots: 10,
+    rows: [[0,1,0,1,0,1] as any, [1,0,1,0,1] as any, [0,1,0,1,0,1] as any],
+    specials: [{ row: 0, col: 0, type: 'frozen' }, { row: 0, col: 5, type: 'frozen' }, { row: 2, col: 0, type: 'frozen' }, { row: 2, col: 5, type: 'frozen' }] },
+  { name: 'SNAKE', desc: 'Untangle the snake', maxShots: 7,
+    rows: [[0,0,0,-1,-1,-1] as any, [-1,-1,0,-1,-1] as any, [-1,-1,0,1,1,-1] as any, [-1,-1,-1,-1,1] as any, [-1,-1,-1,1,1,-1] as any] },
+  { name: 'BULLSEYE', desc: 'Hit the center cluster', maxShots: 4,
+    rows: [[-1,-1,2,-1,-1,-1] as any, [-1,2,0,2,-1] as any, [2,0,1,0,2,-1] as any, [-1,2,0,2,-1] as any, [-1,-1,2,-1,-1,-1] as any] },
+  { name: 'STONE MAZE', desc: 'Navigate the stone obstacles', maxShots: 12,
+    rows: [[0,1,0,1,0,1] as any, [1,0,1,0,1] as any, [0,1,0,1,0,1] as any, [1,0,1,0,1] as any],
+    specials: [{ row: 1, col: 1, type: 'stone' }, { row: 1, col: 3, type: 'stone' }, { row: 3, col: 0, type: 'stone' }, { row: 3, col: 4, type: 'stone' }] },
+  { name: 'RAINBOW', desc: 'Clear the full spectrum', maxShots: 9,
+    rows: [[0,0,0,0,0,0] as any, [1,1,1,1,1] as any, [2,2,2,2,2,2] as any, [3,3,3,3,3] as any, [4,4,4,4,4,4] as any, [5,5,5,5,5] as any] },
+  { name: 'POISON GARDEN', desc: 'Clear without spreading poison', maxShots: 8,
+    rows: [[0,1,2,1,0,-1] as any, [1,0,1,0,1] as any, [2,1,0,1,2,-1] as any],
+    specials: [{ row: 1, col: 1, type: 'poison' }, { row: 1, col: 3, type: 'poison' }, { row: 2, col: 2, type: 'poison' }] },
+  { name: 'TWIN TOWERS', desc: 'Topple both towers', maxShots: 8,
+    rows: [[0,-1,-1,-1,-1,1] as any, [0,-1,-1,-1,1] as any, [0,0,-1,-1,1,1] as any, [0,-1,-1,-1,1] as any, [0,0,-1,-1,1,1] as any] },
+  { name: 'ICE CAGE', desc: 'Break through frozen shells', maxShots: 14,
+    rows: [[0,1,2,1,0,2] as any, [1,0,1,0,1] as any, [2,1,0,1,2,0] as any, [0,2,1,2,0] as any],
+    specials: [{ row: 0, col: 0, type: 'frozen' }, { row: 0, col: 2, type: 'frozen' }, { row: 0, col: 4, type: 'frozen' },
+              { row: 2, col: 0, type: 'frozen' }, { row: 2, col: 2, type: 'frozen' }, { row: 2, col: 4, type: 'frozen' },
+              { row: 3, col: 1, type: 'frozen' }, { row: 3, col: 3, type: 'frozen' }] },
+  { name: 'FINAL PUZZLE', desc: 'The ultimate test of precision', maxShots: 15,
+    rows: [[0,1,2,3,4,5] as any, [5,4,3,2,1] as any, [1,2,3,4,5,0] as any, [0,5,4,3,2] as any, [2,3,4,5,0,1] as any],
+    specials: [{ row: 0, col: 0, type: 'frozen' }, { row: 0, col: 5, type: 'stone' },
+              { row: 2, col: 2, type: 'poison' }, { row: 4, col: 0, type: 'frozen' }, { row: 4, col: 5, type: 'stone' }] },
+];
+
+// ─── LUCKY WHEEL PRIZES ──────────────────────────────────────────
+interface LuckyPrize {
+  name: string;
+  emoji: string;
+  type: 'xp' | 'streak_bonus' | 'skin_hint' | 'trail_hint' | 'jackpot' | 'combo_start';
+  value: number;
+  weight: number; // probability weight
+}
+const LUCKY_PRIZES: LuckyPrize[] = [
+  { name: '+50 XP', emoji: '⭐', type: 'xp', value: 50, weight: 30 },
+  { name: '+100 XP', emoji: '🌟', type: 'xp', value: 100, weight: 20 },
+  { name: '+250 XP', emoji: '💫', type: 'xp', value: 250, weight: 10 },
+  { name: '+500 XP JACKPOT', emoji: '🎰', type: 'jackpot', value: 500, weight: 3 },
+  { name: 'Streak Shield', emoji: '🛡', type: 'streak_bonus', value: 1, weight: 15 },
+  { name: 'Combo Start x2', emoji: '🔥', type: 'combo_start', value: 2, weight: 12 },
+  { name: 'Combo Start x3', emoji: '💥', type: 'combo_start', value: 3, weight: 5 },
+  { name: 'Mystery Bonus', emoji: '🎁', type: 'xp', value: 150, weight: 8 },
+];
+
+// ─── CODEX ENTRIES ────────────────────────────────────────────────
+interface CodexEntry {
+  id: string;
+  name: string;
+  category: 'bubble' | 'special' | 'powerup' | 'boss';
+  desc: string;
+}
+const CODEX_ENTRIES: CodexEntry[] = [
+  { id: 'cyan', name: 'Cyan Bubble', category: 'bubble', desc: 'The cool blue classic. Match 3+ to pop.' },
+  { id: 'magenta', name: 'Magenta Bubble', category: 'bubble', desc: 'Vibrant pink energy. Common in early zones.' },
+  { id: 'green', name: 'Green Bubble', category: 'bubble', desc: 'Emerald sphere. Appears from zone 1.' },
+  { id: 'orange', name: 'Orange Bubble', category: 'bubble', desc: 'Solar flare orb. Introduced at zone 2.' },
+  { id: 'purple', name: 'Purple Bubble', category: 'bubble', desc: 'Deep violet crystal. Appears in harder levels.' },
+  { id: 'red', name: 'Red Bubble', category: 'bubble', desc: 'Crimson sphere. Only in 6-color grids.' },
+  { id: 'frozen', name: 'Frozen Bubble', category: 'special', desc: 'Ice-armored. Needs 2 hits to break. Immune to single matches.' },
+  { id: 'stone', name: 'Stone Bubble', category: 'special', desc: 'Indestructible obstacle. Cannot be popped. Plan around it.' },
+  { id: 'poison', name: 'Poison Bubble', category: 'special', desc: 'Toxic sphere. Spreads to adjacent cells on miss.' },
+  { id: 'bomb', name: 'Bomb Power-Up', category: 'powerup', desc: 'Explosive blast clearing a 3-cell radius around impact.' },
+  { id: 'rainbow', name: 'Rainbow Power-Up', category: 'powerup', desc: 'Matches the largest adjacent cluster regardless of color.' },
+  { id: 'lightning', name: 'Lightning Power-Up', category: 'powerup', desc: 'Clears the entire row on impact.' },
+  { id: 'fire', name: 'Fire Power-Up', category: 'powerup', desc: 'Burns upward from impact clearing a vertical column.' },
+  { id: 'boss_frost', name: 'Frost Sentinel', category: 'boss', desc: 'First boss. Ice-armored with stone obstacles.' },
+  { id: 'boss_toxic', name: 'Toxic Swarm', category: 'boss', desc: 'Second boss. Poison spreads and bubbles regenerate.' },
+  { id: 'boss_iron', name: 'Iron Fortress', category: 'boss', desc: 'Third boss. Heavily armored defense grid.' },
+  { id: 'boss_chaos', name: 'Chaos Engine', category: 'boss', desc: 'Fourth boss. All special types combined.' },
+  { id: 'boss_neon', name: 'Neon Overlord', category: 'boss', desc: 'Fifth boss. Maximum specials with fast regen.' },
+  { id: 'boss_void', name: 'Void Titan', category: 'boss', desc: 'Sixth boss. Extreme density and rapid regen.' },
+  { id: 'boss_hydra', name: 'Quantum Hydra', category: 'boss', desc: 'Seventh boss. Split formations with max poison.' },
+  { id: 'boss_final', name: 'Final Boss', category: 'boss', desc: 'The holodeck fights back. Everything maxed.' },
+];
+
 type BubbleColor = 0 | 1 | 2 | 3 | 4 | 5;
 type Difficulty = 'easy' | 'medium' | 'hard';
 type SpecialBubble = 'bomb' | 'rainbow' | 'lightning' | 'fire' | 'frozen' | 'stone' | 'poison';
@@ -326,6 +419,24 @@ const ACHIEVEMENTS: Achievement[] = [
   { id: 'total_pops_5k', name: 'Pop Factory', desc: 'Pop 5,000 bubbles lifetime' },
   { id: 'session_60m', name: 'Dedicated Gamer', desc: 'Play for 60 min in one session' },
   { id: 'century_plus', name: 'Beyond Century', desc: 'Unlock all 115 achievements' },
+  // Round 6: Puzzle Mode (5)
+  { id: 'puzzle_first', name: 'Puzzle Solver', desc: 'Complete your first puzzle' },
+  { id: 'puzzle_6', name: 'Half Puzzled', desc: 'Complete 6 puzzle levels' },
+  { id: 'puzzle_all', name: 'Puzzle Master', desc: 'Complete all 12 puzzles' },
+  { id: 'puzzle_perfect', name: 'Puzzle Perfectionist', desc: 'Complete a puzzle with 0 wasted shots' },
+  { id: 'puzzle_speed', name: 'Quick Thinker', desc: 'Complete a puzzle in under 30 seconds' },
+  // Round 6: Lucky Wheel (3)
+  { id: 'wheel_spin', name: 'Lucky Spinner', desc: 'Spin the Lucky Wheel' },
+  { id: 'wheel_jackpot', name: 'Jackpot!', desc: 'Hit a jackpot on the Lucky Wheel' },
+  { id: 'wheel_10', name: 'Wheel Addict', desc: 'Spin the Lucky Wheel 10 times' },
+  // Round 6: Codex & Mastery (7)
+  { id: 'codex_half', name: 'Scholar', desc: 'Discover half the Codex entries' },
+  { id: 'codex_all', name: 'Encyclopedist', desc: 'Discover all Codex entries' },
+  { id: 'all_modes_11', name: 'Mode Completionist', desc: 'Play all 11 game modes' },
+  { id: 'total_score_5m', name: 'Multi-Millionaire', desc: 'Accumulate 5M total career score' },
+  { id: 'accuracy_100_game', name: 'Pixel Perfect', desc: 'Finish any mode with 100% accuracy (10+ shots)' },
+  { id: 'cascade_chain_3', name: 'Triple Cascade', desc: 'Trigger 3 cascades in a single turn' },
+  { id: 'ultimate', name: 'Ultimate Popper', desc: 'Unlock all 130 achievements' },
 ];
 
 
@@ -342,6 +453,8 @@ const BUBBLE_SKINS: BubbleSkin[] = [
   { name: 'Rainbow', multiplier: 1.3, wireColor: '#ffffff', glowIntensity: 2.0, unlock: 'Level 35' },
   { name: 'Midnight Prism', multiplier: 1.1, wireColor: '#6644ff', glowIntensity: 1.8, unlock: 'Score 25K' },
   { name: 'Hologram', multiplier: 1.0, wireColor: '#44ffee', glowIntensity: 1.3, unlock: 'Level 50' },
+  { name: 'Starfield', multiplier: 1.1, wireColor: '#ffffff', glowIntensity: 1.5, unlock: 'Complete 6 puzzles' },
+  { name: 'Nebula', multiplier: 1.2, wireColor: '#ff66cc', glowIntensity: 1.7, unlock: 'Win 5 Lucky Wheels' },
 ];
 
 // ─── CAMPAIGN LEVELS (50 + bosses) ────────────────────────────────
@@ -852,6 +965,19 @@ async function main() {
   // Modes played tracking
   let modesPlayed: Set<string> = new Set();
 
+  // Puzzle mode state
+  let puzzleLevel = 0;
+  let puzzleShotsLeft = 0;
+  let puzzlesCompleted: number[] = [];
+
+  // Lucky Wheel state
+  let wheelSpins = 0;
+  let wheelResult: LuckyPrize | null = null;
+  let comboStartBonus = 0; // Start next game with this combo
+
+  // Codex discovered entries
+  let discoveredCodex: string[] = [];
+
   // Danger zone touched tracking (for comeback achievement)
   let touchedDangerZone = false;
 
@@ -908,6 +1034,9 @@ async function main() {
   trailStyleIndex = storage.get('trailStyleIndex', 0);
   unlockedTrails = storage.get('unlockedTrails', [0]);
   highestLevelUnlocked = storage.get('highestLevelUnlocked', 0);
+  puzzlesCompleted = storage.get('puzzlesCompleted', []);
+  wheelSpins = storage.get('wheelSpins', 0);
+  discoveredCodex = storage.get('discoveredCodex', []);
 
   // Check and update streak on load
   function updateDailyStreak() {
@@ -975,8 +1104,10 @@ async function main() {
     showToast('🏆 ' + ACHIEVEMENTS.find(a => a.id === id)?.name);
     // Check trail unlocks on achievement count
     checkTrailUnlocks();
-    // Check century+ (all 115)
+    // Check century checks
+    if (unlockedAchievements.length >= 100) unlockAchievement('century');
     if (unlockedAchievements.length >= 115) unlockAchievement('century_plus');
+    if (unlockedAchievements.length >= 130) unlockAchievement('ultimate');
   }
 
   function checkTrailUnlocks() {
@@ -1334,6 +1465,7 @@ async function main() {
   function executePowerUp(type: string, row: number, col: number) {
     stats.powerUpsUsed++;
     powerUpsUsedThisGame.add(type);
+    discoverPowerUp(type);
     if (powerUpsUsedThisGame.size >= 4) unlockAchievement('all_powerups');
     if (stats.powerUpsUsed >= 10) unlockAchievement('powerups_10');
     if (stats.powerUpsUsed >= 50) unlockAchievement('powerups_50');
@@ -1588,6 +1720,7 @@ async function main() {
 
         if (gameMode === 'campaign') { handleLevelComplete(); return; }
         if (gameMode === 'tournament') { handleLevelComplete(); return; }
+        if (gameMode === 'puzzle') { handlePuzzleComplete(); return; }
         if (gameMode === 'endless') { ceilingOffset = 0; missCount = 0; generateGrid(); }
       }
     } else {
@@ -1728,6 +1861,7 @@ async function main() {
     }
     if (specialTypesEncountered.size >= 3) unlockAchievement('special_all');
     bossInitialBubbleCount = grid.filter(b => b.specialType !== 'stone').length;
+    discoverBoss(bossIdx);
   }
 
   function handleBossRegen(dt: number) {
@@ -1862,6 +1996,121 @@ async function main() {
   }
 
 
+  // ─── CODEX DISCOVERY ───────────────────────────────────────
+  function discoverCodexEntry(id: string) {
+    if (discoveredCodex.includes(id)) return;
+    discoveredCodex.push(id);
+    storage.set('discoveredCodex', discoveredCodex);
+    showToast('📖 Codex: ' + CODEX_ENTRIES.find(e => e.id === id)?.name);
+    if (discoveredCodex.length >= Math.ceil(CODEX_ENTRIES.length / 2)) unlockAchievement('codex_half');
+    if (discoveredCodex.length >= CODEX_ENTRIES.length) unlockAchievement('codex_all');
+  }
+
+  // Auto-discover bubble colors when encountered
+  function discoverBubbleColor(color: BubbleColor) {
+    const names = ['cyan', 'magenta', 'green', 'orange', 'purple', 'red'];
+    if (names[color]) discoverCodexEntry(names[color]);
+  }
+  function discoverSpecial(type: string) { discoverCodexEntry(type); }
+  function discoverPowerUp(type: string) { discoverCodexEntry(type); }
+  function discoverBoss(bossIdx: number) {
+    const bossIds = ['boss_frost', 'boss_toxic', 'boss_iron', 'boss_chaos', 'boss_neon', 'boss_void', 'boss_hydra', 'boss_final'];
+    if (bossIds[bossIdx]) discoverCodexEntry(bossIds[bossIdx]);
+  }
+
+  // ─── PUZZLE GRID GENERATION ───────────────────────────────
+  function generatePuzzleGrid(level: number) {
+    clearGrid();
+    isBoss = false;
+    currentBossConfig = null;
+    const puzzle = PUZZLE_LEVELS[level];
+    if (!puzzle) return;
+
+    for (let r = 0; r < puzzle.rows.length; r++) {
+      const row = puzzle.rows[r];
+      for (let c = 0; c < row.length; c++) {
+        if (row[c] >= 0) {
+          addGridBubble(r, c, row[c] as BubbleColor);
+          discoverBubbleColor(row[c] as BubbleColor);
+        }
+      }
+    }
+
+    // Apply special bubbles
+    if (puzzle.specials) {
+      for (const spec of puzzle.specials) {
+        const b = grid.find(g => g.row === spec.row && g.col === spec.col);
+        if (b) {
+          b.specialType = spec.type;
+          if (spec.type === 'frozen') b.frozenHits = 0;
+          discoverSpecial(spec.type);
+          // Add visuals
+          if (spec.type === 'frozen') {
+            const iceRing = new Mesh(new TorusGeometry(BUBBLE_RADIUS * 1.3, 0.008, 6, 8), new MeshBasicMaterial({ color: 0x88ccff, transparent: true, opacity: 0.7, blending: AdditiveBlending }));
+            b.mesh.add(iceRing);
+          } else if (spec.type === 'stone') {
+            (b.mesh.material as MeshStandardMaterial).color.set(0x666666);
+            (b.mesh.material as MeshStandardMaterial).emissive.set(0x333333);
+          } else if (spec.type === 'poison') {
+            const poisonGlow = new Mesh(new SphereGeometry(BUBBLE_RADIUS * 2, 8, 8), new MeshBasicMaterial({ color: 0x44ff00, transparent: true, opacity: 0.12, blending: AdditiveBlending }));
+            b.mesh.add(poisonGlow);
+          }
+        }
+      }
+    }
+
+    puzzleShotsLeft = puzzle.maxShots;
+  }
+
+  // ─── LUCKY WHEEL LOGIC ────────────────────────────────────
+  function spinLuckyWheel(): LuckyPrize {
+    const totalWeight = LUCKY_PRIZES.reduce((sum, p) => sum + p.weight, 0);
+    let r = Math.random() * totalWeight;
+    for (const prize of LUCKY_PRIZES) {
+      r -= prize.weight;
+      if (r <= 0) return prize;
+    }
+    return LUCKY_PRIZES[0];
+  }
+
+  function applyWheelPrize(prize: LuckyPrize) {
+    wheelSpins++;
+    storage.set('wheelSpins', wheelSpins);
+    unlockAchievement('wheel_spin');
+    if (wheelSpins >= 10) unlockAchievement('wheel_10');
+
+    switch (prize.type) {
+      case 'xp':
+        awardXP(prize.value);
+        showToast(`${prize.emoji} +${prize.value} XP!`);
+        break;
+      case 'jackpot':
+        awardXP(prize.value);
+        unlockAchievement('wheel_jackpot');
+        spawnFireworks();
+        showToast(`${prize.emoji} JACKPOT! +${prize.value} XP!`);
+        audio.tournamentWin();
+        break;
+      case 'streak_bonus':
+        streakData.currentStreak = Math.max(streakData.currentStreak, 1);
+        storage.set('streakData', streakData);
+        showToast(`${prize.emoji} Streak Shield! Streak protected!`);
+        break;
+      case 'combo_start':
+        comboStartBonus = prize.value;
+        showToast(`${prize.emoji} Next game starts at x${prize.value} combo!`);
+        break;
+    }
+
+    // Check skin unlock from wheel spins
+    if (wheelSpins >= 5 && !unlockedSkins.includes(11)) {
+      unlockedSkins.push(11);
+      storage.set('skins', unlockedSkins);
+      unlockAchievement('skin_unlock');
+      showToast('🎨 Skin Unlocked: Nebula');
+    }
+  }
+
   // ─── GAME FLOW ────────────────────────────────────────────
   function generateGrid() {
     clearGrid();
@@ -1911,6 +2160,8 @@ async function main() {
       }
     } else if (gameMode === 'challenge') {
       generateChallengeGrid(challengeConfig);
+    } else if (gameMode === 'puzzle') {
+      generatePuzzleGrid(puzzleLevel);
     } else if (gameMode === 'tournament') {
       // Tournament uses medium-difficulty random grids
       const numColors = 5;
@@ -1956,11 +2207,21 @@ async function main() {
     modesPlayed.add(gameMode);
     storage.set('modesPlayed', [...modesPlayed]);
     if (modesPlayed.size >= 10) unlockAchievement('all_modes_played');
+    if (modesPlayed.size >= 11) unlockAchievement('all_modes_11');
     if (shotBubble) { world.scene.remove(shotBubble.mesh); shotBubble = null; }
 
     if (gameMode === 'timeattack') timeLeft = 90;
     else if (gameMode === 'precision') shotsLeft = difficulty === 'easy' ? 30 : difficulty === 'medium' ? 20 : 15;
+    else if (gameMode === 'puzzle') { shotsLeft = puzzleShotsLeft; timeLeft = 0; }
     else { timeLeft = 0; shotsLeft = 0; }
+
+    // Apply combo start bonus from Lucky Wheel
+    if (comboStartBonus > 0) {
+      combo = comboStartBonus;
+      comboTimer = 10; // Extended combo duration for start bonus
+      comboStartBonus = 0;
+      showToast(`🔥 Starting at x${combo} combo!`);
+    }
 
     const colorsInGrid = grid.length > 0 ? [...new Set(grid.filter(b => !b.specialType || b.specialType !== 'stone').map(b => b.color))] : [0, 1, 2, 3, 4, 5];
     nextColor = (colorsInGrid[Math.floor(Math.random() * colorsInGrid.length)] || 0) as BubbleColor;
@@ -2055,6 +2316,42 @@ async function main() {
     setGameState('levelcomplete');
   }
 
+  function handlePuzzleComplete() {
+    gameActive = false;
+    audio.levelComplete();
+    spawnFireworks();
+
+    if (!puzzlesCompleted.includes(puzzleLevel)) {
+      puzzlesCompleted.push(puzzleLevel);
+      storage.set('puzzlesCompleted', puzzlesCompleted);
+    }
+
+    unlockAchievement('puzzle_first');
+    if (puzzlesCompleted.length >= 6) {
+      unlockAchievement('puzzle_6');
+      // Unlock Starfield skin
+      if (!unlockedSkins.includes(10)) {
+        unlockedSkins.push(10);
+        storage.set('skins', unlockedSkins);
+        unlockAchievement('skin_unlock');
+        showToast('🎨 Skin Unlocked: Starfield');
+      }
+    }
+    if (puzzlesCompleted.length >= PUZZLE_LEVELS.length) unlockAchievement('puzzle_all');
+
+    const puzzle = PUZZLE_LEVELS[puzzleLevel];
+    if (puzzle && shotsFired <= puzzle.maxShots && matchingShots === shotsFired) unlockAchievement('puzzle_perfect');
+    if (gamePlayTime < 30) unlockAchievement('puzzle_speed');
+
+    // XP for puzzle
+    const xpEarned = 150 + (12 - puzzleLevel) * 10;
+    awardXP(xpEarned);
+    awardSeasonPoints(score + 200);
+
+    showLevelComplete(3, xpEarned);
+    setGameState('levelcomplete');
+  }
+
   function endGame() {
     gameActive = false;
     audio.stopMusic();
@@ -2083,6 +2380,7 @@ async function main() {
     if (score >= 100000) unlockAchievement('score_100k');
     if (stats.totalScore >= 100000) unlockAchievement('total_score_100k');
     if (stats.totalScore >= 1000000) unlockAchievement('total_score_1m');
+    if (stats.totalScore >= 5000000) unlockAchievement('total_score_5m');
     if (stats.games >= 10) unlockAchievement('games_10');
     if (stats.games >= 50) unlockAchievement('games_50');
     if (stats.games >= 100) unlockAchievement('games_100');
@@ -2108,6 +2406,7 @@ async function main() {
     const accuracy = shotsFired > 0 ? matchingShots / shotsFired : 0;
     if (accuracy >= 0.8 && shotsFired >= 5) unlockAchievement('accuracy_80');
     if (accuracy >= 0.95 && shotsFired >= 10) unlockAchievement('accuracy_95');
+    if (accuracy >= 1.0 && shotsFired >= 10) unlockAchievement('accuracy_100_game');
     if (grid.filter(b => b.specialType === 'poison').length > 0) unlockAchievement('poison_survive');
     // Check stone_adjacent
     for (const stone of grid.filter(b => b.specialType === 'stone')) {
@@ -2220,6 +2519,9 @@ async function main() {
   createUIPanel('season', '/ui/season.json', { maxWidth: 0.8, maxHeight: 1.0, position: [0, 1.2, -1.5] });
   createUIPanel('levelselect', '/ui/levelselect.json', { maxWidth: 0.9, maxHeight: 1.1, position: [0, 1.2, -1.5] });
   createUIPanel('trails', '/ui/trails.json', { maxWidth: 0.7, maxHeight: 0.9, position: [0, 1.2, -1.5] });
+  createUIPanel('puzzleselect', '/ui/puzzleselect.json', { maxWidth: 0.9, maxHeight: 1.1, position: [0, 1.2, -1.5] });
+  createUIPanel('luckywheel', '/ui/luckywheel.json', { maxWidth: 0.6, maxHeight: 0.7, position: [0, 1.2, -1.2] });
+  createUIPanel('codex', '/ui/codex.json', { maxWidth: 0.9, maxHeight: 1.1, position: [0, 1.2, -1.5] });
 
   let uiBindingsReady = false;
   function tryBindUI() {
@@ -2241,6 +2543,7 @@ async function main() {
     bindClick(titleDoc, 'btn-career', () => { showSeason(); setGameState('season'); });
     bindClick(titleDoc, 'btn-levelselect', () => { levelSelectPage = 0; showLevelSelect(); setGameState('levelselect'); });
     bindClick(titleDoc, 'btn-trails', () => { showTrails(); setGameState('trails'); });
+    bindClick(titleDoc, 'btn-codex', () => { showCodex(); setGameState('codex'); });
     updateTitleXP();
 
     // Mode select
@@ -2255,6 +2558,7 @@ async function main() {
     bindClick(modeDoc, 'btn-tournament', () => { gameMode = 'tournament'; initTournament(); showTournamentBracket(); setGameState('tournament'); });
     bindClick(modeDoc, 'btn-weekly', () => { gameMode = 'weekly'; setGameState('difficulty'); });
     bindClick(modeDoc, 'btn-challenge', () => { gameMode = 'challenge'; updateChallengeUI(); setGameState('challenge'); });
+    bindClick(modeDoc, 'btn-puzzle', () => { showPuzzleSelect(); setGameState('puzzleselect'); });
     bindClick(modeDoc, 'btn-back', () => setGameState('title'));
 
     // Difficulty
@@ -2321,6 +2625,7 @@ async function main() {
       }
     });
     bindClick(lcDoc, 'btn-title', () => { clearGrid(); setGameState('title'); });
+    bindClick(lcDoc, 'btn-lucky', () => { showLuckyWheel(); setGameState('luckywheel'); });
 
     // XP
     bindClick(getDoc('xp'), 'btn-back', () => setGameState('title'));
@@ -2478,6 +2783,9 @@ async function main() {
       case 'season': showPanel('season'); break;
       case 'levelselect': showPanel('levelselect'); break;
       case 'trails': showPanel('trails'); break;
+      case 'puzzleselect': showPanel('puzzleselect'); break;
+      case 'luckywheel': showPanel('luckywheel'); break;
+      case 'codex': showPanel('codex'); break;
     }
   }
 
@@ -2708,6 +3016,43 @@ async function main() {
     }
   }
 
+  function showPuzzleSelect() {
+    const doc = getDoc('puzzleselect');
+    setText(doc, 'pz-count', `${puzzlesCompleted.length} / ${PUZZLE_LEVELS.length} Completed`);
+    for (let i = 0; i < PUZZLE_LEVELS.length; i++) {
+      const p = PUZZLE_LEVELS[i];
+      const done = puzzlesCompleted.includes(i);
+      setText(doc, `pz-name-${i}`, done ? `✓ ${p.name}` : p.name);
+      setText(doc, `pz-desc-${i}`, `${p.desc} (${p.maxShots} shots)`);
+    }
+  }
+
+  function showLuckyWheel() {
+    const doc = getDoc('luckywheel');
+    setText(doc, 'wheel-spins', `Total Spins: ${wheelSpins}`);
+    setText(doc, 'wheel-result', '🎰 Tap SPIN to try your luck!');
+    setText(doc, 'wheel-prize', '');
+  }
+
+  function showWheelResult(prize: LuckyPrize) {
+    const doc = getDoc('luckywheel');
+    setText(doc, 'wheel-result', `${prize.emoji} ${prize.name}`);
+    setText(doc, 'wheel-prize', prize.type === 'jackpot' ? '🎊 LEGENDARY WIN! 🎊' : 'Nice spin!');
+    setText(doc, 'wheel-spins', `Total Spins: ${wheelSpins}`);
+  }
+
+  function showCodex() {
+    const doc = getDoc('codex');
+    setText(doc, 'codex-count', `${discoveredCodex.length} / ${CODEX_ENTRIES.length} Discovered`);
+    for (let i = 0; i < CODEX_ENTRIES.length; i++) {
+      const entry = CODEX_ENTRIES[i];
+      const found = discoveredCodex.includes(entry.id);
+      setText(doc, `cx-name-${i}`, found ? entry.name : '??? UNKNOWN ???');
+      setText(doc, `cx-desc-${i}`, found ? entry.desc : 'Not yet discovered');
+      setText(doc, `cx-cat-${i}`, found ? entry.category.toUpperCase() : '');
+    }
+  }
+
   function updateChallengeUI() {
     const doc = getDoc('challenge');
     setText(doc, 'chal-rows', challengeConfig.rows.toString());
@@ -2723,10 +3068,13 @@ async function main() {
     setText(doc, 'hud-score', score.toString());
     setText(doc, 'hud-combo', 'x' + combo);
     if (gameMode === 'precision') setText(doc, 'hud-shots', shotsLeft.toString());
+    else if (gameMode === 'puzzle') setText(doc, 'hud-shots', shotsLeft.toString());
     else setText(doc, 'hud-shots', shotsFired.toString());
     if (gameMode === 'campaign') {
       const label = isBoss ? 'BOSS' : (campaignLevel + 1).toString();
       setText(doc, 'hud-level', label);
+    } else if (gameMode === 'puzzle') {
+      setText(doc, 'hud-level', 'P' + (puzzleLevel + 1));
     } else setText(doc, 'hud-level', '--');
     if (gameMode === 'timeattack') setText(doc, 'hud-time', Math.ceil(timeLeft).toString());
     else setText(doc, 'hud-time', '--');
@@ -2805,8 +3153,8 @@ async function main() {
   window.addEventListener('click', () => {
     audio.init();
     if (gameState === 'playing' && !shotBubble) {
-      if (gameMode === 'precision' && shotsLeft <= 0) return;
-      if (gameMode === 'precision') shotsLeft--;
+      if ((gameMode === 'precision' || gameMode === 'puzzle') && shotsLeft <= 0) return;
+      if (gameMode === 'precision' || gameMode === 'puzzle') shotsLeft--;
       shootBubble();
     }
   });
@@ -2969,7 +3317,7 @@ async function main() {
       if (gameMode === 'timeattack') { timeLeft -= dt; if (timeLeft <= 0) { timeLeft = 0; endGame(); } }
 
       // Precision mode check
-      if (gameMode === 'precision' && shotsLeft <= 0 && !shotBubble) { endGame(); }
+      if ((gameMode === 'precision' || gameMode === 'puzzle') && shotsLeft <= 0 && !shotBubble) { endGame(); }
 
       // Update aim line
       updateAimLine();

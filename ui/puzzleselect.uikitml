@@ -1,0 +1,69 @@
+<panel background-color="#001122ee" border-radius="12" padding="12">
+  <text id="pz-title" font-size="20" color="#00ffff" font-weight="bold" text-align="center">🧩 PUZZLE MODE</text>
+  <text id="pz-count" font-size="12" color="#88ccff" text-align="center">0 / 12 Completed</text>
+  <panel flex-direction="column" gap="4" padding="4">
+    <panel flex-direction="row" gap="6">
+      <panel id="pz-0" background-color="#002244cc" border-radius="6" padding="4" flex="1" cursor="pointer">
+        <text id="pz-name-0" font-size="10" color="#00ffcc" font-weight="bold">THE ARROW</text>
+        <text id="pz-desc-0" font-size="7" color="#88aacc">Clear the arrowhead (5 shots)</text>
+      </panel>
+      <panel id="pz-1" background-color="#002244cc" border-radius="6" padding="4" flex="1" cursor="pointer">
+        <text id="pz-name-1" font-size="10" color="#00ffcc" font-weight="bold">COLOR WALL</text>
+        <text id="pz-desc-1" font-size="7" color="#88aacc">Break the wall (8 shots)</text>
+      </panel>
+    </panel>
+    <panel flex-direction="row" gap="6">
+      <panel id="pz-2" background-color="#002244cc" border-radius="6" padding="4" flex="1" cursor="pointer">
+        <text id="pz-name-2" font-size="10" color="#00ffcc" font-weight="bold">DIAMOND</text>
+        <text id="pz-desc-2" font-size="7" color="#88aacc">Shatter the diamond (6 shots)</text>
+      </panel>
+      <panel id="pz-3" background-color="#002244cc" border-radius="6" padding="4" flex="1" cursor="pointer">
+        <text id="pz-name-3" font-size="10" color="#00ffcc" font-weight="bold">FORTRESS</text>
+        <text id="pz-desc-3" font-size="7" color="#88aacc">Breach frozen fortress (10 shots)</text>
+      </panel>
+    </panel>
+    <panel flex-direction="row" gap="6">
+      <panel id="pz-4" background-color="#002244cc" border-radius="6" padding="4" flex="1" cursor="pointer">
+        <text id="pz-name-4" font-size="10" color="#00ffcc" font-weight="bold">SNAKE</text>
+        <text id="pz-desc-4" font-size="7" color="#88aacc">Untangle the snake (7 shots)</text>
+      </panel>
+      <panel id="pz-5" background-color="#002244cc" border-radius="6" padding="4" flex="1" cursor="pointer">
+        <text id="pz-name-5" font-size="10" color="#00ffcc" font-weight="bold">BULLSEYE</text>
+        <text id="pz-desc-5" font-size="7" color="#88aacc">Hit the center cluster (4 shots)</text>
+      </panel>
+    </panel>
+    <panel flex-direction="row" gap="6">
+      <panel id="pz-6" background-color="#002244cc" border-radius="6" padding="4" flex="1" cursor="pointer">
+        <text id="pz-name-6" font-size="10" color="#00ffcc" font-weight="bold">STONE MAZE</text>
+        <text id="pz-desc-6" font-size="7" color="#88aacc">Navigate stones (12 shots)</text>
+      </panel>
+      <panel id="pz-7" background-color="#002244cc" border-radius="6" padding="4" flex="1" cursor="pointer">
+        <text id="pz-name-7" font-size="10" color="#00ffcc" font-weight="bold">RAINBOW</text>
+        <text id="pz-desc-7" font-size="7" color="#88aacc">Clear the spectrum (9 shots)</text>
+      </panel>
+    </panel>
+    <panel flex-direction="row" gap="6">
+      <panel id="pz-8" background-color="#002244cc" border-radius="6" padding="4" flex="1" cursor="pointer">
+        <text id="pz-name-8" font-size="10" color="#00ffcc" font-weight="bold">POISON GARDEN</text>
+        <text id="pz-desc-8" font-size="7" color="#88aacc">Clear without poison (8 shots)</text>
+      </panel>
+      <panel id="pz-9" background-color="#002244cc" border-radius="6" padding="4" flex="1" cursor="pointer">
+        <text id="pz-name-9" font-size="10" color="#00ffcc" font-weight="bold">TWIN TOWERS</text>
+        <text id="pz-desc-9" font-size="7" color="#88aacc">Topple both towers (8 shots)</text>
+      </panel>
+    </panel>
+    <panel flex-direction="row" gap="6">
+      <panel id="pz-10" background-color="#002244cc" border-radius="6" padding="4" flex="1" cursor="pointer">
+        <text id="pz-name-10" font-size="10" color="#00ffcc" font-weight="bold">ICE CAGE</text>
+        <text id="pz-desc-10" font-size="7" color="#88aacc">Break frozen shells (14 shots)</text>
+      </panel>
+      <panel id="pz-11" background-color="#002244cc" border-radius="6" padding="4" flex="1" cursor="pointer">
+        <text id="pz-name-11" font-size="10" color="#00ffcc" font-weight="bold">FINAL PUZZLE</text>
+        <text id="pz-desc-11" font-size="7" color="#88aacc">Ultimate precision (15 shots)</text>
+      </panel>
+    </panel>
+  </panel>
+  <panel id="btn-puzzle-back" background-color="#004444cc" border-radius="8" padding="6" margin-top="6" cursor="pointer">
+    <text font-size="12" color="#00ffcc" text-align="center">« BACK</text>
+  </panel>
+</panel>
