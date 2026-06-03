@@ -1,0 +1,946 @@
+{
+  "element": {
+    "type": "container",
+    "sourceTag": "div",
+    "children": [
+      {
+        "sourceTag": "span",
+        "type": "custom",
+        "children": [
+          "TRAIL STYLES"
+        ],
+        "properties": {
+          "class": "trails-title"
+        },
+        "dataUid": "uid-2"
+      },
+      {
+        "sourceTag": "span",
+        "type": "custom",
+        "children": [
+          "Current: Classic"
+        ],
+        "properties": {
+          "id": "trails-current",
+          "class": "trails-subtitle"
+        },
+        "dataUid": "uid-3"
+      },
+      {
+        "type": "container",
+        "sourceTag": "div",
+        "children": [
+          {
+            "type": "container",
+            "sourceTag": "div",
+            "children": [
+              {
+                "type": "container",
+                "sourceTag": "div",
+                "children": [
+                  {
+                    "sourceTag": "span",
+                    "type": "custom",
+                    "children": [
+                      "✧"
+                    ],
+                    "properties": {
+                      "class": "trail-icon"
+                    },
+                    "dataUid": "uid-7"
+                  },
+                  {
+                    "sourceTag": "span",
+                    "type": "custom",
+                    "children": [
+                      "CLASSIC"
+                    ],
+                    "properties": {
+                      "id": "trail-name-0",
+                      "class": "trail-name"
+                    },
+                    "dataUid": "uid-8"
+                  },
+                  {
+                    "sourceTag": "span",
+                    "type": "custom",
+                    "children": [
+                      "Default trail"
+                    ],
+                    "properties": {
+                      "class": "trail-desc"
+                    },
+                    "dataUid": "uid-9"
+                  }
+                ],
+                "properties": {
+                  "id": "trail-0",
+                  "class": "trail-btn",
+                  "cursor": "pointer"
+                },
+                "dataUid": "uid-6"
+              },
+              {
+                "type": "container",
+                "sourceTag": "div",
+                "children": [
+                  {
+                    "sourceTag": "span",
+                    "type": "custom",
+                    "children": [
+                      "🔥"
+                    ],
+                    "properties": {
+                      "class": "trail-icon"
+                    },
+                    "dataUid": "uid-11"
+                  },
+                  {
+                    "sourceTag": "span",
+                    "type": "custom",
+                    "children": [
+                      "FLAME"
+                    ],
+                    "properties": {
+                      "id": "trail-name-1",
+                      "class": "trail-name"
+                    },
+                    "dataUid": "uid-12"
+                  },
+                  {
+                    "sourceTag": "span",
+                    "type": "custom",
+                    "children": [
+                      "10 games"
+                    ],
+                    "properties": {
+                      "class": "trail-desc"
+                    },
+                    "dataUid": "uid-13"
+                  }
+                ],
+                "properties": {
+                  "id": "trail-1",
+                  "class": "trail-btn",
+                  "cursor": "pointer"
+                },
+                "dataUid": "uid-10"
+              },
+              {
+                "type": "container",
+                "sourceTag": "div",
+                "children": [
+                  {
+                    "sourceTag": "span",
+                    "type": "custom",
+                    "children": [
+                      "⚡"
+                    ],
+                    "properties": {
+                      "class": "trail-icon"
+                    },
+                    "dataUid": "uid-15"
+                  },
+                  {
+                    "sourceTag": "span",
+                    "type": "custom",
+                    "children": [
+                      "ELECTRIC"
+                    ],
+                    "properties": {
+                      "id": "trail-name-2",
+                      "class": "trail-name"
+                    },
+                    "dataUid": "uid-16"
+                  },
+                  {
+                    "sourceTag": "span",
+                    "type": "custom",
+                    "children": [
+                      "Level 10"
+                    ],
+                    "properties": {
+                      "class": "trail-desc"
+                    },
+                    "dataUid": "uid-17"
+                  }
+                ],
+                "properties": {
+                  "id": "trail-2",
+                  "class": "trail-btn",
+                  "cursor": "pointer"
+                },
+                "dataUid": "uid-14"
+              }
+            ],
+            "properties": {
+              "class": "trails-row"
+            },
+            "dataUid": "uid-5"
+          },
+          {
+            "type": "container",
+            "sourceTag": "div",
+            "children": [
+              {
+                "type": "container",
+                "sourceTag": "div",
+                "children": [
+                  {
+                    "sourceTag": "span",
+                    "type": "custom",
+                    "children": [
+                      "❄"
+                    ],
+                    "properties": {
+                      "class": "trail-icon"
+                    },
+                    "dataUid": "uid-20"
+                  },
+                  {
+                    "sourceTag": "span",
+                    "type": "custom",
+                    "children": [
+                      "FROST"
+                    ],
+                    "properties": {
+                      "id": "trail-name-3",
+                      "class": "trail-name"
+                    },
+                    "dataUid": "uid-21"
+                  },
+                  {
+                    "sourceTag": "span",
+                    "type": "custom",
+                    "children": [
+                      "3-star 5 lvls"
+                    ],
+                    "properties": {
+                      "class": "trail-desc"
+                    },
+                    "dataUid": "uid-22"
+                  }
+                ],
+                "properties": {
+                  "id": "trail-3",
+                  "class": "trail-btn",
+                  "cursor": "pointer"
+                },
+                "dataUid": "uid-19"
+              },
+              {
+                "type": "container",
+                "sourceTag": "div",
+                "children": [
+                  {
+                    "sourceTag": "span",
+                    "type": "custom",
+                    "children": [
+                      "🌈"
+                    ],
+                    "properties": {
+                      "class": "trail-icon"
+                    },
+                    "dataUid": "uid-24"
+                  },
+                  {
+                    "sourceTag": "span",
+                    "type": "custom",
+                    "children": [
+                      "RAINBOW"
+                    ],
+                    "properties": {
+                      "id": "trail-name-4",
+                      "class": "trail-name"
+                    },
+                    "dataUid": "uid-25"
+                  },
+                  {
+                    "sourceTag": "span",
+                    "type": "custom",
+                    "children": [
+                      "Level 20"
+                    ],
+                    "properties": {
+                      "class": "trail-desc"
+                    },
+                    "dataUid": "uid-26"
+                  }
+                ],
+                "properties": {
+                  "id": "trail-4",
+                  "class": "trail-btn",
+                  "cursor": "pointer"
+                },
+                "dataUid": "uid-23"
+              },
+              {
+                "type": "container",
+                "sourceTag": "div",
+                "children": [
+                  {
+                    "sourceTag": "span",
+                    "type": "custom",
+                    "children": [
+                      "💎"
+                    ],
+                    "properties": {
+                      "class": "trail-icon"
+                    },
+                    "dataUid": "uid-28"
+                  },
+                  {
+                    "sourceTag": "span",
+                    "type": "custom",
+                    "children": [
+                      "PRISMATIC"
+                    ],
+                    "properties": {
+                      "id": "trail-name-5",
+                      "class": "trail-name"
+                    },
+                    "dataUid": "uid-29"
+                  },
+                  {
+                    "sourceTag": "span",
+                    "type": "custom",
+                    "children": [
+                      "50 achievements"
+                    ],
+                    "properties": {
+                      "class": "trail-desc"
+                    },
+                    "dataUid": "uid-30"
+                  }
+                ],
+                "properties": {
+                  "id": "trail-5",
+                  "class": "trail-btn",
+                  "cursor": "pointer"
+                },
+                "dataUid": "uid-27"
+              }
+            ],
+            "properties": {
+              "class": "trails-row"
+            },
+            "dataUid": "uid-18"
+          }
+        ],
+        "properties": {
+          "class": "trails-grid"
+        },
+        "dataUid": "uid-4"
+      },
+      {
+        "type": "container",
+        "sourceTag": "div",
+        "children": [
+          {
+            "sourceTag": "span",
+            "type": "custom",
+            "children": [
+              "BACK"
+            ],
+            "properties": {
+              "class": "back-text"
+            },
+            "dataUid": "uid-32"
+          }
+        ],
+        "properties": {
+          "id": "btn-trails-back",
+          "class": "back-btn",
+          "cursor": "pointer"
+        },
+        "dataUid": "uid-31"
+      }
+    ],
+    "properties": {
+      "class": "trails-panel"
+    },
+    "dataUid": "uid-1"
+  },
+  "classes": {
+    "trails-panel": {
+      "content": {
+        "display": "flex",
+        "flexDirection": "column",
+        "alignItems": "center",
+        "paddingTop": "2",
+        "paddingBottom": "2",
+        "paddingLeft": "4",
+        "paddingRight": "4",
+        "backgroundColor": "rgba(0, 0, 0, 0.9)",
+        "borderColor": "#00ffff",
+        "borderWidth": "0.15",
+        "borderRadius": 1.5,
+        "gap": "1"
+      }
+    },
+    "trails-title": {
+      "content": {
+        "fontSize": "3",
+        "color": "#00ffff",
+        "fontWeight": "bold"
+      }
+    },
+    "trails-subtitle": {
+      "content": {
+        "fontSize": "1.2",
+        "color": "#808080"
+      }
+    },
+    "trails-grid": {
+      "content": {
+        "display": "flex",
+        "flexDirection": "column",
+        "gap": "0.8",
+        "width": "100%"
+      }
+    },
+    "trails-row": {
+      "content": {
+        "display": "flex",
+        "flexDirection": "row",
+        "gap": "1",
+        "width": "100%"
+      }
+    },
+    "trail-btn": {
+      "content": {
+        "display": "flex",
+        "flexDirection": "column",
+        "alignItems": "center",
+        "paddingTop": "0.8",
+        "paddingBottom": "0.8",
+        "paddingLeft": "1",
+        "paddingRight": "1",
+        "backgroundColor": "rgba(0, 255, 255, 0.1)",
+        "borderColor": "#00ffff",
+        "borderWidth": "0.08",
+        "borderRadius": 0.6,
+        "flex": "1",
+        "cursor": "pointer",
+        "gap": "0.3"
+      }
+    },
+    "trail-btn-locked": {
+      "content": {
+        "backgroundColor": "rgba(80, 80, 80, 0.1)",
+        "borderColor": "#444444"
+      }
+    },
+    "trail-btn-active": {
+      "content": {
+        "backgroundColor": "rgba(0, 255, 255, 0.25)",
+        "borderColor": "#00ffff",
+        "borderWidth": "0.15"
+      }
+    },
+    "trail-name": {
+      "content": {
+        "fontSize": "1.4",
+        "color": "#00ffff",
+        "fontWeight": "bold"
+      }
+    },
+    "trail-name-locked": {
+      "content": {
+        "color": "#444444"
+      }
+    },
+    "trail-desc": {
+      "content": {
+        "fontSize": "0.9",
+        "color": "#808080"
+      }
+    },
+    "trail-icon": {
+      "content": {
+        "fontSize": "2"
+      }
+    },
+    "back-btn": {
+      "content": {
+        "paddingTop": "0.6",
+        "paddingBottom": "0.6",
+        "paddingLeft": "3",
+        "paddingRight": "3",
+        "backgroundColor": "rgba(128, 128, 128, 0.15)",
+        "borderColor": "#888888",
+        "borderWidth": "0.08",
+        "borderRadius": 0.6,
+        "cursor": "pointer"
+      }
+    },
+    "back-text": {
+      "content": {
+        "fontSize": "1.4",
+        "color": "#888888"
+      }
+    }
+  },
+  "ranges": {
+    "trails-panel": {
+      "start": {
+        "line": 1,
+        "column": 2
+      },
+      "end": {
+        "line": 1,
+        "column": 15
+      }
+    },
+    "trails-title": {
+      "start": {
+        "line": 15,
+        "column": 2
+      },
+      "end": {
+        "line": 15,
+        "column": 15
+      }
+    },
+    "trails-subtitle": {
+      "start": {
+        "line": 20,
+        "column": 2
+      },
+      "end": {
+        "line": 20,
+        "column": 18
+      }
+    },
+    "trails-grid": {
+      "start": {
+        "line": 24,
+        "column": 2
+      },
+      "end": {
+        "line": 24,
+        "column": 14
+      }
+    },
+    "trails-row": {
+      "start": {
+        "line": 30,
+        "column": 2
+      },
+      "end": {
+        "line": 30,
+        "column": 13
+      }
+    },
+    "trail-btn": {
+      "start": {
+        "line": 36,
+        "column": 2
+      },
+      "end": {
+        "line": 36,
+        "column": 12
+      }
+    },
+    "trail-btn-locked": {
+      "start": {
+        "line": 52,
+        "column": 2
+      },
+      "end": {
+        "line": 52,
+        "column": 19
+      }
+    },
+    "trail-btn-active": {
+      "start": {
+        "line": 56,
+        "column": 2
+      },
+      "end": {
+        "line": 56,
+        "column": 19
+      }
+    },
+    "trail-name": {
+      "start": {
+        "line": 61,
+        "column": 2
+      },
+      "end": {
+        "line": 61,
+        "column": 13
+      }
+    },
+    "trail-name-locked": {
+      "start": {
+        "line": 66,
+        "column": 2
+      },
+      "end": {
+        "line": 66,
+        "column": 20
+      }
+    },
+    "trail-desc": {
+      "start": {
+        "line": 69,
+        "column": 2
+      },
+      "end": {
+        "line": 69,
+        "column": 13
+      }
+    },
+    "trail-icon": {
+      "start": {
+        "line": 73,
+        "column": 2
+      },
+      "end": {
+        "line": 73,
+        "column": 13
+      }
+    },
+    "back-btn": {
+      "start": {
+        "line": 76,
+        "column": 2
+      },
+      "end": {
+        "line": 76,
+        "column": 11
+      }
+    },
+    "back-text": {
+      "start": {
+        "line": 87,
+        "column": 2
+      },
+      "end": {
+        "line": 87,
+        "column": 12
+      }
+    },
+    "uid-1": {
+      "start": {
+        "line": 89,
+        "column": 0
+      },
+      "end": {
+        "line": 129,
+        "column": 6
+      }
+    },
+    "uid-2": {
+      "start": {
+        "line": 90,
+        "column": 2
+      },
+      "end": {
+        "line": 90,
+        "column": 48
+      }
+    },
+    "uid-3": {
+      "start": {
+        "line": 91,
+        "column": 2
+      },
+      "end": {
+        "line": 91,
+        "column": 75
+      }
+    },
+    "uid-4": {
+      "start": {
+        "line": 92,
+        "column": 2
+      },
+      "end": {
+        "line": 127,
+        "column": 8
+      }
+    },
+    "uid-5": {
+      "start": {
+        "line": 93,
+        "column": 4
+      },
+      "end": {
+        "line": 109,
+        "column": 10
+      }
+    },
+    "uid-6": {
+      "start": {
+        "line": 94,
+        "column": 6
+      },
+      "end": {
+        "line": 98,
+        "column": 12
+      }
+    },
+    "uid-7": {
+      "start": {
+        "line": 95,
+        "column": 8
+      },
+      "end": {
+        "line": 95,
+        "column": 41
+      }
+    },
+    "uid-8": {
+      "start": {
+        "line": 96,
+        "column": 8
+      },
+      "end": {
+        "line": 96,
+        "column": 65
+      }
+    },
+    "uid-9": {
+      "start": {
+        "line": 97,
+        "column": 8
+      },
+      "end": {
+        "line": 97,
+        "column": 53
+      }
+    },
+    "uid-10": {
+      "start": {
+        "line": 99,
+        "column": 6
+      },
+      "end": {
+        "line": 103,
+        "column": 12
+      }
+    },
+    "uid-11": {
+      "start": {
+        "line": 100,
+        "column": 8
+      },
+      "end": {
+        "line": 100,
+        "column": 42
+      }
+    },
+    "uid-12": {
+      "start": {
+        "line": 101,
+        "column": 8
+      },
+      "end": {
+        "line": 101,
+        "column": 63
+      }
+    },
+    "uid-13": {
+      "start": {
+        "line": 102,
+        "column": 8
+      },
+      "end": {
+        "line": 102,
+        "column": 48
+      }
+    },
+    "uid-14": {
+      "start": {
+        "line": 104,
+        "column": 6
+      },
+      "end": {
+        "line": 108,
+        "column": 12
+      }
+    },
+    "uid-15": {
+      "start": {
+        "line": 105,
+        "column": 8
+      },
+      "end": {
+        "line": 105,
+        "column": 41
+      }
+    },
+    "uid-16": {
+      "start": {
+        "line": 106,
+        "column": 8
+      },
+      "end": {
+        "line": 106,
+        "column": 66
+      }
+    },
+    "uid-17": {
+      "start": {
+        "line": 107,
+        "column": 8
+      },
+      "end": {
+        "line": 107,
+        "column": 48
+      }
+    },
+    "uid-18": {
+      "start": {
+        "line": 110,
+        "column": 4
+      },
+      "end": {
+        "line": 126,
+        "column": 10
+      }
+    },
+    "uid-19": {
+      "start": {
+        "line": 111,
+        "column": 6
+      },
+      "end": {
+        "line": 115,
+        "column": 12
+      }
+    },
+    "uid-20": {
+      "start": {
+        "line": 112,
+        "column": 8
+      },
+      "end": {
+        "line": 112,
+        "column": 41
+      }
+    },
+    "uid-21": {
+      "start": {
+        "line": 113,
+        "column": 8
+      },
+      "end": {
+        "line": 113,
+        "column": 63
+      }
+    },
+    "uid-22": {
+      "start": {
+        "line": 114,
+        "column": 8
+      },
+      "end": {
+        "line": 114,
+        "column": 53
+      }
+    },
+    "uid-23": {
+      "start": {
+        "line": 116,
+        "column": 6
+      },
+      "end": {
+        "line": 120,
+        "column": 12
+      }
+    },
+    "uid-24": {
+      "start": {
+        "line": 117,
+        "column": 8
+      },
+      "end": {
+        "line": 117,
+        "column": 42
+      }
+    },
+    "uid-25": {
+      "start": {
+        "line": 118,
+        "column": 8
+      },
+      "end": {
+        "line": 118,
+        "column": 65
+      }
+    },
+    "uid-26": {
+      "start": {
+        "line": 119,
+        "column": 8
+      },
+      "end": {
+        "line": 119,
+        "column": 48
+      }
+    },
+    "uid-27": {
+      "start": {
+        "line": 121,
+        "column": 6
+      },
+      "end": {
+        "line": 125,
+        "column": 12
+      }
+    },
+    "uid-28": {
+      "start": {
+        "line": 122,
+        "column": 8
+      },
+      "end": {
+        "line": 122,
+        "column": 42
+      }
+    },
+    "uid-29": {
+      "start": {
+        "line": 123,
+        "column": 8
+      },
+      "end": {
+        "line": 123,
+        "column": 67
+      }
+    },
+    "uid-30": {
+      "start": {
+        "line": 124,
+        "column": 8
+      },
+      "end": {
+        "line": 124,
+        "column": 55
+      }
+    },
+    "uid-31": {
+      "start": {
+        "line": 128,
+        "column": 2
+      },
+      "end": {
+        "line": 128,
+        "column": 103
+      }
+    },
+    "uid-32": {
+      "start": {
+        "line": 128,
+        "column": 62
+      },
+      "end": {
+        "line": 128,
+        "column": 97
+      }
+    }
+  }
+}

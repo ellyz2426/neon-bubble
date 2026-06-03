@@ -1,0 +1,409 @@
+{
+  "element": {
+    "type": "container",
+    "sourceTag": "div",
+    "children": [
+      {
+        "sourceTag": "span",
+        "type": "custom",
+        "children": [
+          "📖 TUTORIAL"
+        ],
+        "properties": {
+          "class": "tut-title"
+        },
+        "dataUid": "uid-2"
+      },
+      {
+        "sourceTag": "span",
+        "type": "custom",
+        "children": [
+          "Step 1 / 5"
+        ],
+        "properties": {
+          "id": "tut-step",
+          "class": "tut-step-label"
+        },
+        "dataUid": "uid-3"
+      },
+      {
+        "sourceTag": "span",
+        "type": "custom",
+        "children": [
+          "Move your mouse to aim the launcher"
+        ],
+        "properties": {
+          "id": "tut-instruction",
+          "class": "tut-instruction"
+        },
+        "dataUid": "uid-4"
+      },
+      {
+        "sourceTag": "span",
+        "type": "custom",
+        "children": [
+          "The guide line shows where your bubble will go"
+        ],
+        "properties": {
+          "id": "tut-hint",
+          "class": "tut-hint"
+        },
+        "dataUid": "uid-5"
+      },
+      {
+        "sourceTag": "span",
+        "type": "custom",
+        "children": [
+          "●○○○○"
+        ],
+        "properties": {
+          "id": "tut-progress",
+          "class": "tut-progress"
+        },
+        "dataUid": "uid-6"
+      },
+      {
+        "type": "container",
+        "sourceTag": "div",
+        "children": [
+          {
+            "sourceTag": "span",
+            "type": "custom",
+            "children": [
+              "NEXT →"
+            ],
+            "properties": {
+              "class": "tut-btn-text"
+            },
+            "dataUid": "uid-8"
+          }
+        ],
+        "properties": {
+          "id": "btn-tut-next",
+          "class": "tut-btn",
+          "cursor": "pointer"
+        },
+        "dataUid": "uid-7"
+      },
+      {
+        "type": "container",
+        "sourceTag": "div",
+        "children": [
+          {
+            "sourceTag": "span",
+            "type": "custom",
+            "children": [
+              "SKIP TUTORIAL"
+            ],
+            "properties": {
+              "class": "tut-skip-text"
+            },
+            "dataUid": "uid-10"
+          }
+        ],
+        "properties": {
+          "id": "btn-tut-skip",
+          "class": "tut-skip-btn",
+          "cursor": "pointer"
+        },
+        "dataUid": "uid-9"
+      }
+    ],
+    "properties": {
+      "class": "tutorial-panel"
+    },
+    "dataUid": "uid-1"
+  },
+  "classes": {
+    "tutorial-panel": {
+      "content": {
+        "display": "flex",
+        "flexDirection": "column",
+        "alignItems": "center",
+        "paddingTop": "3",
+        "paddingBottom": "3",
+        "paddingLeft": "5",
+        "paddingRight": "5",
+        "backgroundColor": "rgba(0, 0, 0, 0.92)",
+        "borderColor": "#00ff88",
+        "borderWidth": "0.15",
+        "borderRadius": 1.5,
+        "gap": "1.5"
+      }
+    },
+    "tut-title": {
+      "content": {
+        "fontSize": "3.5",
+        "color": "#00ff88",
+        "fontWeight": "bold"
+      }
+    },
+    "tut-step-label": {
+      "content": {
+        "fontSize": "2",
+        "color": "#ffaa00",
+        "fontWeight": "bold"
+      }
+    },
+    "tut-instruction": {
+      "content": {
+        "fontSize": "1.6",
+        "color": "#ffffff"
+      }
+    },
+    "tut-hint": {
+      "content": {
+        "fontSize": "1.2",
+        "color": "#888888"
+      }
+    },
+    "tut-progress": {
+      "content": {
+        "fontSize": "1.3",
+        "color": "#00ffff"
+      }
+    },
+    "tut-btn": {
+      "content": {
+        "paddingTop": "1",
+        "paddingBottom": "1",
+        "paddingLeft": "4",
+        "paddingRight": "4",
+        "backgroundColor": "rgba(0, 255, 136, 0.2)",
+        "borderColor": "#00ff88",
+        "borderWidth": "0.1",
+        "borderRadius": 0.8,
+        "cursor": "pointer",
+        "alignItems": "center"
+      }
+    },
+    "tut-btn-text": {
+      "content": {
+        "fontSize": "1.8",
+        "color": "#00ff88",
+        "fontWeight": "bold"
+      }
+    },
+    "tut-skip-btn": {
+      "content": {
+        "paddingTop": "0.5",
+        "paddingBottom": "0.5",
+        "paddingLeft": "3",
+        "paddingRight": "3",
+        "backgroundColor": "rgba(128, 128, 128, 0.15)",
+        "borderColor": "#666666",
+        "borderWidth": "0.08",
+        "borderRadius": 0.6,
+        "cursor": "pointer"
+      }
+    },
+    "tut-skip-text": {
+      "content": {
+        "fontSize": "1.2",
+        "color": "#666666"
+      }
+    }
+  },
+  "ranges": {
+    "tutorial-panel": {
+      "start": {
+        "line": 1,
+        "column": 2
+      },
+      "end": {
+        "line": 1,
+        "column": 17
+      }
+    },
+    "tut-title": {
+      "start": {
+        "line": 15,
+        "column": 2
+      },
+      "end": {
+        "line": 15,
+        "column": 12
+      }
+    },
+    "tut-step-label": {
+      "start": {
+        "line": 20,
+        "column": 2
+      },
+      "end": {
+        "line": 20,
+        "column": 17
+      }
+    },
+    "tut-instruction": {
+      "start": {
+        "line": 25,
+        "column": 2
+      },
+      "end": {
+        "line": 25,
+        "column": 18
+      }
+    },
+    "tut-hint": {
+      "start": {
+        "line": 29,
+        "column": 2
+      },
+      "end": {
+        "line": 29,
+        "column": 11
+      }
+    },
+    "tut-progress": {
+      "start": {
+        "line": 33,
+        "column": 2
+      },
+      "end": {
+        "line": 33,
+        "column": 15
+      }
+    },
+    "tut-btn": {
+      "start": {
+        "line": 37,
+        "column": 2
+      },
+      "end": {
+        "line": 37,
+        "column": 10
+      }
+    },
+    "tut-btn-text": {
+      "start": {
+        "line": 49,
+        "column": 2
+      },
+      "end": {
+        "line": 49,
+        "column": 15
+      }
+    },
+    "tut-skip-btn": {
+      "start": {
+        "line": 54,
+        "column": 2
+      },
+      "end": {
+        "line": 54,
+        "column": 15
+      }
+    },
+    "tut-skip-text": {
+      "start": {
+        "line": 65,
+        "column": 2
+      },
+      "end": {
+        "line": 65,
+        "column": 16
+      }
+    },
+    "uid-1": {
+      "start": {
+        "line": 67,
+        "column": 0
+      },
+      "end": {
+        "line": 75,
+        "column": 6
+      }
+    },
+    "uid-2": {
+      "start": {
+        "line": 68,
+        "column": 2
+      },
+      "end": {
+        "line": 68,
+        "column": 44
+      }
+    },
+    "uid-3": {
+      "start": {
+        "line": 69,
+        "column": 2
+      },
+      "end": {
+        "line": 69,
+        "column": 62
+      }
+    },
+    "uid-4": {
+      "start": {
+        "line": 70,
+        "column": 2
+      },
+      "end": {
+        "line": 70,
+        "column": 95
+      }
+    },
+    "uid-5": {
+      "start": {
+        "line": 71,
+        "column": 2
+      },
+      "end": {
+        "line": 71,
+        "column": 92
+      }
+    },
+    "uid-6": {
+      "start": {
+        "line": 72,
+        "column": 2
+      },
+      "end": {
+        "line": 72,
+        "column": 59
+      }
+    },
+    "uid-7": {
+      "start": {
+        "line": 73,
+        "column": 2
+      },
+      "end": {
+        "line": 73,
+        "column": 104
+      }
+    },
+    "uid-8": {
+      "start": {
+        "line": 73,
+        "column": 58
+      },
+      "end": {
+        "line": 73,
+        "column": 98
+      }
+    },
+    "uid-9": {
+      "start": {
+        "line": 74,
+        "column": 2
+      },
+      "end": {
+        "line": 74,
+        "column": 117
+      }
+    },
+    "uid-10": {
+      "start": {
+        "line": 74,
+        "column": 63
+      },
+      "end": {
+        "line": 74,
+        "column": 111
+      }
+    }
+  }
+}

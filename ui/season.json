@@ -1,0 +1,830 @@
+{
+  "element": {
+    "type": "container",
+    "sourceTag": "div",
+    "children": [
+      {
+        "sourceTag": "span",
+        "type": "custom",
+        "children": [
+          "CAREER"
+        ],
+        "properties": {
+          "class": "season-title"
+        },
+        "dataUid": "uid-2"
+      },
+      {
+        "sourceTag": "span",
+        "type": "custom",
+        "children": [
+          "PRESTIGE 0"
+        ],
+        "properties": {
+          "id": "prestige-level",
+          "class": "prestige-label"
+        },
+        "dataUid": "uid-3"
+      },
+      {
+        "sourceTag": "span",
+        "type": "custom",
+        "children": [
+          "Season 1 — In Progress"
+        ],
+        "properties": {
+          "id": "season-status",
+          "class": "season-info"
+        },
+        "dataUid": "uid-4"
+      },
+      {
+        "type": "container",
+        "sourceTag": "div",
+        "children": [
+          {
+            "sourceTag": "span",
+            "type": "custom",
+            "children": [
+              "0 / 50,000 SP"
+            ],
+            "properties": {
+              "id": "season-progress-text",
+              "class": "season-stat"
+            },
+            "dataUid": "uid-6"
+          },
+          {
+            "type": "container",
+            "sourceTag": "div",
+            "children": [
+              {
+                "type": "container",
+                "sourceTag": "div",
+                "children": [],
+                "properties": {
+                  "id": "season-bar",
+                  "class": "progress-bar-fill",
+                  "style": {
+                    "width": "0%"
+                  }
+                },
+                "dataUid": "uid-8"
+              }
+            ],
+            "properties": {
+              "class": "progress-bar-bg"
+            },
+            "dataUid": "uid-7"
+          }
+        ],
+        "properties": {
+          "class": "season-progress"
+        },
+        "dataUid": "uid-5"
+      },
+      {
+        "type": "container",
+        "sourceTag": "div",
+        "children": [
+          {
+            "type": "container",
+            "sourceTag": "div",
+            "children": [
+              {
+                "sourceTag": "span",
+                "type": "custom",
+                "children": [
+                  "BRONZE"
+                ],
+                "properties": {
+                  "class": "tier-name"
+                },
+                "dataUid": "uid-11"
+              },
+              {
+                "sourceTag": "span",
+                "type": "custom",
+                "children": [
+                  "0 SP"
+                ],
+                "properties": {
+                  "class": "tier-req"
+                },
+                "dataUid": "uid-12"
+              }
+            ],
+            "properties": {
+              "id": "tier-0",
+              "class": "tier-item"
+            },
+            "dataUid": "uid-10"
+          },
+          {
+            "type": "container",
+            "sourceTag": "div",
+            "children": [
+              {
+                "sourceTag": "span",
+                "type": "custom",
+                "children": [
+                  "SILVER"
+                ],
+                "properties": {
+                  "class": "tier-name"
+                },
+                "dataUid": "uid-14"
+              },
+              {
+                "sourceTag": "span",
+                "type": "custom",
+                "children": [
+                  "10K SP"
+                ],
+                "properties": {
+                  "class": "tier-req"
+                },
+                "dataUid": "uid-15"
+              }
+            ],
+            "properties": {
+              "id": "tier-1",
+              "class": "tier-item"
+            },
+            "dataUid": "uid-13"
+          },
+          {
+            "type": "container",
+            "sourceTag": "div",
+            "children": [
+              {
+                "sourceTag": "span",
+                "type": "custom",
+                "children": [
+                  "GOLD"
+                ],
+                "properties": {
+                  "class": "tier-name"
+                },
+                "dataUid": "uid-17"
+              },
+              {
+                "sourceTag": "span",
+                "type": "custom",
+                "children": [
+                  "25K SP"
+                ],
+                "properties": {
+                  "class": "tier-req"
+                },
+                "dataUid": "uid-18"
+              }
+            ],
+            "properties": {
+              "id": "tier-2",
+              "class": "tier-item"
+            },
+            "dataUid": "uid-16"
+          },
+          {
+            "type": "container",
+            "sourceTag": "div",
+            "children": [
+              {
+                "sourceTag": "span",
+                "type": "custom",
+                "children": [
+                  "DIAMOND"
+                ],
+                "properties": {
+                  "class": "tier-name"
+                },
+                "dataUid": "uid-20"
+              },
+              {
+                "sourceTag": "span",
+                "type": "custom",
+                "children": [
+                  "50K SP"
+                ],
+                "properties": {
+                  "class": "tier-req"
+                },
+                "dataUid": "uid-21"
+              }
+            ],
+            "properties": {
+              "id": "tier-3",
+              "class": "tier-item"
+            },
+            "dataUid": "uid-19"
+          }
+        ],
+        "properties": {
+          "class": "tier-row"
+        },
+        "dataUid": "uid-9"
+      },
+      {
+        "sourceTag": "span",
+        "type": "custom",
+        "children": [
+          "Next reward: Silver at 10,000 SP"
+        ],
+        "properties": {
+          "id": "season-reward",
+          "class": "season-reward"
+        },
+        "dataUid": "uid-22"
+      },
+      {
+        "sourceTag": "span",
+        "type": "custom",
+        "children": [
+          "Career Total: 0 SP"
+        ],
+        "properties": {
+          "id": "career-total",
+          "class": "season-stat"
+        },
+        "dataUid": "uid-23"
+      },
+      {
+        "type": "container",
+        "sourceTag": "div",
+        "children": [
+          {
+            "sourceTag": "span",
+            "type": "custom",
+            "children": [
+              "BACK"
+            ],
+            "properties": {
+              "class": "back-text"
+            },
+            "dataUid": "uid-25"
+          }
+        ],
+        "properties": {
+          "id": "btn-back",
+          "class": "back-btn",
+          "cursor": "pointer"
+        },
+        "dataUid": "uid-24"
+      }
+    ],
+    "properties": {
+      "class": "season-panel"
+    },
+    "dataUid": "uid-1"
+  },
+  "classes": {
+    "season-panel": {
+      "content": {
+        "display": "flex",
+        "flexDirection": "column",
+        "alignItems": "center",
+        "paddingTop": "3",
+        "paddingBottom": "3",
+        "paddingLeft": "5",
+        "paddingRight": "5",
+        "backgroundColor": "rgba(0, 0, 0, 0.9)",
+        "borderColor": "#aa44ff",
+        "borderWidth": "0.15",
+        "borderRadius": 1.5,
+        "gap": "1.2"
+      }
+    },
+    "season-title": {
+      "content": {
+        "fontSize": "3.5",
+        "color": "#aa44ff",
+        "fontWeight": "bold"
+      }
+    },
+    "prestige-label": {
+      "content": {
+        "fontSize": "2.5",
+        "color": "#ffcc00",
+        "fontWeight": "bold"
+      }
+    },
+    "season-info": {
+      "content": {
+        "fontSize": "1.5",
+        "color": "#a0a0a0"
+      }
+    },
+    "season-stat": {
+      "content": {
+        "fontSize": "1.5",
+        "color": "#00ffff"
+      }
+    },
+    "season-progress": {
+      "content": {
+        "display": "flex",
+        "flexDirection": "column",
+        "alignItems": "center",
+        "gap": "0.5",
+        "width": "100%"
+      }
+    },
+    "progress-bar-bg": {
+      "content": {
+        "width": "100%",
+        "height": "1.5",
+        "backgroundColor": "rgba(170, 68, 255, 0.2)",
+        "borderColor": "#aa44ff",
+        "borderWidth": "0.08",
+        "borderRadius": 0.6
+      }
+    },
+    "progress-bar-fill": {
+      "content": {
+        "height": "100%",
+        "backgroundColor": "#aa44ff",
+        "borderRadius": 0.6
+      }
+    },
+    "season-reward": {
+      "content": {
+        "fontSize": "1.3",
+        "color": "#00ff80"
+      }
+    },
+    "tier-row": {
+      "content": {
+        "display": "flex",
+        "flexDirection": "row",
+        "gap": "2",
+        "width": "100%",
+        "justifyContent": "center"
+      }
+    },
+    "tier-item": {
+      "content": {
+        "display": "flex",
+        "flexDirection": "column",
+        "alignItems": "center",
+        "gap": "0.3",
+        "padding": "0.8",
+        "backgroundColor": "rgba(255, 255, 255, 0.05)",
+        "borderColor": "#444444",
+        "borderWidth": "0.05",
+        "borderRadius": 0.5
+      }
+    },
+    "tier-name": {
+      "content": {
+        "fontSize": "1.2",
+        "color": "#ffffff"
+      }
+    },
+    "tier-req": {
+      "content": {
+        "fontSize": "1",
+        "color": "#808080"
+      }
+    },
+    "tier-active": {
+      "content": {
+        "borderColor": "#aa44ff",
+        "backgroundColor": "rgba(170, 68, 255, 0.15)"
+      }
+    },
+    "back-btn": {
+      "content": {
+        "paddingTop": "1",
+        "paddingBottom": "1",
+        "paddingLeft": "4",
+        "paddingRight": "4",
+        "backgroundColor": "rgba(128, 128, 128, 0.2)",
+        "borderColor": "#888888",
+        "borderWidth": "0.1",
+        "borderRadius": 0.8,
+        "cursor": "pointer",
+        "alignItems": "center"
+      }
+    },
+    "back-text": {
+      "content": {
+        "fontSize": "1.8",
+        "color": "#888888",
+        "fontWeight": "bold"
+      }
+    }
+  },
+  "ranges": {
+    "season-panel": {
+      "start": {
+        "line": 1,
+        "column": 2
+      },
+      "end": {
+        "line": 1,
+        "column": 15
+      }
+    },
+    "season-title": {
+      "start": {
+        "line": 15,
+        "column": 2
+      },
+      "end": {
+        "line": 15,
+        "column": 15
+      }
+    },
+    "prestige-label": {
+      "start": {
+        "line": 20,
+        "column": 2
+      },
+      "end": {
+        "line": 20,
+        "column": 17
+      }
+    },
+    "season-info": {
+      "start": {
+        "line": 25,
+        "column": 2
+      },
+      "end": {
+        "line": 25,
+        "column": 14
+      }
+    },
+    "season-stat": {
+      "start": {
+        "line": 29,
+        "column": 2
+      },
+      "end": {
+        "line": 29,
+        "column": 14
+      }
+    },
+    "season-progress": {
+      "start": {
+        "line": 33,
+        "column": 2
+      },
+      "end": {
+        "line": 33,
+        "column": 18
+      }
+    },
+    "progress-bar-bg": {
+      "start": {
+        "line": 40,
+        "column": 2
+      },
+      "end": {
+        "line": 40,
+        "column": 18
+      }
+    },
+    "progress-bar-fill": {
+      "start": {
+        "line": 48,
+        "column": 2
+      },
+      "end": {
+        "line": 48,
+        "column": 20
+      }
+    },
+    "season-reward": {
+      "start": {
+        "line": 53,
+        "column": 2
+      },
+      "end": {
+        "line": 53,
+        "column": 16
+      }
+    },
+    "tier-row": {
+      "start": {
+        "line": 57,
+        "column": 2
+      },
+      "end": {
+        "line": 57,
+        "column": 11
+      }
+    },
+    "tier-item": {
+      "start": {
+        "line": 64,
+        "column": 2
+      },
+      "end": {
+        "line": 64,
+        "column": 12
+      }
+    },
+    "tier-name": {
+      "start": {
+        "line": 75,
+        "column": 2
+      },
+      "end": {
+        "line": 75,
+        "column": 12
+      }
+    },
+    "tier-req": {
+      "start": {
+        "line": 79,
+        "column": 2
+      },
+      "end": {
+        "line": 79,
+        "column": 11
+      }
+    },
+    "tier-active": {
+      "start": {
+        "line": 83,
+        "column": 2
+      },
+      "end": {
+        "line": 83,
+        "column": 14
+      }
+    },
+    "back-btn": {
+      "start": {
+        "line": 87,
+        "column": 2
+      },
+      "end": {
+        "line": 87,
+        "column": 11
+      }
+    },
+    "back-text": {
+      "start": {
+        "line": 99,
+        "column": 2
+      },
+      "end": {
+        "line": 99,
+        "column": 12
+      }
+    },
+    "uid-1": {
+      "start": {
+        "line": 105,
+        "column": 0
+      },
+      "end": {
+        "line": 124,
+        "column": 6
+      }
+    },
+    "uid-2": {
+      "start": {
+        "line": 106,
+        "column": 2
+      },
+      "end": {
+        "line": 106,
+        "column": 42
+      }
+    },
+    "uid-3": {
+      "start": {
+        "line": 107,
+        "column": 2
+      },
+      "end": {
+        "line": 107,
+        "column": 68
+      }
+    },
+    "uid-4": {
+      "start": {
+        "line": 108,
+        "column": 2
+      },
+      "end": {
+        "line": 108,
+        "column": 76
+      }
+    },
+    "uid-5": {
+      "start": {
+        "line": 109,
+        "column": 2
+      },
+      "end": {
+        "line": 114,
+        "column": 8
+      }
+    },
+    "uid-6": {
+      "start": {
+        "line": 110,
+        "column": 4
+      },
+      "end": {
+        "line": 110,
+        "column": 76
+      }
+    },
+    "uid-7": {
+      "start": {
+        "line": 111,
+        "column": 4
+      },
+      "end": {
+        "line": 113,
+        "column": 10
+      }
+    },
+    "uid-8": {
+      "start": {
+        "line": 112,
+        "column": 6
+      },
+      "end": {
+        "line": 112,
+        "column": 77
+      }
+    },
+    "uid-9": {
+      "start": {
+        "line": 115,
+        "column": 2
+      },
+      "end": {
+        "line": 120,
+        "column": 8
+      }
+    },
+    "uid-10": {
+      "start": {
+        "line": 116,
+        "column": 4
+      },
+      "end": {
+        "line": 116,
+        "column": 116
+      }
+    },
+    "uid-11": {
+      "start": {
+        "line": 116,
+        "column": 39
+      },
+      "end": {
+        "line": 116,
+        "column": 76
+      }
+    },
+    "uid-12": {
+      "start": {
+        "line": 116,
+        "column": 76
+      },
+      "end": {
+        "line": 116,
+        "column": 110
+      }
+    },
+    "uid-13": {
+      "start": {
+        "line": 117,
+        "column": 4
+      },
+      "end": {
+        "line": 117,
+        "column": 118
+      }
+    },
+    "uid-14": {
+      "start": {
+        "line": 117,
+        "column": 39
+      },
+      "end": {
+        "line": 117,
+        "column": 76
+      }
+    },
+    "uid-15": {
+      "start": {
+        "line": 117,
+        "column": 76
+      },
+      "end": {
+        "line": 117,
+        "column": 112
+      }
+    },
+    "uid-16": {
+      "start": {
+        "line": 118,
+        "column": 4
+      },
+      "end": {
+        "line": 118,
+        "column": 116
+      }
+    },
+    "uid-17": {
+      "start": {
+        "line": 118,
+        "column": 39
+      },
+      "end": {
+        "line": 118,
+        "column": 74
+      }
+    },
+    "uid-18": {
+      "start": {
+        "line": 118,
+        "column": 74
+      },
+      "end": {
+        "line": 118,
+        "column": 110
+      }
+    },
+    "uid-19": {
+      "start": {
+        "line": 119,
+        "column": 4
+      },
+      "end": {
+        "line": 119,
+        "column": 119
+      }
+    },
+    "uid-20": {
+      "start": {
+        "line": 119,
+        "column": 39
+      },
+      "end": {
+        "line": 119,
+        "column": 77
+      }
+    },
+    "uid-21": {
+      "start": {
+        "line": 119,
+        "column": 77
+      },
+      "end": {
+        "line": 119,
+        "column": 113
+      }
+    },
+    "uid-22": {
+      "start": {
+        "line": 121,
+        "column": 2
+      },
+      "end": {
+        "line": 121,
+        "column": 88
+      }
+    },
+    "uid-23": {
+      "start": {
+        "line": 122,
+        "column": 2
+      },
+      "end": {
+        "line": 122,
+        "column": 71
+      }
+    },
+    "uid-24": {
+      "start": {
+        "line": 123,
+        "column": 2
+      },
+      "end": {
+        "line": 123,
+        "column": 96
+      }
+    },
+    "uid-25": {
+      "start": {
+        "line": 123,
+        "column": 55
+      },
+      "end": {
+        "line": 123,
+        "column": 90
+      }
+    }
+  }
+}
